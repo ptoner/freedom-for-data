@@ -13,7 +13,7 @@ contract('DataAccessService', async (accounts) => {
     });
 
 
-    it("Test create: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
+    it("Test create/read: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
 
         //Arrange
         let createdRecord = {
@@ -22,7 +22,7 @@ contract('DataAccessService', async (accounts) => {
         }
 
         //Act
-        let result = await serviceFactory.dataAccessService.create(createdRecord);
+        let result = await serviceFactory.getDataAccessService().create(createdRecord);
 
 
         //Assert
@@ -39,7 +39,7 @@ contract('DataAccessService', async (accounts) => {
 
 
         //Also verify with a read.
-        let record = await serviceFactory.dataAccessService.read(createdId);
+        let record = await serviceFactory.getDataAccessService().read(createdId);
 
         /**
          * Expected record
@@ -70,6 +70,3 @@ contract('DataAccessService', async (accounts) => {
 
 
 });
-
-
-

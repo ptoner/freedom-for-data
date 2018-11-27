@@ -1,174 +1,50 @@
 
-// //Contract dependencies
-// var StorageService = artifacts.require("StorageService");
+var ServiceFactory = require('../test/ServiceFactory.js');
+var TestUtils = require('../test/TestUtils.js');
 
-// //Javascript dependencies
-// var IPFSServiceJs = require('../src/js/IPFSService.js')
-// var StorageServiceJs = require('../src/js/RecordService.js');
-// var multihash = require('multihashes');
+const serviceFactory = new ServiceFactory();
+const testUtils = new TestUtils();
 
-// //Initialize IPFS connection. Needs to be running locally.
-// const ipfsAPI = require('ipfs-api');
-// var ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'})
+contract('RecordService', async (accounts) => {
 
-
-
-// contract('StorageService', async (accounts) => {
+    before('Setup', async () => {
+        serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
+    });
 
 
-//     //Keep track of how many recordds we inserted so that we can run counts.
-//     let createdCount = 0;
+    it("Test sendCreate and callRead: Create a record and verify the info is stored by RecordService contract", async () => {
 
-//     var ipfsService = new IPFSServiceJs(ipfs, multihash);
-//     var storageService = new StorageServiceJs(undefined, ipfsService); //Will inject the contract later
+        //Arrange
+        let fakeCid = "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT";
 
-
-//     beforeEach('Setup each test', async () => {
-//         storageService.storageServiceContract = await StorageService.deployed();
-//     });
+        //Act
+        let result = await serviceFactory.getRecordService().sendCreate(fakeCid);
 
 
-//     it("Test create: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
+        //Assert
+        var log = testUtils.getLogByEventName("RecordEvent", result.logs);
 
-//         //Arrange
-//         let createdRecord = {
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         }
+        //The event just returns the metadata about our created person.
+        const createdId = log.args.id.toNumber();
 
-//         //Act
-//         let result = await storageService.create(createdRecord);
-
-
-//         //Assert
-//         var log = getLogByEventName("RecordEvent", result.logs);
-
-//         //The event just returns the metadata about our created person.
-//         const createdId = log.args.id.toNumber();
-
-//         assert.equal(createdId, 1, "ID should be 1");
-//         assert.equal(log.args.eventType, "NEW", "Type should be NEW");
-//         assert.equal(log.args.index.toNumber(), 0, "Index should be 0");
-//         assert.equal(log.args.ipfsCid, "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
-//         assert.equal(log.args.owner, accounts[0], "Owner should be this contract");
+        assert.equal(createdId, 1, "ID should be 1");
+        assert.equal(log.args.eventType, "NEW", "Type should be NEW");
+        assert.equal(log.args.index.toNumber(), 0, "Index should be 0");
+        assert.equal(log.args.ipfsCid, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
+        assert.equal(log.args.owner, accounts[0], "Owner should be this contract");
 
 
-//         //Also verify with a read.
-//         let record = await storageService.read(createdId);
-
-//         /**
-//          * Expected record
-//          * 
-//          * { 
-//          *      id: 1,
-//                 owner: '...will match first address...',
-//                 ipfsCid: 'zdpuAurbVPh4jNeQSf46osJSuLDDDXSSbtE1ZWaZEZTgGK1Qa',
-//                 index: 0,
-//                 lastName: 'Toner',
-//                 firstName: 'Pat' 
-//             }
-//          */
+        //Also verify with a read.
+        let record = await serviceFactory.getRecordService().callRead(createdId);
 
 
-//         //Check that the metadata matches.
-//         assert.equal(record.id, log.args.id.toNumber(), "Ids need to match");
-//         assert.equal(record.index, log.args.index.toNumber(), "Indexes should match");
-//         assert.equal(record.ipfsCid, log.args.ipfsCid, "ipfsHash should match");
-//         assert.equal(record.owner,accounts[0], "Owner should be this contract");
+        //Check that the metadata matches.
+        assert.equal(record.id, log.args.id.toNumber(), "Ids need to match");
+        assert.equal(record.index, log.args.index.toNumber(), "Indexes should match");
+        assert.equal(record.ipfsCid, log.args.ipfsCid, "ipfsHash should match");
+        assert.equal(record.owner,accounts[0], "Owner should be this contract");
 
-//         //Check the fields that we originally set.
-//         assert.equal(record.firstName, "Andrew", "Incorrect firstName value");
-//         assert.equal(record.lastName, "McCutchen", "Incorrect lastName value");
-
-//         createdCount++;
-
-
-//     });
-
-
-//     it("Test sendCreate: Create a record with no IPFS cid.", async () => {
-
-//         //Arrange
-
-//         let error;
-
-//         //Act
-//         try {
-//             let result = await storageService.sendCreate();
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         assert.isTrue(error instanceof Error, "No exception was thrown when creating record without an IPFS cid" );
-
-//     });
-
+    });
     
-//     it("Test callRead: Create a record and then try to read it by ID", async () => {
 
-//         //Arrange
-//         let createdRecord = {
-//             firstName: "Jordy",
-//             lastName: "Mercer"
-//         }
-
-
-//         let result = await storageService.create(createdRecord);
-//         var log = getLogByEventName("RecordEvent", result.logs);
-//         const createdId = log.args.id.toNumber();
-
-
-//         //Act
-//         let record = await storageService.callRead(createdId);
-
-//         /**
-//          * Expected record. Will not have expanded IPFS info.
-//          * 
-//          * { 
-//          *      id: 2,
-//                 owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-//                 ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
-//                 index: 1 
-//             }
-//          */
-
-//         assert.equal(record.id, createdId, "Ids need to match");
-//         assert.equal(record.index, 1, "Index should be 1");
-//         assert.equal(record.owner,accounts[0], "Owner should be this contract");
-
-//         //Cleanup
-//         createdCount++;
-
-//     });
-
-
-//     function getLogByEventName(eventName, logs) {
-
-//         if (!logs) return;
-
-//         var found;
-
-//         logs.forEach(function(log){
-
-//             if (log.event == eventName) {
-//                 found = log;
-//             }
-//         });
-
-//         return found;
-
-
-//     }
-
-
-//     function getRequireMessage(ex) {
-//         // return ex.message.substr(43);
-//         // return ex.message;
-//         return ex.message.substr(ex.message.lastIndexOf(": revert")+8).trim();
-//     }
-
-
-// });
-
-
-
+});

@@ -35,6 +35,23 @@ class ServiceFactory {
         return this.dataAccessService;
     }
 
+
+    /**
+     * Only giving getters to the actual services to expose
+     */
+
+    getRecordService() {
+        return this.recordService;
+    }
+
+    getIpfsService() {
+        return this.ipfsService;
+    }
+
+    getDataAccessService() {
+        return this.dataAccessService;
+    }
+
 }
 
 

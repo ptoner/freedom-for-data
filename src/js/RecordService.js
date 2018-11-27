@@ -1,34 +1,30 @@
-function RecordService(recordServiceContract) {
-    this.recordServiceContract = recordServiceContract;
-}
+class RecordService {
 
-RecordService.prototype = {
-    constructor: RecordService,
+    constructor(recordServiceContract) {
+        this.recordServiceContract = recordServiceContract;
+    }
 
     /**
      * CALLS
      */
-    callRead: async function(id) {
+    async callRead(id) {
         let resultArray = await this.recordServiceContract.read.call(id);
         return this.recordMapper(id, resultArray);
-    },
-
-
+    }
 
 
     /**
      * SEND
      */
-    sendCreate: async function(ipfsHash) {
+    async sendCreate(ipfsHash) {
         return this.recordServiceContract.create(ipfsHash);
-    },
-
+    }
 
 
     /**
      * UTIL
      */
-    recordMapper: function(id, resultArray) {
+    async recordMapper(id, resultArray) {
         
         return {
             id: id,
@@ -38,6 +34,14 @@ RecordService.prototype = {
         }
     }
 
+
+
+}
+
+RecordService.prototype = {
+    constructor: RecordService,
+
+    
 }
 
 module.exports = RecordService;

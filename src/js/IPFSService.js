@@ -1,17 +1,16 @@
-function IPFSService(ipfs, multihash) {
-    this.ipfs = ipfs;
-    this.multihash = multihash;
-}
-
-IPFSService.prototype = {
-    constructor: IPFSService,
+class IPFSService {
+    
+    constructor(ipfs, multihash) {
+        this.ipfs = ipfs;
+        this.multihash = multihash;
+    }
 
 
     /**
      * This function will take a JSON object and save it to IPFS. Returns the hash.
      * @param {Data to save to IPFS} data 
      */
-    ipfsPut: async function(data) {
+    async ipfsPut(data) {
 
         var self = this;
 
@@ -19,9 +18,9 @@ IPFSService.prototype = {
 
         
         return cid.toBaseEncodedString();
-    },
+    }
 
-    ipfsGet: async function(hash) {
+    async ipfsGet(hash) {
         var self = this;
 
         const node = await self.ipfs.dag.get(hash);
@@ -29,7 +28,7 @@ IPFSService.prototype = {
         return node.value;
 
     }
-
 }
+
 
 module.exports = IPFSService;
