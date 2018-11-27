@@ -23,6 +23,7 @@ contract('DataAccessService', async (accounts) => {
         //Act
         let resultCreatedRecord = await serviceFactory.getDataAccessService().create(createdRecord);
 
+        
 
         //Assert
         assert.equal(resultCreatedRecord.id, 1, "ID should be 1");
@@ -31,10 +32,15 @@ contract('DataAccessService', async (accounts) => {
         assert.equal(resultCreatedRecord.ipfsCid, "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
         assert.equal(resultCreatedRecord.owner, accounts[0], "Owner should be this contract");
 
+        //Check saved fields
+        assert.equal(resultCreatedRecord.firstName, "Andrew", "Incorrect firstName value");
+        assert.equal(resultCreatedRecord.lastName, "McCutchen", "Incorrect lastName value");
 
         //Also verify with a read.
         let record = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
-        
+
+        console.log(record);
+
         /**
          * Expected record
          * 

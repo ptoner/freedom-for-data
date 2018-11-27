@@ -31,6 +31,8 @@ class DataAccessService {
             owner: log.args.owner
         }
 
+        Object.assign(record, data);
+
         return record;
 
     }
