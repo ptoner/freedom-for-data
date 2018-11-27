@@ -1,6 +1,7 @@
-function StorageService(storageServiceContract, ipfs) {
+function StorageService(storageServiceContract, ipfs, multihash) {
     this.storageServiceContract = storageServiceContract;
     this.ipfs = ipfs;
+    this.multihash = multihash;
 }
 
 StorageService.prototype = {
@@ -29,15 +30,18 @@ StorageService.prototype = {
     read: async function(id) {
         var self = this;
 
+        //Get metadata from contract
+        let record = await self.callRead(id);
 
-        let item = await self.callRead(id);
+        console.log(record);
 
+        //Get json data from IPFS
+        let data = await self.ipfsGet(record.ipfsCid);
 
-        let data = await self.ipfsGet(item.ipfsHash);
-
-        console.log(data);
-
-        return data;
+        //Merge
+        Object.assign(record, data);
+        
+        return record;
         
     },
 
@@ -54,7 +58,7 @@ StorageService.prototype = {
         var self = this;
 
         let resultArray = await self.storageServiceContract.read.call(id);
-        return self.itemMapper(id, resultArray);
+        return self.recordMapper(id, resultArray);
     },
 
 
@@ -71,13 +75,13 @@ StorageService.prototype = {
     /**
      * UTIL
      */
-    itemMapper: function(id, resultArray) {
-        // console.log(resultArray);
+    recordMapper: function(id, resultArray) {
+        
         return {
-            id: id,
+            id: id.toNumber(),
             owner: resultArray[0],
-            ipfsHash: resultArray[1],
-            index: resultArray[2]
+            ipfsCid: resultArray[1],
+            index: resultArray[2].toNumber()
         }
     },
 
@@ -89,26 +93,18 @@ StorageService.prototype = {
 
         var self = this;
 
-        obj = {
-            Data: JSON.stringify(data),
-            Links: []
-        }
+        const cid = await self.ipfs.dag.put(data);
 
-        const node = await self.ipfs.object.put(obj);
-        const nodeJSON = node.toJSON()
-
-        const multihash = nodeJSON.multihash;
-        return multihash;
+        
+        return cid.toBaseEncodedString();
     },
 
     ipfsGet: async function(hash) {
         var self = this;
 
-        const node = await self.ipfs.object.get(hash);
+        const node = await self.ipfs.dag.get(hash);
 
-        console.log(node);
-
-        return node.data;
+        return node.value;
 
     }
 
