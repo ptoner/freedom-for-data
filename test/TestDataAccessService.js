@@ -1,9 +1,8 @@
 
 var ServiceFactory = require('../test/ServiceFactory.js');
-var TestUtils = require('../test/TestUtils.js');
+
 
 const serviceFactory = new ServiceFactory();
-const testUtils = new TestUtils();
 
 contract('DataAccessService', async (accounts) => {
 
@@ -22,43 +21,38 @@ contract('DataAccessService', async (accounts) => {
         }
 
         //Act
-        let result = await serviceFactory.getDataAccessService().create(createdRecord);
+        let resultCreatedRecord = await serviceFactory.getDataAccessService().create(createdRecord);
 
 
         //Assert
-        var log = testUtils.getLogByEventName("RecordEvent", result.logs);
-
-        //The event just returns the metadata about our created person.
-        const createdId = log.args.id.toNumber();
-
-        assert.equal(createdId, 1, "ID should be 1");
-        assert.equal(log.args.eventType, "NEW", "Type should be NEW");
-        assert.equal(log.args.index.toNumber(), 0, "Index should be 0");
-        assert.equal(log.args.ipfsCid, "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
-        assert.equal(log.args.owner, accounts[0], "Owner should be this contract");
+        assert.equal(resultCreatedRecord.id, 1, "ID should be 1");
+        assert.equal(resultCreatedRecord.eventType, "NEW", "Type should be NEW");
+        assert.equal(resultCreatedRecord.index, 0, "Index should be 0");
+        assert.equal(resultCreatedRecord.ipfsCid, "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
+        assert.equal(resultCreatedRecord.owner, accounts[0], "Owner should be this contract");
 
 
         //Also verify with a read.
-        let record = await serviceFactory.getDataAccessService().read(createdId);
-
+        let record = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
+        
         /**
          * Expected record
          * 
          * { 
          *      id: 1,
                 owner: '...will match first address...',
-                ipfsCid: 'zdpuAurbVPh4jNeQSf46osJSuLDDDXSSbtE1ZWaZEZTgGK1Qa',
+                ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
                 index: 0,
-                lastName: 'Toner',
-                firstName: 'Pat' 
+                lastName: 'McCutchen',
+                firstName: 'Andrew' 
             }
          */
 
 
         //Check that the metadata matches.
-        assert.equal(record.id, log.args.id.toNumber(), "Ids need to match");
-        assert.equal(record.index, log.args.index.toNumber(), "Indexes should match");
-        assert.equal(record.ipfsCid, log.args.ipfsCid, "ipfsHash should match");
+        assert.equal(record.id, resultCreatedRecord.id, "Ids need to match");
+        assert.equal(record.index, resultCreatedRecord.index, "Indexes should match");
+        assert.equal(record.ipfsCid, resultCreatedRecord.ipfsCid, "ipfsHash should match");
         assert.equal(record.owner,accounts[0], "Owner should be this contract");
 
         //Check the fields that we originally set.

@@ -3,13 +3,34 @@
 ## About
 A simple reusable data access pattern to tie an Ethereum smart contract to data stored in IPFS. 
 
-This will allow DApps developers to more easily abstract these layers away.
+This will allow DApps developers to more easily abstract these layers away. It will make it faster to build working and testable DApps.
 
 Over time the Ethereum/IPFS implementation details can evolve and all the CRUD DApps we build won't be coupled so tightly to the rapidly changing implementation details.
 
 # Usage
-```
 
+TODO://show how the library gets set up
+
+```
+let createdRecord = {
+    firstName: "Andrew",
+    lastName: "McCutchen"
+}
+
+let result = await dataAccessService.create(createdRecord);
+
+/**
+    * Expected record
+    * 
+    * { 
+    *   id: 1,
+        owner: '...will match your address...',
+        ipfsCid: 'zdpuAurbVPh4jNeQSf46osJSuLDDDXSSbtE1ZWaZEZTgGK1Qa',
+        index: 0,
+        lastName: 'McCutchen',
+        firstName: 'Andrew' 
+    }
+    */
 ```
 
 
@@ -43,7 +64,7 @@ Over time the Ethereum/IPFS implementation details can evolve and all the CRUD D
 * IPFS will contain:
     * A JSON representation of your data. 
 
-* UI and tests shouldn't care that it's a blockchain app.
+* Your actual javascript app (React, Angular, whatever) won't care that it's dealing with a DApp.
+    - The js files can also be deployed to IPFS.
 
-* Your actual javascript app (React, Angular, whatever) won't care that it's dealing with a DApp. 
-It's going to make very simple requests.
+* Makes very simple requests that can be used in your own DApps. 

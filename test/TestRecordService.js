@@ -1,9 +1,9 @@
 
 var ServiceFactory = require('../test/ServiceFactory.js');
-var TestUtils = require('../test/TestUtils.js');
+
 
 const serviceFactory = new ServiceFactory();
-const testUtils = new TestUtils();
+
 
 contract('RecordService', async (accounts) => {
 
@@ -22,7 +22,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Assert
-        var log = testUtils.getLogByEventName("RecordEvent", result.logs);
+        var log = serviceFactory.utils.getLogByEventName("RecordEvent", result.logs);
 
         //The event just returns the metadata about our created person.
         const createdId = log.args.id.toNumber();

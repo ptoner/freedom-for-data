@@ -10,6 +10,9 @@ class ServiceFactory {
         this.DataAccessServiceJs = require('../src/js/DataAccessService.js');
         this.multihash = require('multihashes');
 
+        var Utils = require('../src/js/Utils.js');
+        this.utils = new Utils();
+
         //Initialize IPFS connection. Needs to be running locally.
         this.ipfsAPI = require('ipfs-api');
         this.ipfs = this.ipfsAPI('localhost', '5001', {protocol: 'http'});
@@ -30,7 +33,7 @@ class ServiceFactory {
 
     initializeDataAccessService() {
         this.initializeIpfsService();
-        this.dataAccessService = new this.DataAccessServiceJs(this.recordService, this.ipfsService);
+        this.dataAccessService = new this.DataAccessServiceJs(this.recordService, this.ipfsService, this.utils);
 
         return this.dataAccessService;
     }

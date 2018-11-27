@@ -1,8 +1,10 @@
+
 class DataAccessService {
     
-    constructor(recordService, ipfsService) {
+    constructor(recordService, ipfsService, utils) {
         this.recordService = recordService;
         this.ipfsService = ipfsService;
+        this.utils = utils;
     }
 
     async create(data) {
@@ -15,7 +17,21 @@ class DataAccessService {
         }
         
         //Get the hash and pass to sendCreate
-        return this.recordService.sendCreate(ipfsHash)
+        let result = await this.recordService.sendCreate(ipfsHash);
+
+        
+        //The event returns the metadata about our created data.
+        var log = this.utils.getLogByEventName("RecordEvent", result.logs);
+        
+        const record = {
+            id: log.args.id.toNumber(),
+            eventType: log.args.eventType,
+            index: log.args.index.toNumber(),
+            ipfsCid:log.args.ipfsCid,
+            owner: log.args.owner
+        }
+
+        return record;
 
     }
 

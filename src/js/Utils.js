@@ -1,4 +1,4 @@
-class TestUtils {
+class Utils {
     constructor() {
 
     }
@@ -28,4 +28,4 @@ class TestUtils {
 
 }
 
-module.exports = TestUtils;
+module.exports = Utils;
