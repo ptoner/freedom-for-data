@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-contract StorageService {
+contract RecordService {
 
     struct Record {
         uint256 id;
@@ -97,11 +97,6 @@ contract StorageService {
 
         return read(idAtIndex);
     }
-
-
-
-
-
 
 }
 

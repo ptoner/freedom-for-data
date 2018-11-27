@@ -1,6 +1,6 @@
-var StorageService = artifacts.require("StorageService");
+var RecordService = artifacts.require("RecordService");
 
 
 module.exports = function(deployer) {
-  deployer.deploy(StorageService);
+  deployer.deploy(RecordService);
 };
