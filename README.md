@@ -65,7 +65,7 @@ let record = await dataAccessService.read(1);
 ## Updating an existing record.
 ```javascript
 
-# Record 1 is currently Andrew McCutchen. Let's change the first name to Charlie and the last name to Morton.
+# Record 1 is currently Andrew McCutchen. Change the first name to Charlie and the last name to Morton.
 let record = {
     firstName: "Charlie",      
     lastName: "Morton"
