@@ -12,13 +12,13 @@ class RecordService {
         return this.recordMapper(resultArray);
     }
 
-    // async callReadByIndex(index) {
+    async callReadByIndex(index) {
 
-    //     var self = this;
+        var self = this;
 
-    //     let resultArray = await self.recordServiceContract.readByIndex.call(index);
-    //     return self.recordMapper(resultArray);
-    // }
+        let resultArray = await self.recordServiceContract.readByIndex.call(index);
+        return self.recordMapper(resultArray);
+    }
 
     async callCount() {
         return this.recordServiceContract.count();

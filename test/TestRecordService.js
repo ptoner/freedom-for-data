@@ -24,26 +24,27 @@ contract('RecordService', async (accounts) => {
         createdCount++;
 
         //Assert
-        var log = serviceFactory.utils.getLogByEventName("RecordEvent", result.logs);
+        var loggedRecord = serviceFactory.utils.recordEventToRecord(result);
 
-        //The event just returns the metadata about our created person.
-        const createdId = log.args.id.toNumber();
 
-        assert.equal(createdId, 1, "ID should be 1");
-        assert.equal(log.args.eventType, "NEW", "Type should be NEW");
-        assert.equal(log.args.index.toNumber(), 0, "Index should be 0");
-        assert.equal(log.args.ipfsCid, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
-        assert.equal(log.args.owner, accounts[0], "Owner should be this contract");
+        //Verify the logged record
+        serviceFactory.testUtils.assertRecordsMatch(loggedRecord, {
+            id: 1,
+            eventType: "NEW",
+            index: 0,
+            ipfsCid: "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
+            owner: accounts[0]
+        })
 
 
         //Also verify with a read.
-        let record = await serviceFactory.getRecordService().callRead(createdId);
+        let record = await serviceFactory.getRecordService().callRead(loggedRecord.id);
 
 
         //Check that the metadata matches.
-        assert.equal(record.id, log.args.id.toNumber(), "Ids need to match");
-        assert.equal(record.index, log.args.index.toNumber(), "Indexes should match");
-        assert.equal(record.ipfsCid, log.args.ipfsCid, "ipfsHash should match");
+        assert.equal(record.id, loggedRecord.id, "Ids need to match");
+        assert.equal(record.index, loggedRecord.index, "Indexes should match");
+        assert.equal(record.ipfsCid, loggedRecord.ipfsCid, "ipfsHash should match");
         assert.equal(record.owner,accounts[0], "Owner should be this contract");
 
     });
@@ -90,6 +91,43 @@ contract('RecordService', async (accounts) => {
     
     it("Test update: Update a record we don't own. Make sure we can't change them. ", async () => {
 
+        //Arrange
+        let result = await serviceFactory.getRecordService().sendCreate("KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
+
+        //Get record from result
+        var loggedRecord = serviceFactory.utils.recordEventToRecord(result);
+
+
+        let error;
+
+
+        try {
+            await serviceFactory.getRecordService().sendUpdate(
+                loggedRecord.id, 
+                "CELTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MN",
+                {
+                    from: accounts[1]
+                }
+            )
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You don't own this record -- Reason given: You don't own this record.", 
+            serviceFactory.testUtils.getRequireMessage(error), 
+            
+            "Should fail to update record user doesn't own."
+        );
+
+        //Do a read and make sure it shows the original value
+        let refetchechRecord = await serviceFactory.getRecordService().callRead(loggedRecord.id);
+
+
+        assert.equal(refetchechRecord.ipfsCid, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB"); //the original one
         
     });
 

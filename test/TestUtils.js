@@ -24,6 +24,9 @@ class TestUtils {
         assert.equal(record1.lastName, record2.lastName, "Incorrect lastName value");
     }
 
+
+    
+
 }
 
 module.exports = TestUtils;
