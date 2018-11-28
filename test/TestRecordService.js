@@ -66,6 +66,31 @@ contract('RecordService', async (accounts) => {
         assert.equal(count, createdCount);
         
     });
+
+    it("Test update: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
+        
+        //Arrange
+        let result = await serviceFactory.getRecordService().sendCreate("VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+
+        var log = serviceFactory.utils.getLogByEventName("RecordEvent", result.logs);
+        const createdId = log.args.id.toNumber();
+        
+        //Act
+        await serviceFactory.getRecordService().sendUpdate(createdId, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+
+
+        //Assert
+        let refetchechRecord = await serviceFactory.getRecordService().callRead(createdId);
+
+
+        assert.equal(refetchechRecord.ipfsCid, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB")
+
+
+    });
     
+    it("Test update: Update a record we don't own. Make sure we can't change them. ", async () => {
+
+        
+    });
 
 });

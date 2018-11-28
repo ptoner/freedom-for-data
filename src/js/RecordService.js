@@ -12,6 +12,8 @@ class RecordService {
         return this.recordMapper(id, resultArray);
     }
 
+
+
     async callCount() {
         return this.recordServiceContract.count();
     }
@@ -20,8 +22,12 @@ class RecordService {
     /**
      * SEND
      */
-    async sendCreate(ipfsHash) {
-        return this.recordServiceContract.create(ipfsHash);
+    async sendCreate(ipfsCid) {
+        return this.recordServiceContract.create(ipfsCid);
+    }
+
+    async sendUpdate(id, ipfsCid) {
+        return this.recordServiceContract.update(id, ipfsCid);
     }
 
 

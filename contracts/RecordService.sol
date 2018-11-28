@@ -68,14 +68,18 @@ contract RecordService {
 
     function update(uint256 _id, string calldata _ipfsCid) external {
 
-        if (keccak256(bytes(recordMapping[_id].ipfsCid)) != keccak256(bytes(_ipfsCid))) {
-            recordMapping[_id].ipfsCid = _ipfsCid;
+        Record storage record = recordMapping[_id];
+
+        require(record.owner == msg.sender, "You don't own this record");
+
+        if (keccak256(bytes(record.ipfsCid)) != keccak256(bytes(_ipfsCid))) {
+            record.ipfsCid = _ipfsCid;
 
             emit RecordEvent(
-                recordMapping[_id].id,
-                recordMapping[_id].owner,
-                recordMapping[_id].ipfsCid,
-                recordMapping[_id].index,
+                record.id,
+                record.owner,
+                record.ipfsCid,
+                record.index,
                 "UPDATE"
             );   
         }
