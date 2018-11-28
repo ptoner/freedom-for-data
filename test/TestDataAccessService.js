@@ -27,16 +27,16 @@ contract('DataAccessService', async (accounts) => {
 
         createdCount++;
 
-        //Assert
-        assert.equal(resultCreatedRecord.id, 1, "ID should be 1");
-        assert.equal(resultCreatedRecord.eventType, "NEW", "Type should be NEW");
-        assert.equal(resultCreatedRecord.index, 0, "Index should be 0");
-        assert.equal(resultCreatedRecord.ipfsCid, "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT", "Incorrect IPFS CID");
-        assert.equal(resultCreatedRecord.owner, accounts[0], "Owner should be this contract");
-
-        //Check saved fields
-        assert.equal(resultCreatedRecord.firstName, "Andrew", "Incorrect firstName value");
-        assert.equal(resultCreatedRecord.lastName, "McCutchen", "Incorrect lastName value");
+        //Compare what we just created with what we expect the result to look like. 
+        assertRecordsMatch( resultCreatedRecord, {
+            id: 1,
+            eventType: "NEW",
+            index: 0,
+            ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
+            owner: accounts[0],
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        })
 
         //Also verify with a read.
         let record = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
@@ -49,21 +49,20 @@ contract('DataAccessService', async (accounts) => {
                 owner: '...will match first address...',
                 ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
                 index: 0,
-                lastName: 'McCutchen',
-                firstName: 'Andrew' 
+                firstName: 'Andrew'
+                lastName: 'McCutchen'
             }
          */
 
+        assertRecordsMatch( record, {
+            id: 1,
+            index: 0,
+            ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
+            owner: accounts[0],
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        })
 
-        //Check that the metadata matches.
-        assert.equal(record.id, resultCreatedRecord.id, "Ids need to match");
-        assert.equal(record.index, resultCreatedRecord.index, "Indexes should match");
-        assert.equal(record.ipfsCid, resultCreatedRecord.ipfsCid, "ipfsHash should match");
-        assert.equal(record.owner,accounts[0], "Owner should be this contract");
-
-        //Check the fields that we originally set.
-        assert.equal(record.firstName, "Andrew", "Incorrect firstName value");
-        assert.equal(record.lastName, "McCutchen", "Incorrect lastName value");
 
 
     });
@@ -155,5 +154,25 @@ contract('DataAccessService', async (accounts) => {
         assert.equal(refetchechRecord.firstName, "Gerrit");
         assert.equal(refetchechRecord.lastName, "Cole");
     });
+
+
+
+
+
+
+    function assertRecordsMatch(record1, record2) {
+        //Assert
+        assert.equal(record1.id, record2.id, "IDs should match");
+        assert.equal(record1.eventType, record2.eventType, "Type should match");
+        assert.equal(record1.index, record2.index, "Index should match");
+        assert.equal(record1.ipfsCid, record2.ipfsCid, "IPFS cid should match");
+        assert.equal(record1.owner, record2.owner, "Owner should match");
+
+        //Check saved fields
+        assert.equal(record1.firstName, record2.firstName, "Incorrect firstName value");
+        assert.equal(record1.lastName, record2.lastName, "Incorrect lastName value");
+    }
+
+
 
 });
