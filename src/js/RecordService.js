@@ -9,8 +9,16 @@ class RecordService {
      */
     async callRead(id) {
         let resultArray = await this.recordServiceContract.read.call(id);
-        return this.recordMapper(id, resultArray);
+        return this.recordMapper(resultArray);
     }
+
+    // async callReadByIndex(index) {
+
+    //     var self = this;
+
+    //     let resultArray = await self.recordServiceContract.readByIndex.call(index);
+    //     return self.recordMapper(resultArray);
+    // }
 
     async callCount() {
         return this.recordServiceContract.count();
@@ -20,7 +28,11 @@ class RecordService {
     /**
      * SEND
      */
-    async sendCreate(ipfsCid, transactionObject) {        
+    async sendCreate(ipfsCid, transactionObject) {      
+        if (transactionObject) {
+            return this.recordServiceContract.create(ipfsCid, transactionObject);
+        }
+        
         return this.recordServiceContract.create(ipfsCid);
 
     }
@@ -39,13 +51,13 @@ class RecordService {
     /**
      * UTIL
      */
-    async recordMapper(id, resultArray) {
+    async recordMapper(resultArray) {
         
         return {
-            id: id,
-            owner: resultArray[0],
-            ipfsCid: resultArray[1],
-            index: resultArray[2].toNumber()
+            id: resultArray[0],
+            owner: resultArray[1],
+            ipfsCid: resultArray[2],
+            index: resultArray[3].toNumber()
         }
     }
 

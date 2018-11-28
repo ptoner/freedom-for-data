@@ -7,6 +7,7 @@ const serviceFactory = new ServiceFactory();
 contract('DataAccessService', async (accounts) => {
 
     let createdCount = 0;
+   
 
     before('Setup', async () => {
         serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
@@ -28,7 +29,7 @@ contract('DataAccessService', async (accounts) => {
         createdCount++;
 
         //Compare what we just created with what we expect the result to look like. 
-        assertRecordsMatch( resultCreatedRecord, {
+        serviceFactory.testUtils.assertRecordsMatch( resultCreatedRecord, {
             id: 1,
             eventType: "NEW",
             index: 0,
@@ -54,7 +55,7 @@ contract('DataAccessService', async (accounts) => {
             }
          */
 
-        assertRecordsMatch( record, {
+        serviceFactory.testUtils.assertRecordsMatch( record, {
             id: 1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
@@ -142,7 +143,7 @@ contract('DataAccessService', async (accounts) => {
         assert.isTrue(error instanceof Error, "Should have thrown an error");
         assert.equal(
             "You don't own this record -- Reason given: You don't own this record.", 
-            serviceFactory.getDataAccessService().utils.getRequireMessage(error), 
+            serviceFactory.testUtils.getRequireMessage(error), 
             
             "Should fail to update record user doesn't own."
         );
@@ -159,19 +160,6 @@ contract('DataAccessService', async (accounts) => {
 
 
 
-
-    function assertRecordsMatch(record1, record2) {
-        //Assert
-        assert.equal(record1.id, record2.id, "IDs should match");
-        assert.equal(record1.eventType, record2.eventType, "Type should match");
-        assert.equal(record1.index, record2.index, "Index should match");
-        assert.equal(record1.ipfsCid, record2.ipfsCid, "IPFS cid should match");
-        assert.equal(record1.owner, record2.owner, "Owner should match");
-
-        //Check saved fields
-        assert.equal(record1.firstName, record2.firstName, "Incorrect firstName value");
-        assert.equal(record1.lastName, record2.lastName, "Incorrect lastName value");
-    }
 
 
 

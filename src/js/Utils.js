@@ -19,13 +19,6 @@ class Utils {
         return found;
     }
 
-
-    getRequireMessage(ex) {
-        // return ex.message.substr(43);
-        // return ex.message;
-        return ex.message.substr(ex.message.lastIndexOf(": revert")+8).trim();
-    }
-
 }
 
 module.exports = Utils;

@@ -13,6 +13,9 @@ class ServiceFactory {
         var Utils = require('../src/js/Utils.js');
         this.utils = new Utils();
 
+        var TestUtils = require('../test/TestUtils.js');
+        this.testUtils = new TestUtils();
+
         //Initialize IPFS connection. Needs to be running locally.
         this.ipfsAPI = require('ipfs-api');
         this.ipfs = this.ipfsAPI('localhost', '5001', {protocol: 'http'});
