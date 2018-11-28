@@ -54,6 +54,16 @@ class DataAccessService {
         
     }
 
+    async update(id, data) {
+
+        //Put the data in IPFS
+        const ipfsCid = await this.ipfsService.ipfsPut(data);
+
+        await this.recordService.sendUpdate(id, ipfsCid);
+
+    }
+
+
     async count() {
         return this.recordService.callCount();
     }

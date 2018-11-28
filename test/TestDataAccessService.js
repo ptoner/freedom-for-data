@@ -88,5 +88,29 @@ contract('DataAccessService', async (accounts) => {
     });
 
 
+    it("Test update: Update a record and make sure the changes are saved.", async () => {
+        
+        //Arrange
+        let resultCreatedRecord = await serviceFactory.getDataAccessService().create({ firstName: "Gerrit", lastName: "Cole" });
+
+        
+        //Act
+        await serviceFactory.getDataAccessService().update(
+            resultCreatedRecord.id, 
+            {
+                firstName: "Charlie",
+                lastName: "Morton"
+            }
+        )
+
+
+        //Assert
+        let refetchechRecord = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
+
+
+        assert.equal(refetchechRecord.firstName, "Charlie");
+        assert.equal(refetchechRecord.lastName, "Morton");
+    });
+
 
 });
