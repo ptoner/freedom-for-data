@@ -6,6 +6,8 @@ const serviceFactory = new ServiceFactory();
 
 contract('DataAccessService', async (accounts) => {
 
+    let createdCount = 0;
+
     before('Setup', async () => {
         serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
         serviceFactory.initializeDataAccessService();
@@ -23,7 +25,7 @@ contract('DataAccessService', async (accounts) => {
         //Act
         let resultCreatedRecord = await serviceFactory.getDataAccessService().create(createdRecord);
 
-        
+        createdCount++;
 
         //Assert
         assert.equal(resultCreatedRecord.id, 1, "ID should be 1");
@@ -38,8 +40,6 @@ contract('DataAccessService', async (accounts) => {
 
         //Also verify with a read.
         let record = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
-
-        console.log(record);
 
         /**
          * Expected record
@@ -67,6 +67,26 @@ contract('DataAccessService', async (accounts) => {
 
 
     });
+
+
+    it("Test count: Create some records and then call count and make sure it matches", async () => {
+
+        //Arrange
+        let resultCreatedRecord1 = await serviceFactory.getDataAccessService().create({ firstName: "Andrew", lastName: "McCutchen" });
+        let resultCreatedRecord2 = await serviceFactory.getDataAccessService().create({ firstName: "Gregory", lastName: "Polanco" });
+        let resultCreatedRecord3 = await serviceFactory.getDataAccessService().create({ firstName: "Jordy", lastName: "Mercer" });
+        let resultCreatedRecord4 = await serviceFactory.getDataAccessService().create({ firstName: "Pedro", lastName: "Alvarez" });
+        let resultCreatedRecord5 = await serviceFactory.getDataAccessService().create({ firstName: "Matt", lastName: "Joyce" });
+
+        createdCount += 5;
+
+        //Act
+        let count = await serviceFactory.getDataAccessService().count();
+
+        assert.equal(count, createdCount);
+
+    });
+
 
 
 });

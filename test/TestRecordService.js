@@ -7,6 +7,8 @@ const serviceFactory = new ServiceFactory();
 
 contract('RecordService', async (accounts) => {
 
+    let createdCount = 0;
+
     before('Setup', async () => {
         serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
     });
@@ -19,7 +21,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         let result = await serviceFactory.getRecordService().sendCreate(fakeCid);
-
+        createdCount++;
 
         //Assert
         var log = serviceFactory.utils.getLogByEventName("RecordEvent", result.logs);
@@ -44,6 +46,25 @@ contract('RecordService', async (accounts) => {
         assert.equal(record.ipfsCid, log.args.ipfsCid, "ipfsHash should match");
         assert.equal(record.owner,accounts[0], "Owner should be this contract");
 
+    });
+
+
+    it("Test count: Create some records and then call count and make sure it matches", async () => {
+
+        //Arrange
+        let result1 = await serviceFactory.getRecordService().sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result2 = await serviceFactory.getRecordService().sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result3 = await serviceFactory.getRecordService().sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result4 = await serviceFactory.getRecordService().sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result5 = await serviceFactory.getRecordService().sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+
+        createdCount += 5;
+
+        //Act
+        let count = await serviceFactory.getRecordService().callCount();
+
+        assert.equal(count, createdCount);
+        
     });
     
 

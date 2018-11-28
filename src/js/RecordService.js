@@ -12,6 +12,10 @@ class RecordService {
         return this.recordMapper(id, resultArray);
     }
 
+    async callCount() {
+        return this.recordServiceContract.count();
+    }
+
 
     /**
      * SEND

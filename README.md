@@ -78,9 +78,13 @@ console.log(resultCreatedRecord);
 ## Tradeoffs You Make
 * Anything you put in IPFS can theoretically be lost. 
     - If you are creating a financial transaction that is dependent on this data, this probably isn't the right pattern to use.
+    
 * You'll probably have to pay for IPFS hosting. 
     - Eventually I think this can be done via coin and the DApp itself can be in charge of paying for it. I'm not sure how feasible that is yet.
+
 * There's some centralization risk in IPFS unless you make an effort (paid, probably) to get others to host the files. This should be mitigated over time.
+
+* Probably really slow if talking directly to the main Ethereum network.
 
 
 

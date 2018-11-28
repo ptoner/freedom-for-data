@@ -53,6 +53,10 @@ class DataAccessService {
         return record;
         
     }
+
+    async count() {
+        return this.recordService.callCount();
+    }
 }
 
 
