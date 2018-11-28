@@ -113,4 +113,47 @@ contract('DataAccessService', async (accounts) => {
     });
 
 
+
+    it("Test update: Update a record this account doesn't own", async () => {
+        
+        //Arrange
+        let resultCreatedRecord = await serviceFactory.getDataAccessService().create({ firstName: "Gerrit", lastName: "Cole" });
+
+        
+        let error;
+
+
+        try {
+            await serviceFactory.getDataAccessService().update(
+                resultCreatedRecord.id, 
+                {
+                    firstName: "Charlie",
+                    lastName: "Morton"
+                },
+                {
+                    from: accounts[1]
+                }
+            )
+        } catch(ex) {
+            error = ex;
+        }
+
+        
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You don't own this record -- Reason given: You don't own this record.", 
+            serviceFactory.getDataAccessService().utils.getRequireMessage(error), 
+            
+            "Should fail to update record user doesn't own."
+        );
+
+        //Do a read and make sure it shows the original value
+        let refetchechRecord = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
+
+
+        assert.equal(refetchechRecord.firstName, "Gerrit");
+        assert.equal(refetchechRecord.lastName, "Cole");
+    });
+
 });

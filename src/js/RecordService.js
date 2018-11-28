@@ -20,12 +20,19 @@ class RecordService {
     /**
      * SEND
      */
-    async sendCreate(ipfsCid) {
+    async sendCreate(ipfsCid, transactionObject) {        
         return this.recordServiceContract.create(ipfsCid);
+
     }
 
-    async sendUpdate(id, ipfsCid) {
+    async sendUpdate(id, ipfsCid, transactionObject) {      
+        
+        if (transactionObject) {
+            return this.recordServiceContract.update(id, ipfsCid, transactionObject);
+        }
+
         return this.recordServiceContract.update(id, ipfsCid);
+        
     }
 
 

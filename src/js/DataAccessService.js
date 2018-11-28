@@ -7,7 +7,7 @@ class DataAccessService {
         this.utils = utils;
     }
 
-    async create(data) {
+    async create(data, transactionObject) {
 
         //Put the data in IPFS
         const ipfsHash = await this.ipfsService.ipfsPut(data);
@@ -17,7 +17,7 @@ class DataAccessService {
         }
         
         //Get the hash and pass to sendCreate
-        let result = await this.recordService.sendCreate(ipfsHash);
+        let result = await this.recordService.sendCreate(ipfsHash, transactionObject);
 
         
         //The event returns the metadata about our created data.
@@ -54,12 +54,12 @@ class DataAccessService {
         
     }
 
-    async update(id, data) {
+    async update(id, data, transactionObject) {
 
         //Put the data in IPFS
         const ipfsCid = await this.ipfsService.ipfsPut(data);
 
-        await this.recordService.sendUpdate(id, ipfsCid);
+        await this.recordService.sendUpdate(id, ipfsCid, transactionObject);
 
     }
 
