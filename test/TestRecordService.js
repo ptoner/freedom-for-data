@@ -1,8 +1,5 @@
-
-var ServiceFactory = require('../test/ServiceFactory.js');
-
-
-const serviceFactory = new ServiceFactory();
+const TestServiceFactory = require('./TestServiceFactory.js');
+const serviceFactory = new TestServiceFactory();
 
 
 contract('RecordService', async (accounts) => {

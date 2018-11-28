@@ -47,7 +47,7 @@ console.log(result);
 ## Reading the record we just created.
 ```
 //Call the 'read' function
-let record = await dataAccessService.read(resultCreatedRecord.id);
+let record = await dataAccessService.read(1);
 
 //Print results
 console.log(resultCreatedRecord);

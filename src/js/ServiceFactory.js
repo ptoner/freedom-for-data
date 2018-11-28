@@ -1,24 +1,22 @@
 class ServiceFactory {
-    constructor() {
+    constructor(recordService, ipfsServiceJs, recordServiceJs, dataAccessServiceJs, multihash,
+                utils, testUtils, ipfs
+        ) {
 
         //Contract dependencies
-        this.RecordService = artifacts.require("RecordService");
+        this.RecordService = recordService;
 
         //Javascript dependencies
-        this.IPFSServiceJs = require('../src/js/IPFSService.js')
-        this.RecordServiceJs = require('../src/js/RecordService.js');
-        this.DataAccessServiceJs = require('../src/js/DataAccessService.js');
-        this.multihash = require('multihashes');
+        this.IPFSServiceJs = ipfsServiceJs;
+        this.RecordServiceJs = recordServiceJs;
+        this.DataAccessServiceJs = dataAccessServiceJs;
+        this.multihash = multihash;
 
-        var Utils = require('../src/js/Utils.js');
-        this.utils = new Utils();
-
-        var TestUtils = require('../test/TestUtils.js');
-        this.testUtils = new TestUtils();
+        this.utils = utils;
+        this.testUtils = testUtils;
 
         //Initialize IPFS connection. Needs to be running locally.
-        this.ipfsAPI = require('ipfs-api');
-        this.ipfs = this.ipfsAPI('localhost', '5001', {protocol: 'http'});
+        this.ipfs = ipfs;
 
     }
 
