@@ -1,4 +1,34 @@
 import React from 'react';
+import IPFService from '../../../src/js/IPFSService.js';
+import RecordService from '../../../src/js/RecordService.js';
+import DataAccessService from '../../../src/js/DataAccessService.js';
+import Utils from '../../../src/js/Utils.js';
+
+import ServiceFactory from '../../../src/js/ServiceFactory.js';
+
+import multihash from '../../../src/js/multihashes/index.js';
+
+
+
+//Initialize IPFS connection. Needs to be running locally.
+var ipfsAPI = require('ipfs-api');
+const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'});
+
+const serviceFactory = ServiceFactory(
+    artifacts.require("RecordService"),
+    IPFService,
+    RecordService,
+    DataAccessService,
+    multihash,
+    new Utils(),
+    null,
+    ipfs
+)
+
+
+
+
+
 
 class NewRecordForm extends React.Component {
     constructor(props) {

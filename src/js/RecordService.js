@@ -54,7 +54,7 @@ class RecordService {
     async recordMapper(resultArray) {
         
         return {
-            id: resultArray[0],
+            id: resultArray[0].toNumber(),
             owner: resultArray[1],
             ipfsCid: resultArray[2],
             index: resultArray[3].toNumber()

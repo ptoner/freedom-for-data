@@ -104,7 +104,6 @@ contract('DataAccessService', async (accounts) => {
         //Assert
         let refetchechRecord = await serviceFactory.getDataAccessService().read(resultCreatedRecord.id);
 
-
         assert.equal(refetchechRecord.firstName, "Charlie");
         assert.equal(refetchechRecord.lastName, "Morton");
     });
