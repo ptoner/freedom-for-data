@@ -1,8 +1,8 @@
+
 class IPFSService {
     
-    constructor(ipfs, multihash) {
+    constructor(ipfs) {
         this.ipfs = ipfs;
-        this.multihash = multihash;
     }
 
 

@@ -1,18 +1,21 @@
 const ServiceFactory = require('../src/service-factory.js');
+var ipfsAPI = require('ipfs-api');
 
+/**
+ * IPFS configuration for tests
+ */
+const IPFS_HOST = "localhost";
+const IPFS_PORT = 5001;
+const IPFS_OPTIONS = {
+    protocol: 'http'
+}
 
 class TestServiceFactory extends ServiceFactory {
     constructor() {
-        //Initialize IPFS connection. Needs to be running locally.
-        var ipfsAPI = require('ipfs-api');
-        const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'});
-
         super(
             artifacts.require("RecordService"),
-            require('multihashes'),
-            ipfs
+            ipfsAPI(IPFS_HOST, IPFS_PORT, IPFS_OPTIONS)
         )
-
     }
 
 }

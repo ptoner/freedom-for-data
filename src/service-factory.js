@@ -5,13 +5,10 @@ const IPFSService = require('./ipfs-service.js');
 
 
 class ServiceFactory {
-    constructor(recordService, multihash, ipfs) {
+    constructor(recordService, ipfs) {
 
-        //Contract dependencies
+        //Contract dependency
         this.RecordService = recordService;
-
-        //Javascript dependencies
-        this.multihash = multihash;
 
         //Initialize IPFS connection.
         this.ipfs = ipfs;
@@ -25,7 +22,7 @@ class ServiceFactory {
     }
 
     initializeIpfsService() {
-        this.ipfsService = new IPFSService(this.ipfs, this.multihash);
+        this.ipfsService = new IPFSService(this.ipfs);
 
         return this.ipfsService;
     }
