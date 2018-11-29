@@ -3,24 +3,64 @@ import {
   App,
   Panel,
   View,
-  Statusbar,
-  // Popup,
-  // Page,
-  // Navbar,
-  // NavRight,
-  // Link,
-  // Block,
-  // LoginScreen,
-  // LoginScreenTitle,
-  // List,
-  // ListItem,
-  // Label,
-  // Input,
-  // ListButton,
-  // BlockFooter
+  Statusbar
 } from 'framework7-react';
 
 import routes from '../routes';
+
+
+// import IPFServiceJS from '../../../src/IPFSService.js';
+// import RecordServiceJS from '../../../src/RecordService.js';
+// import DataAccessServiceJS from '../../../src/DataAccessService.js';
+// import Utils from '../../../src/Utils.js';
+
+// import ServiceFactory from '../../../src/ServiceFactory.js';
+
+// import multihash from '../../../src/js/multihashes/index.js';
+
+// import TruffleContract from "../../../src/js/truffle/truffle-contract.js"
+
+// import RecordServiceJson from "../../../build/contracts/RecordService.json";
+
+
+// //Initialize IPFS connection. Needs to be running locally.
+// var ipfsAPI = require('ipfs-api');
+// const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'});
+
+
+// // Is there is an injected web3 instance?
+// if (typeof web3 !== 'undefined') {
+//   App.web3Provider = web3.currentProvider;
+//   web3 = new Web3(web3.currentProvider);
+// } else {
+//   // If no injected web3 instance is detected, fallback to Ganache.
+//   App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
+//   web3 = new Web3(App.web3Provider);
+// }
+
+// let accounts = await web3.eth.getAccounts();
+
+// const RecordService = TruffleContract(RecordServiceJson);
+
+// console.log(RecordService);
+
+
+
+// const serviceFactory = ServiceFactory(
+//     RecordServiceJson,
+//     IPFServiceJS,
+//     RecordServiceJS,
+//     DataAccessServiceJS,
+//     multihash,
+//     new Utils(),
+//     null,
+//     ipfs
+// )
+
+
+
+
+
 
 export default function (props) {
 
@@ -31,6 +71,22 @@ export default function (props) {
     theme: 'auto', // Automatic theme detection
     // App routes
     routes,
+
+    on: {
+      init: function() {
+        console.log("App init");
+
+
+
+
+
+
+
+
+
+
+      }
+    }
   };
 
   return (

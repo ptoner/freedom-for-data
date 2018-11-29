@@ -42,7 +42,7 @@ let result = await dataAccessService.create(createdRecord);
 */
 ```
 
-## Reading the record we just created.
+## Reading the record we just created
 ```javascript
 
 //Pass the id created above to the read function. The id was 1.
@@ -62,7 +62,7 @@ let record = await dataAccessService.read(1);
 
 ```
 
-## Updating an existing record.
+## Updating an existing record
 ```javascript
 
 # Record 1 is currently Andrew McCutchen. Change the first name to Charlie and the last name to Morton.

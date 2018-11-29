@@ -1,4 +1,4 @@
-const TestServiceFactory = require('./TestServiceFactory.js');
+const TestServiceFactory = require('./test-service-factory.js');
 const serviceFactory = new TestServiceFactory();
 
 contract('DataAccessService', async (accounts) => {

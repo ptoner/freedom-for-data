@@ -1,0 +1,19 @@
+{
+  "name": "solidity-storage-service",
+  "version": "0.1.0",
+  "description": "Solidity Storage Service",
+  "main": "service-factory.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptoner/solidity-storage-service.git"
+  },
+  "author": "Patrick Toner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ptoner/solidity-storage-service/issues"
+  },
+  "homepage": "https://github.com/ptoner/solidity-storage-service#readme"
+}
