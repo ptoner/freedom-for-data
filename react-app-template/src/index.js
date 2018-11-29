@@ -59,8 +59,7 @@ console.log(RecordService);
 
 
 var serviceFactory = ServiceFactory(
-  artifacts.require("RecordService"),
-  multihash,
+  RecordService,
   ipfsAPI(IPFS_HOST, IPFS_PORT, IPFS_OPTIONS)
 )
 

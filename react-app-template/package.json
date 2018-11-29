@@ -18,7 +18,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "copy-fonts": "cpy node_modules/framework7-icons/fonts/*.* src/fonts && cpy node_modules/material-design-icons/iconfont/*.{eot,ttf,woff,woff2} src/fonts",
-    "postinstall": "npm run copy-fonts"
+    "postinstall": "npm run copy-fonts",
+    "install": "cp ../build/contracts/RecordService.json src/truffle"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
