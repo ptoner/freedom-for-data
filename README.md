@@ -45,7 +45,7 @@ let result = await dataAccessService.create(createdRecord);
 ## Reading the record we just created.
 ```javascript
 
-//Call the 'read' function
+//Pass the id created above to the read function. The id was 1.
 let record = await dataAccessService.read(1);
 
 /**
