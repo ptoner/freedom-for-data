@@ -1,10 +1,12 @@
+var Utils = require('./utils.js');
+
 
 class DataAccessService {
     
-    constructor(recordService, ipfsService, utils) {
+    constructor(recordService, ipfsService) {
         this.recordService = recordService;
         this.ipfsService = ipfsService;
-        this.utils = utils;
+        this.utils = new Utils();
     }
 
     async create(data, transactionObject) {

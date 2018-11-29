@@ -1,7 +1,13 @@
 const TestServiceFactory = require('./test-service-factory.js');
 const serviceFactory = new TestServiceFactory();
 
+var TestUtils = require('./test-utils.js');
+
+
+
 contract('DataAccessService', async (accounts) => {
+
+    var testUtils = new TestUtils();
 
     let createdCount = 0;
    
@@ -26,7 +32,7 @@ contract('DataAccessService', async (accounts) => {
         createdCount++;
 
         //Compare what we just created with what we expect the result to look like. 
-        serviceFactory.testUtils.assertRecordsMatch( resultCreatedRecord, {
+        testUtils.assertRecordsMatch( resultCreatedRecord, {
             id: 1,
             eventType: "NEW",
             index: 0,
@@ -52,7 +58,7 @@ contract('DataAccessService', async (accounts) => {
             }
          */
 
-        serviceFactory.testUtils.assertRecordsMatch( record, {
+        testUtils.assertRecordsMatch( record, {
             id: 1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
@@ -139,7 +145,7 @@ contract('DataAccessService', async (accounts) => {
         assert.isTrue(error instanceof Error, "Should have thrown an error");
         assert.equal(
             "You don't own this record -- Reason given: You don't own this record.", 
-            serviceFactory.testUtils.getRequireMessage(error), 
+            testUtils.getRequireMessage(error), 
             
             "Should fail to update record user doesn't own."
         );

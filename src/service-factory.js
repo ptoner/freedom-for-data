@@ -1,40 +1,38 @@
+const RecordService = require('./record-service.js');
+const DataAccessService = require('./data-access-service.js');
+const IPFSService = require('./ipfs-service.js');
+
+
+
 class ServiceFactory {
-    constructor(recordService, ipfsServiceJs, recordServiceJs, dataAccessServiceJs, multihash,
-                utils, testUtils, ipfs
-        ) {
+    constructor(recordService, multihash, ipfs) {
 
         //Contract dependencies
         this.RecordService = recordService;
 
         //Javascript dependencies
-        this.IPFSServiceJs = ipfsServiceJs;
-        this.RecordServiceJs = recordServiceJs;
-        this.DataAccessServiceJs = dataAccessServiceJs;
         this.multihash = multihash;
 
-        this.utils = utils;
-        this.testUtils = testUtils;
-
-        //Initialize IPFS connection. Needs to be running locally.
+        //Initialize IPFS connection.
         this.ipfs = ipfs;
 
     }
 
     initializeRecordService(recordServiceContract) {
-        this.recordService = new this.RecordServiceJs(recordServiceContract);
+        this.recordService = new RecordService(recordServiceContract);
 
         return this.recordService;
     }
 
     initializeIpfsService() {
-        this.ipfsService = new this.IPFSServiceJs(this.ipfs, this.multihash);
+        this.ipfsService = new IPFSService(this.ipfs, this.multihash);
 
         return this.ipfsService;
     }
 
     initializeDataAccessService() {
         this.initializeIpfsService();
-        this.dataAccessService = new this.DataAccessServiceJs(this.recordService, this.ipfsService, this.utils);
+        this.dataAccessService = new DataAccessService(this.recordService, this.ipfsService);
 
         return this.dataAccessService;
     }

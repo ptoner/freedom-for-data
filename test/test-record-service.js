@@ -1,8 +1,13 @@
 const TestServiceFactory = require('./test-service-factory.js');
 const serviceFactory = new TestServiceFactory();
 
+var TestUtils = require('./test-utils.js');
+var Utils = require('../src/utils.js');
 
 contract('RecordService', async (accounts) => {
+
+    var testUtils = new TestUtils();
+    var utils = new Utils();
 
     let createdCount = 0;
 
@@ -21,11 +26,11 @@ contract('RecordService', async (accounts) => {
         createdCount++;
 
         //Assert
-        var loggedRecord = serviceFactory.utils.recordEventToRecord(result);
+        var loggedRecord = utils.recordEventToRecord(result);
 
 
         //Verify the logged record
-        serviceFactory.testUtils.assertRecordsMatch(loggedRecord, {
+        testUtils.assertRecordsMatch(loggedRecord, {
             id: 1,
             eventType: "NEW",
             index: 0,
@@ -70,7 +75,7 @@ contract('RecordService', async (accounts) => {
         //Arrange
         let result = await serviceFactory.getRecordService().sendCreate("VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
 
-        var log = serviceFactory.utils.getLogByEventName("RecordEvent", result.logs);
+        var log = utils.getLogByEventName("RecordEvent", result.logs);
         const createdId = log.args.id.toNumber();
         
         //Act
@@ -92,7 +97,7 @@ contract('RecordService', async (accounts) => {
         let result = await serviceFactory.getRecordService().sendCreate("KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
 
         //Get record from result
-        var loggedRecord = serviceFactory.utils.recordEventToRecord(result);
+        var loggedRecord = utils.recordEventToRecord(result);
 
 
         let error;
@@ -115,7 +120,7 @@ contract('RecordService', async (accounts) => {
         assert.isTrue(error instanceof Error, "Should have thrown an error");
         assert.equal(
             "You don't own this record -- Reason given: You don't own this record.", 
-            serviceFactory.testUtils.getRequireMessage(error), 
+            testUtils.getRequireMessage(error), 
             
             "Should fail to update record user doesn't own."
         );

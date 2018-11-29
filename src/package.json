@@ -2,7 +2,7 @@
   "name": "solidity-storage-service",
   "version": "0.1.0",
   "description": "Solidity Storage Service",
-  "main": "service-factory.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
