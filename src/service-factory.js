@@ -5,35 +5,20 @@ const IPFSService = require('./ipfs-service.js');
 
 
 class ServiceFactory {
-    constructor(recordService, ipfs) {
 
-        //Contract dependency
-        this.RecordService = recordService;
-
-        //Initialize IPFS connection.
+    constructor(recordServiceContract, ipfs) {
+        this.recordServiceContract = recordServiceContract;
         this.ipfs = ipfs;
 
+        this.initialize(recordServiceContract, ipfs);
+
     }
 
-    initializeRecordService(recordServiceContract) {
+    initialize(recordServiceContract, ipfs) {
         this.recordService = new RecordService(recordServiceContract);
-
-        return this.recordService;
-    }
-
-    initializeIpfsService() {
-        this.ipfsService = new IPFSService(this.ipfs);
-
-        return this.ipfsService;
-    }
-
-    initializeDataAccessService() {
-        this.initializeIpfsService();
+        this.ipfsService = new IPFSService(ipfs);
         this.dataAccessService = new DataAccessService(this.recordService, this.ipfsService);
-
-        return this.dataAccessService;
     }
-
 
     /**
      * Only giving getters to the actual services to expose

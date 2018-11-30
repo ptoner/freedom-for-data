@@ -10,7 +10,9 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "2.0.0-next.66cc7a90",
-    "solidity-storage-service": "0.1.0"
+    "solidity-storage-service": "0.1.0",
+    "truffle-contract":"3.0.6",
+    "ipfs-http-client": "27.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,7 +21,7 @@
     "eject": "react-scripts eject",
     "copy-fonts": "cpy node_modules/framework7-icons/fonts/*.* src/fonts && cpy node_modules/material-design-icons/iconfont/*.{eot,ttf,woff,woff2} src/fonts",
     "postinstall": "npm run copy-fonts",
-    "install": "cp ../build/contracts/RecordService.json src/truffle"
+    "prepublish": "cp ../build/contracts/* src/truffle"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

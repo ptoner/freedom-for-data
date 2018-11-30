@@ -9,56 +9,13 @@ import {
 import routes from '../routes';
 
 
-// import IPFServiceJS from '../../../src/IPFSService.js';
-// import RecordServiceJS from '../../../src/RecordService.js';
-// import DataAccessServiceJS from '../../../src/DataAccessService.js';
-// import Utils from '../../../src/Utils.js';
-
-// import ServiceFactory from '../../../src/ServiceFactory.js';
-
-// import multihash from '../../../src/js/multihashes/index.js';
-
-// import TruffleContract from "../../../src/js/truffle/truffle-contract.js"
-
-// import RecordServiceJson from "../../../build/contracts/RecordService.json";
-
-
-// //Initialize IPFS connection. Needs to be running locally.
-// var ipfsAPI = require('ipfs-api');
-// const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'});
-
-
-// // Is there is an injected web3 instance?
-// if (typeof web3 !== 'undefined') {
-//   App.web3Provider = web3.currentProvider;
-//   web3 = new Web3(web3.currentProvider);
-// } else {
-//   // If no injected web3 instance is detected, fallback to Ganache.
-//   App.web3Provider = new web3.providers.HttpProvider('http://127.0.0.1:7545');
-//   web3 = new Web3(App.web3Provider);
-// }
-
-// let accounts = await web3.eth.getAccounts();
-
-// const RecordService = TruffleContract(RecordServiceJson);
-
-// console.log(RecordService);
-
-
-
-// const serviceFactory = ServiceFactory(
-//     RecordServiceJson,
-//     IPFServiceJS,
-//     RecordServiceJS,
-//     DataAccessServiceJS,
-//     multihash,
-//     new Utils(),
-//     null,
-//     ipfs
-// )
-
-
-
+/**
+ * Imports for solidity-storage-service
+ */
+import ipfsClient from '../../node_modules/ipfs-http-client/src/index.js';
+import RecordServiceJson from '../truffle/RecordService.json';
+import TruffleContract from '../../node_modules/truffle-contract';
+import ServiceFactory from '../../node_modules/solidity-storage-service/service-factory';
 
 
 
@@ -73,16 +30,27 @@ export default function (props) {
     routes,
 
     on: {
-      init: function() {
+      init: async function() {
+
         console.log("App init");
 
 
+        /** 
+         * Get record contract service
+         */
+        const recordService = new TruffleContract(RecordServiceJson);
 
-
-
-
-
-
+        /**
+         * IPFS configuration for tests
+         */
+        var ipfs = ipfsClient({ 
+          host: 'localhost', 
+          port: '5001', 
+          protocol: 'http' 
+        })
+        
+        
+        var serviceFactory = new ServiceFactory(recordService,ipfs)
 
 
       }

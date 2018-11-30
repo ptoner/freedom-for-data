@@ -13,8 +13,7 @@ contract('DataAccessService', async (accounts) => {
    
 
     before('Setup', async () => {
-        serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
-        serviceFactory.initializeDataAccessService();
+        serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
     });
 
 

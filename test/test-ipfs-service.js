@@ -4,9 +4,9 @@ const serviceFactory = new TestServiceFactory();
 
 describe("IPFSService", async function() {
 
-    before('Setup', async () => {
-        serviceFactory.initializeIpfsService();
-    });
+    // before('Setup', async () => {
+    //     serviceFactory.initializeIpfsService();
+    // });
 
     it("Test ipfsPut: Save some data and then try to get it back out with IPFS directly and verify.", async function() {
       

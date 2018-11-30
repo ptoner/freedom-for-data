@@ -12,7 +12,7 @@ contract('RecordService', async (accounts) => {
     let createdCount = 0;
 
     before('Setup', async () => {
-        serviceFactory.initializeRecordService(await serviceFactory.RecordService.deployed());
+        serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
     });
 
 
