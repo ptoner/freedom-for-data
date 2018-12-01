@@ -15,7 +15,8 @@ import routes from '../routes';
 import ipfsClient from '../../node_modules/ipfs-http-client/src/index.js';
 import RecordServiceJson from '../truffle/RecordService.json';
 import TruffleContract from '../../node_modules/truffle-contract';
-import ServiceFactory from '../../node_modules/solidity-storage-service/service-factory';
+import SolidityStorageService from '../../node_modules/solidity-storage-service';
+// import '../../node_modules/web3/dist/web3.min.js'
 
 
 
@@ -33,24 +34,84 @@ export default function (props) {
       init: async function() {
 
         console.log("App init");
-
-
-        /** 
-         * Get record contract service
-         */
-        const recordService = new TruffleContract(RecordServiceJson);
-
-        /**
-         * IPFS configuration for tests
-         */
-        var ipfs = ipfsClient({ 
-          host: 'localhost', 
-          port: '5001', 
-          protocol: 'http' 
-        })
         
-        
-        var serviceFactory = new ServiceFactory(recordService,ipfs)
+
+        // Modern dapp browsers...
+        if (window.ethereum) {
+
+          try {
+
+            // Request account access
+            await window.ethereum.enable();
+            console.log("Account access enabled");
+
+            //Set provider 
+            window.web3Provider = window.ethereum;
+            window.web3.setProvider(window.web3Provider);
+            console.log("Provider set to ethereum");
+
+            /**
+             * Load first account. Now we can initialize all our stuff.
+             */
+            window.web3.eth.getAccounts(async function(error, accounts) {
+
+              if (error) {
+                console.log(error);
+              }
+            
+              var account = accounts[0];
+              console.log(account);
+
+
+              /** 
+               * Get record contract service
+               */
+              const recordService = TruffleContract(RecordServiceJson);
+              recordService.setProvider(window.web3Provider);
+              recordService.defaults({from: account});  
+
+              var recordServiceContract = await recordService.deployed();
+
+              console.log(recordServiceContract);
+
+              /**
+               * IPFS configuration for tests
+               */
+              var ipfs = ipfsClient({ 
+                host: 'localhost', 
+                port: '5001', 
+                protocol: 'http' 
+              })
+              
+              var storageService = SolidityStorageService(recordServiceContract, ipfs);
+              
+              console.log(storageService);
+
+              var result = await storageService.create({
+                firstName: 'Andrew',
+                lastName: 'McCutchen'
+              });
+
+              console.log(result);
+
+
+            });
+
+
+          } catch (error) {
+            // User denied account access...
+            console.error("User denied account access")
+          }
+          
+        }
+
+
+
+
+
+
+
+       
 
 
       }
