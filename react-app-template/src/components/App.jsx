@@ -94,7 +94,9 @@ export default function (props) {
 
               console.log(result);
 
+              var readResult = await storageService.read(result.id);
 
+              console.log(readResult);
             });
 
 
