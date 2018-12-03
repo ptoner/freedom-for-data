@@ -65,16 +65,16 @@ let record = await dataAccessService.read(1);
 ## Updating an existing record
 ```javascript
 
-# Record 1 is currently Andrew McCutchen. Change the first name to Charlie and the last name to Morton.
+// Record 1 is currently Andrew McCutchen. Change the first name to Charlie and the last name to Morton.
 let record = {
     firstName: "Charlie",      
     lastName: "Morton"
 }
 
-# Update it in ethereum and IPFS.
+// Update it in ethereum and IPFS.
 await dataAccessService.update( 1, record)
 
-# Get it by ID. It will list Charlie Morton.
+// Get it by ID. It will list Charlie Morton.
 let updatedRecord = await dataAccessService.read(1);
 
 /**
