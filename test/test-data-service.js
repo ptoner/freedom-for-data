@@ -11,9 +11,11 @@ contract('DataService', async (accounts) => {
 
     let createdCount = 0;
    
+    let dataService;
 
     before('Setup', async () => {
         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
+        dataService = serviceFactory.getDataService();
     });
 
 
@@ -26,7 +28,7 @@ contract('DataService', async (accounts) => {
         }
 
         //Act
-        let resultCreatedRecord = await serviceFactory.getDataService().create(createdRecord);
+        let resultCreatedRecord = await dataService.create(createdRecord);
 
         createdCount++;
 
@@ -42,7 +44,7 @@ contract('DataService', async (accounts) => {
         })
 
         //Also verify with a read.
-        let record = await serviceFactory.getDataService().read(resultCreatedRecord.id);
+        let record = await dataService.read(resultCreatedRecord.id);
 
         /**
          * Expected record
@@ -74,16 +76,16 @@ contract('DataService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let resultCreatedRecord1 = await serviceFactory.getDataService().create({ firstName: "Andrew", lastName: "McCutchen" });
-        let resultCreatedRecord2 = await serviceFactory.getDataService().create({ firstName: "Gregory", lastName: "Polanco" });
-        let resultCreatedRecord3 = await serviceFactory.getDataService().create({ firstName: "Jordy", lastName: "Mercer" });
-        let resultCreatedRecord4 = await serviceFactory.getDataService().create({ firstName: "Pedro", lastName: "Alvarez" });
-        let resultCreatedRecord5 = await serviceFactory.getDataService().create({ firstName: "Matt", lastName: "Joyce" });
+        let resultCreatedRecord1 = await dataService.create({ firstName: "Andrew", lastName: "McCutchen" });
+        let resultCreatedRecord2 = await dataService.create({ firstName: "Gregory", lastName: "Polanco" });
+        let resultCreatedRecord3 = await dataService.create({ firstName: "Jordy", lastName: "Mercer" });
+        let resultCreatedRecord4 = await dataService.create({ firstName: "Pedro", lastName: "Alvarez" });
+        let resultCreatedRecord5 = await dataService.create({ firstName: "Matt", lastName: "Joyce" });
 
         createdCount += 5;
 
         //Act
-        let count = await serviceFactory.getDataService().count();
+        let count = await dataService.count();
 
         assert.equal(count, createdCount);
 
@@ -93,11 +95,11 @@ contract('DataService', async (accounts) => {
     it("Test update: Update a record and make sure the changes are saved.", async () => {
         
         //Arrange
-        let resultCreatedRecord = await serviceFactory.getDataService().create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
 
         
         //Act
-        await serviceFactory.getDataService().update(
+        await dataService.update(
             resultCreatedRecord.id, 
             {
                 firstName: "Charlie",
@@ -107,7 +109,7 @@ contract('DataService', async (accounts) => {
 
 
         //Assert
-        let refetchechRecord = await serviceFactory.getDataService().read(resultCreatedRecord.id);
+        let refetchechRecord = await dataService.read(resultCreatedRecord.id);
 
         assert.equal(refetchechRecord.firstName, "Charlie");
         assert.equal(refetchechRecord.lastName, "Morton");
@@ -118,14 +120,14 @@ contract('DataService', async (accounts) => {
     it("Test update: Update a record this account doesn't own", async () => {
         
         //Arrange
-        let resultCreatedRecord = await serviceFactory.getDataService().create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
 
         
         let error;
 
 
         try {
-            await serviceFactory.getDataService().update(
+            await dataService.update(
                 resultCreatedRecord.id, 
                 {
                     firstName: "Charlie",
@@ -150,7 +152,7 @@ contract('DataService', async (accounts) => {
         );
 
         //Do a read and make sure it shows the original value
-        let refetchechRecord = await serviceFactory.getDataService().read(resultCreatedRecord.id);
+        let refetchechRecord = await dataService.read(resultCreatedRecord.id);
 
 
         assert.equal(refetchechRecord.firstName, "Gerrit");

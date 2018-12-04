@@ -11,8 +11,11 @@ contract('RecordService', async (accounts) => {
 
     let createdCount = 0;
 
+    let recordService;
+
     before('Setup', async () => {
         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
+        recordService = serviceFactory.getRecordService();
     });
 
 
@@ -22,7 +25,7 @@ contract('RecordService', async (accounts) => {
         let fakeCid = "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT";
 
         //Act
-        let result = await serviceFactory.getRecordService().sendCreate(fakeCid);
+        let result = await recordService.sendCreate(fakeCid);
         createdCount++;
 
         //Assert
@@ -40,7 +43,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Also verify with a read.
-        let record = await serviceFactory.getRecordService().callRead(loggedRecord.id);
+        let record = await recordService.callRead(loggedRecord.id);
 
 
         //Check that the metadata matches.
@@ -55,16 +58,16 @@ contract('RecordService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let result1 = await serviceFactory.getRecordService().sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result2 = await serviceFactory.getRecordService().sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result3 = await serviceFactory.getRecordService().sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result4 = await serviceFactory.getRecordService().sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result5 = await serviceFactory.getRecordService().sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result1 = await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result2 = await recordService.sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result3 = await recordService.sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result4 = await recordService.sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result5 = await recordService.sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
 
         createdCount += 5;
 
         //Act
-        let count = await serviceFactory.getRecordService().callCount();
+        let count = await recordService.callCount();
 
         assert.equal(count, createdCount);
         
@@ -73,17 +76,17 @@ contract('RecordService', async (accounts) => {
     it("Test update: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
         
         //Arrange
-        let result = await serviceFactory.getRecordService().sendCreate("VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        let result = await recordService.sendCreate("VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
 
         var log = utils.getLogByEventName("RecordEvent", result.logs);
         const createdId = log.args.id.toNumber();
         
         //Act
-        await serviceFactory.getRecordService().sendUpdate(createdId, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+        await recordService.sendUpdate(createdId, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
 
 
         //Assert
-        let refetchechRecord = await serviceFactory.getRecordService().callRead(createdId);
+        let refetchechRecord = await recordService.callRead(createdId);
 
 
         assert.equal(refetchechRecord.ipfsCid, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB")
@@ -94,7 +97,7 @@ contract('RecordService', async (accounts) => {
     it("Test update: Update a record we don't own. Make sure we can't change them. ", async () => {
 
         //Arrange
-        let result = await serviceFactory.getRecordService().sendCreate("KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
+        let result = await recordService.sendCreate("KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
 
         //Get record from result
         var loggedRecord = utils.recordEventToRecord(result);
@@ -104,7 +107,7 @@ contract('RecordService', async (accounts) => {
 
 
         try {
-            await serviceFactory.getRecordService().sendUpdate(
+            await recordService.sendUpdate(
                 loggedRecord.id, 
                 "CELTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MN",
                 {
@@ -126,11 +129,15 @@ contract('RecordService', async (accounts) => {
         );
 
         //Do a read and make sure it shows the original value
-        let refetchechRecord = await serviceFactory.getRecordService().callRead(loggedRecord.id);
+        let refetchechRecord = await recordService.callRead(loggedRecord.id);
 
 
         assert.equal(refetchechRecord.ipfsCid, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB"); //the original one
         
     });
+
+
+
+
 
 });
