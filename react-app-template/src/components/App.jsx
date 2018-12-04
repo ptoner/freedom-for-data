@@ -60,7 +60,6 @@ export default function (props) {
               }
             
               var account = accounts[0];
-              console.log(account);
 
 
               /** 
@@ -72,8 +71,7 @@ export default function (props) {
 
               var recordServiceContract = await recordService.deployed();
 
-              console.log(recordServiceContract);
-
+  
               /**
                * IPFS configuration for tests
                */
@@ -85,8 +83,9 @@ export default function (props) {
               
               var storageService = SolidityStorageService(recordServiceContract, ipfs);
               
-              console.log(storageService);
-
+              /**
+               * Call the create method
+               */
               var result = await storageService.create({
                 firstName: 'Andrew',
                 lastName: 'McCutchen'
@@ -94,6 +93,9 @@ export default function (props) {
 
               console.log(result);
 
+              /**
+               * Read the result
+               */
               var readResult = await storageService.read(result.id);
 
               console.log(readResult);

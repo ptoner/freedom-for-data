@@ -1,5 +1,13 @@
 pragma solidity ^0.5.0;
 
+/**
+ * Note: 
+ * I'm naming this RecordService because I think naming these things "Contract" is an artifact 
+ * that will quickly disappear once more and more apps start to appear. Naming this "RecordContract"
+ * would be like naming all of your Java classes "StudentClass" and "DatabaseClass". 
+ * 
+ * We know it's a contract because of the contract keyword. 
+ */
 contract RecordService {
 
     struct Record {

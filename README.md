@@ -1,15 +1,13 @@
 # Solidity/IPFS Data Access Service
 
 ## About
-A simple reusable data access pattern to tie an Ethereum smart contract to data stored in IPFS. Transactional data can be stored in Ethereum while other data can be externalized to IPFS.
+A simple reusable data access pattern to tie an Ethereum smart contract to data stored in IPFS.  Transactional data can be stored in Ethereum while other data can be externalized to IPFS. 
 
-This will allow DApps developers to more easily abstract these layers away. 
-
-It will make it faster to build working and testable DApps.
+My goal with this library is to help DApp developers more easily abstract this away and create a simple mechanism to programmaticaly store and access large amounts of data. This will make it far quicker to build working and testable DApps. It also makes the smart contract function like any other REST endpoint as far as the front-end is concerned. 
 
 Over time the Ethereum/IPFS implementation details can evolve and all the CRUD DApps we build won't be coupled so tightly to the rapidly changing implementation details.
 
-# Usage
+# Installation
 
 TODO://show how the library gets set up
 
@@ -25,7 +23,7 @@ let createdRecord = {
 }
 
 //Call the 'create' function
-let result = await dataAccessService.create(createdRecord);
+let result = await dataService.create(createdRecord);
 
 
 /**
@@ -46,7 +44,7 @@ let result = await dataAccessService.create(createdRecord);
 ```javascript
 
 //Pass the id created above to the read function. The id was 1.
-let record = await dataAccessService.read(1);
+let record = await dataService.read(1);
 
 /**
 * Example record
@@ -72,10 +70,10 @@ let record = {
 }
 
 // Update it in ethereum and IPFS.
-await dataAccessService.update( 1, record)
+await dataService.update( 1, record)
 
 // Get it by ID. It will list Charlie Morton.
-let updatedRecord = await dataAccessService.read(1);
+let updatedRecord = await dataService.read(1);
 
 /**
  * Example updatedRecord 
@@ -131,4 +129,27 @@ let updatedRecord = await dataAccessService.read(1);
 * Makes very simple requests that can be used in your own DApps. 
 
 
+### Project Structure
+
+* **/contracts** - Solidity smart contracts
+    * RecordService.sol - The primary Solidity contract that provides externally accessible create/read/update functions. 
+
+* **/src** - The javascript library
+    * **data-access-service.js** - This is the javascript class you'll get when you require() the library in your web app. Its job is to orchestrate the Ethereum and IPFS calls. It's injected with an object that can talk to the RecordService contract and an object that can talk to IPFS.
+
+    * **record-service.js** - This javascript class is responsible for communicating with the RecordService.sol smart contract.
+
+    * **ipfs-service.js** - This javascript class is responsible for communicating with IPFs.
+
+* **/test** - Unit tests for record-service.js, ipfs-service.js, and integration tests using data-access-service.js
+
+
+
+
+
+
+
 # Still very raw, unworking, and probably broken. So far.
+
+# Setup notes
+You'll need to run npm install inside react-app-template any time you deploy your contract to a new address (aka when you do 'truffle migrate').
