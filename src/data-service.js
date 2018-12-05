@@ -71,7 +71,7 @@ class DataService {
         let results = await this.recordService.callReadList(limit, offset);
 
         for (const result of results) {
-            merged.push(this.fetchIpfs(result));
+            merged.push(await this.fetchIpfs(result));
         }
 
         return merged;
