@@ -77,7 +77,7 @@ contract('DataService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let resultCreatedRecord1 = await dataService.create({ firstName: "Andrew", lastName: "McCutchen" });
+        let resultCreatedRecord1 = await dataService.create({ firstName: "Mark", lastName: "Melancon" });
         let resultCreatedRecord2 = await dataService.create({ firstName: "Gregory", lastName: "Polanco" });
         let resultCreatedRecord3 = await dataService.create({ firstName: "Jordy", lastName: "Mercer" });
         let resultCreatedRecord4 = await dataService.create({ firstName: "Pedro", lastName: "Alvarez" });
@@ -164,9 +164,7 @@ contract('DataService', async (accounts) => {
 
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
-        let record = await dataService.readByIndex(0);
-
-        testUtils.assertRecordsMatch( record, {
+        await assertIndexAndRecordMatch(0, {
             id: 1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
@@ -175,7 +173,88 @@ contract('DataService', async (accounts) => {
             lastName: "McCutchen"
         });
 
+        await assertIndexAndRecordMatch(1, {
+            id: 2,
+            index: 1,
+            ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
+            owner: accounts[0],
+            firstName: "Mark",
+            lastName: "Melancon"
+        });
+
+        await assertIndexAndRecordMatch(2, { 
+            id: 3,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
+            index: 2,
+            lastName: 'Polanco',
+            firstName: 'Gregory' 
+        });
+
+        await assertIndexAndRecordMatch(3, { 
+            id: 4,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
+            index: 3,
+            lastName: 'Mercer',
+            firstName: 'Jordy' 
+        });
+
+        await assertIndexAndRecordMatch(4, { 
+            id: 5,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
+            index: 4,
+            lastName: 'Alvarez',
+            firstName: 'Pedro' 
+        });
+
+        await assertIndexAndRecordMatch(5, { 
+            id: 6,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
+            index: 5,
+            lastName: 'Joyce',
+            firstName: 'Matt' 
+        });
+
+        await assertIndexAndRecordMatch(6, { 
+            id: 7,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
+            index: 6,
+            lastName: 'Morton',
+            firstName: 'Charlie' 
+        });
+
+        await assertIndexAndRecordMatch(7, { 
+            id: 8,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            index: 7,
+            lastName: 'Cole',
+            firstName: 'Gerrit' 
+        });
+
+
+
+
+        
+
     });
+
+
+    async function assertIndexAndRecordMatch(index, record) {
+
+        let recordAtIndex = await dataService.readByIndex(index);
+
+        testUtils.assertRecordsMatch(record, recordAtIndex);
+    }
+
+
+
+
+
 
 
 

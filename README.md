@@ -162,7 +162,7 @@ let updatedRecord = await dataService.read(1);
 
     * **record-service.js** - This javascript class is responsible for communicating with the RecordService.sol smart contract.
 
-    * **ipfs-service.js** - This javascript class is responsible for communicating with IPFs.
+    * **ipfs-service.js** - This javascript class is responsible for communicating with IPFS.
 
 * **/test** - Unit tests for record-service.js, ipfs-service.js, and integration tests using data-access-service.js
 

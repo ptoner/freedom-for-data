@@ -20,8 +20,50 @@ class RecordService {
         return self.recordMapper(resultArray);
     }
 
+    async callReadItemList(limit, offset) {
+
+        var self = this;
+
+        let currentCount = await self.recordServiceContract.count();
+
+        let items = [];
+
+        if (offset >= currentCount) {
+            throw "Offset past current count";
+        }
+
+        if (limit <= 0) {
+            throw "Invalid limit provided";
+        }
+
+        if (offset < 0) {
+            throw "Invalid offset provided";
+        }
+
+        //Calculate end index
+        let endIndex; 
+        if (offset > 0) {
+            endIndex = offset + limit -1;
+        } else {
+            endIndex = limit - 1; 
+        }
+
+        //If it's the last page don't go past the final record
+        endIndex = Math.min( currentCount - 1,  endIndex );
+
+        // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
+
+        for (var i=offset; i <= endIndex; i++) {
+            items.push(await self.callReadByIndex(i));
+        }
+
+        return items;
+
+    }
+
     async callCount() {
-        return this.recordServiceContract.count();
+        let result = await this.recordServiceContract.count.call();
+        return result.toNumber();
     }
 
 

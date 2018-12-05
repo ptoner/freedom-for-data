@@ -140,7 +140,7 @@ contract('RecordService', async (accounts) => {
 
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
-        //Verify the cids of all the records we added in the above tests
+        // Verify the cids of all the records we added in the above tests
         await assertCidMatch(0, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
         await assertCidMatch(1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
         await assertCidMatch(2, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
@@ -148,9 +148,39 @@ contract('RecordService', async (accounts) => {
         await assertCidMatch(4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
         await assertCidMatch(5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
         await assertCidMatch(6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
-
     });
 
+
+    it("Test callReadItemList: Check for duplicates", async () => {
+
+        //Arrange
+        for (var i=0; i < 50; i++) {
+            await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        }
+
+        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+
+
+        //Act
+        let limit = 10;
+
+        var foundIds = [];
+        for (var i=0; i < 5; i++) {
+
+            let recordList = await recordService.callReadItemList(limit, i*limit);
+
+            for (record of recordList) {
+                if (foundIds.includes(record.id)) {
+                    assert.fail("Duplicate ID found in page");
+                }
+
+                foundIds.push(record.id);
+            }
+        }
+
+    });
 
 
 
