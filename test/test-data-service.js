@@ -237,11 +237,112 @@ contract('DataService', async (accounts) => {
         });
 
 
+    });
 
 
+
+    it("Test callReadList: Check for duplicates", async () => {
+
+        //Arrange
+        for (var i=0; i < 50; i++) {
+            await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
+        }
+
+        assert.equal(await dataService.count(), 58, "Count is incorrect");
+
+
+        //Act
+        let limit = 10;
+
+        var foundIds = [];
+        for (var i=0; i < 5; i++) {
         
+            let recordList = await dataService.readList(limit, i*limit);
+
+            // for (record of recordList) {
+            //     if (foundIds.includes(record.id)) {
+            //         assert.fail("Duplicate ID found in page");
+            //     }
+
+            //     foundIds.push(record.id);
+            // }
+        }
 
     });
+
+
+    // it("Test callReadItemList: Negative offset", async () => {
+
+    //     //Arrange
+    //     assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+    //     //Act
+    //     let error;
+
+    //     try {
+    //         let itemList = await recordService.callReadItemList(10, -1);
+    //     } catch(ex) {
+    //        error = ex;
+    //       }
+
+
+    //     //Assert
+    //     assert.equal("Invalid offset provided", error, "Error message does not match");
+
+
+    // });
+
+    // it("Test callReadItemList: Negative limit", async () => {
+
+    //     //Arrange
+    //     assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+    //     //Act
+    //     let error;
+
+    //     try {
+    //         let itemList = await recordService.callReadItemList(-1, 0);
+    //     } catch(ex) {
+    //         error = ex;
+    //     }
+
+
+    //     //Assert
+    //     assert.equal("Invalid limit provided", error, "Error message does not match");
+
+
+    // });
+
+
+
+    // it("Test callReadItemList: Zero limit", async () => {
+
+    //     //Arrange
+    //     assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+    //     //Act
+    //     let error;
+
+    //     try {
+    //         let itemList = await recordService.callReadItemList(0, 0);
+    //     } catch(ex) {
+    //         error = ex;
+    //     }
+
+
+    //     //Assert
+    //     assert.equal("Invalid limit provided", error, "Error message does not match");
+
+
+    // });
+
+
+
+
+
 
 
     async function assertIndexAndRecordMatch(index, record) {

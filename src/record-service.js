@@ -13,24 +13,15 @@ class RecordService {
     }
 
     async callReadByIndex(index) {
-
-        var self = this;
-
-        let resultArray = await self.recordServiceContract.readByIndex.call(index);
-        return self.recordMapper(resultArray);
+        let resultArray = await this.recordServiceContract.readByIndex.call(index);
+        return this.recordMapper(resultArray);
     }
 
-    async callReadItemList(limit, offset) {
+    async callReadList(limit, offset) {
 
-        var self = this;
-
-        let currentCount = await self.recordServiceContract.count();
+        let currentCount = await this.callCount();
 
         let items = [];
-
-        if (offset >= currentCount) {
-            throw "Offset past current count";
-        }
 
         if (limit <= 0) {
             throw "Invalid limit provided";
@@ -54,7 +45,7 @@ class RecordService {
         // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
         for (var i=offset; i <= endIndex; i++) {
-            items.push(await self.callReadByIndex(i));
+            items.push(await this.callReadByIndex(i));
         }
 
         return items;

@@ -151,7 +151,7 @@ contract('RecordService', async (accounts) => {
     });
 
 
-    it("Test callReadItemList: Check for duplicates", async () => {
+    it("Test callReadList: Check for duplicates", async () => {
 
         //Arrange
         for (var i=0; i < 50; i++) {
@@ -161,15 +161,13 @@ contract('RecordService', async (accounts) => {
         assert.equal(await recordService.callCount(), 58, "Count is incorrect");
 
 
-
-
         //Act
         let limit = 10;
 
         var foundIds = [];
         for (var i=0; i < 5; i++) {
 
-            let recordList = await recordService.callReadItemList(limit, i*limit);
+            let recordList = await recordService.callReadList(limit, i*limit);
 
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
@@ -183,6 +181,73 @@ contract('RecordService', async (accounts) => {
     });
 
 
+    it("Test callReadList: Negative offset", async () => {
+
+        //Arrange
+        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+        //Act
+        let error;
+
+        try {
+            let itemList = await recordService.callReadList(10, -1);
+        } catch(ex) {
+           error = ex;
+          }
+
+
+        //Assert
+        assert.equal("Invalid offset provided", error, "Error message does not match");
+
+
+    });
+
+    it("Test callReadList: Negative limit", async () => {
+
+        //Arrange
+        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+        //Act
+        let error;
+
+        try {
+            let itemList = await recordService.callReadList(-1, 0);
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.equal("Invalid limit provided", error, "Error message does not match");
+
+
+    });
+
+
+
+    it("Test callReadList: Zero limit", async () => {
+
+        //Arrange
+        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+        //Act
+        let error;
+
+        try {
+            let itemList = await recordService.callReadList(0, 0);
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.equal("Invalid limit provided", error, "Error message does not match");
+
+
+    });
 
 
     async function assertCidMatch(index, ipfsCid) {

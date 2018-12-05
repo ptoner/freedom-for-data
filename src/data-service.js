@@ -62,6 +62,21 @@ class DataService {
 
     }
 
+    async readList(limit, offset) {
+
+        let merged = [];
+
+        // console.log(`limit: ${limit}, offset: ${offset}`);
+
+        let results = await this.recordService.callReadList(limit, offset);
+
+        for (const result of results) {
+            merged.push(this.fetchIpfs(result));
+        }
+
+        return merged;
+    }
+
     async fetchIpfs(record) {
 
         //Get json data from IPFS
