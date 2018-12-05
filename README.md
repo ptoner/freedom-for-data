@@ -1,15 +1,14 @@
-# Freedom For Data
-**An easy to use Ethereum/IPFS data access library**
+# freedom-for-data
+An easy to use Ethereum/IPFS data access library
 
 ## About
-Freedom uses a simple, reusable pattern to tie data in an Ethereum smart contract to data stored in IPFS.  Transactional data is stored in Ethereum while everything else is stored in IPFS. 
+**freedom-for-data** uses a simple, reusable pattern to tie data in an Ethereum smart contract to data stored in IPFS.  Transactional data is stored in Ethereum while everything else is stored in IPFS. 
 
 The goal is to help DApp developers abstract these details away and create a simple mechanism to programmaticaly store and access large amounts of data. It makes communicating with a DApp feel like using other REST endpoint. 
 
 Over time the Ethereum/IPFS implementation details can evolve and all the CRUD DApps we build won't be coupled so tightly to the rapidly changing implementation details.
 
 # Installation
-
 TODO://show how the library gets set up
 
 # How to use
