@@ -1,5 +1,5 @@
 # freedom-for-data
-An easy to use Ethereum/IPFS data access library
+An easy to use javascript library to read and write Ethereum and IPFS data. Can be used with Node.js or in a DApp-enabled browser.
 
 ## About
 **freedom-for-data** uses a simple, reusable pattern to tie data in an Ethereum smart contract to data stored in IPFS.  Transactional data is stored in Ethereum while everything else is stored in IPFS. 
