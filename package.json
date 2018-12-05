@@ -4,7 +4,7 @@
   "description": "An easy to use Ethereum/IPFS data storage library.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "truffle test"
   },
   "dependencies": {
     "ipfs-http-client": "27.0.0"

@@ -11,6 +11,38 @@ Over time the Ethereum/IPFS implementation details can evolve and all the CRUD D
 # Installation
 TODO://show how the library gets set up
 
+### Clone repo and install 
+```console
+git clone https://github.com/ptoner/freedom-for-data.git
+
+cd freedom-for-data
+
+npm install -g
+```
+
+
+### Install truffle
+```console
+npm install -g truffle
+```
+
+### Install ganache
+This is fake blockchain you run on your own machine.
+(Ganache)[https://truffleframework.com/ganache]
+
+### Install IPFS
+(Instructions)[https://docs.ipfs.io/introduction/install/]
+
+### Run IPFS daemon
+```console
+ipfs daemon
+```
+
+### Run tests
+```console
+npm run test
+```
+
 # How to use
 
 ## Create a record
