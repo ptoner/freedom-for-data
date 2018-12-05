@@ -28,9 +28,11 @@ npm install -g truffle
 
 ### Install ganache
 This is fake blockchain you run on your own machine.
-[Ganache](https://truffleframework.com/ganache)
+
+[Instructions](https://truffleframework.com/ganache)
 
 ### Install IPFS
+This is where your JSON data will be stored.
 [Instructions](https://docs.ipfs.io/introduction/install/)
 
 ### Run IPFS daemon
