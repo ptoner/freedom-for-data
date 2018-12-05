@@ -22,7 +22,7 @@ npm install -g
 
 ### Install truffle
 ```console
-npm install -g truffle
+npm install -g truffle@beta # for solidity 0.5.0 compiler
 ```
 
 ### Install ganache
@@ -244,11 +244,6 @@ let recordList = await freedom.readList(limit, offset);
  * 
  */
 
-
-
-
-
-
 ```
 
 
@@ -300,7 +295,7 @@ let recordList = await freedom.readList(limit, offset);
     * RecordService.sol - The primary Solidity contract that provides externally accessible create/read/update functions. 
 
 * **/src** - The javascript library
-    * **data-access-service.js** - This is the javascript class you'll get when you require() the library in your web app. Its job is to orchestrate the Ethereum and IPFS calls. It's injected with an object that can talk to the RecordService contract and an object that can talk to IPFS.
+    * **freedom-service.js** - This is the javascript class you'll get when you require() the library in your web app. Its job is to orchestrate the Ethereum and IPFS calls. It's injected with an object that can talk to the RecordService contract and an object that can talk to IPFS.
 
     * **record-service.js** - This javascript class is responsible for communicating with the RecordService.sol smart contract.
 
