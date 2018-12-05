@@ -112,7 +112,7 @@ let updatedRecord = await dataService.read(1);
 
 ```
 
-# Get a paged list of records
+## Get a paged list of records
 ```javascript
 
 //This example will get the first 10 records from the list.
