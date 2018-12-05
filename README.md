@@ -112,6 +112,113 @@ let updatedRecord = await dataService.read(1);
 
 ```
 
+# Get a paged list of records
+```javascript
+
+//This example will get the first 10 records from the list.
+let offset = 0;  # The index where we want to start reading. The first record is 0. 
+let limit = 10;  # The number of records to return.
+
+let recordList = await dataService.readList(limit, offset);
+
+
+/**
+ * Example recordList
+ * 
+ * 
+ * [ 
+    * { 
+    *       id: 1,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
+            index: 0,
+            lastName: 'McCutchen',
+            firstName: 'Andrew' 
+        },
+        { 
+            id: 2,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL',
+            index: 1,
+            lastName: 'Melancon',
+            firstName: 'Mark' 
+        },
+        { 
+            id: 3,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
+            index: 2,
+            lastName: 'Polanco',
+            firstName: 'Gregory' 
+        },
+        {   id: 4,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
+            index: 3,
+            lastName: 'Mercer',
+            firstName: 'Jordy' 
+        },
+        { 
+            id: 5,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
+            index: 4,
+            lastName: 'Alvarez',
+            firstName: 'Pedro' 
+        },
+        {   id: 6,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
+            index: 5,
+            lastName: 'Joyce',
+            firstName: 'Matt' 
+        },
+        { 
+            id: 7,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
+            index: 6,
+            lastName: 'Morton',
+            firstName: 'Charlie' 
+        },
+        { 
+            id: 8,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            index: 7,
+            lastName: 'Cole',
+            firstName: 'Gerrit' 
+        },
+        { 
+            id: 9,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            index: 8,
+            lastName: 'Cole',
+            firstName: 'Gerrit' 
+        },
+        { 
+            id: 10,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            index: 9,
+            lastName: 'Cole',
+            firstName: 'Gerrit' 
+        } 
+    ]
+ * 
+ */
+
+
+
+
+
+
+```
+
+
+
+
 
 # Configurable
 * IPFS gateway is configurable. You can have this be a setting chosen by the user in your app. 

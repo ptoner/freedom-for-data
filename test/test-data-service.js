@@ -258,7 +258,7 @@ contract('DataService', async (accounts) => {
         for (var i=0; i < 5; i++) {
         
             let recordList = await dataService.readList(limit, i*limit);
-
+            console.log(recordList);
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
                     assert.fail("Duplicate ID found in page");
