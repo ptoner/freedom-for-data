@@ -30,6 +30,9 @@ This is fake blockchain you run on your own machine.
 
 [Instructions](https://truffleframework.com/ganache)
 
+## Start ganache
+This will depend on your system. See the instructions in the link above.
+
 ### Install IPFS
 This is where your JSON data will be stored.
 
