@@ -5,17 +5,17 @@ var TestUtils = require('./test-utils.js');
 
 
 
-contract('DataService', async (accounts) => {
+contract('FreedomService', async (accounts) => {
 
     var testUtils = new TestUtils();
 
     let createdCount = 0;
    
-    let dataService;
+    let freedomService;
 
     before('Setup', async () => {
         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
-        dataService = serviceFactory.getDataService();
+        freedomService = serviceFactory.getFreedomService();
     });
 
 
@@ -28,7 +28,7 @@ contract('DataService', async (accounts) => {
         }
 
         //Act
-        let resultCreatedRecord = await dataService.create(createdRecord);
+        let resultCreatedRecord = await freedomService.create(createdRecord);
 
         createdCount++;
 
@@ -44,7 +44,7 @@ contract('DataService', async (accounts) => {
         })
 
         //Also verify with a read.
-        let record = await dataService.read(resultCreatedRecord.id);
+        let record = await freedomService.read(resultCreatedRecord.id);
 
         /**
          * Expected record
@@ -77,16 +77,16 @@ contract('DataService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let resultCreatedRecord1 = await dataService.create({ firstName: "Mark", lastName: "Melancon" });
-        let resultCreatedRecord2 = await dataService.create({ firstName: "Gregory", lastName: "Polanco" });
-        let resultCreatedRecord3 = await dataService.create({ firstName: "Jordy", lastName: "Mercer" });
-        let resultCreatedRecord4 = await dataService.create({ firstName: "Pedro", lastName: "Alvarez" });
-        let resultCreatedRecord5 = await dataService.create({ firstName: "Matt", lastName: "Joyce" });
+        let resultCreatedRecord1 = await freedomService.create({ firstName: "Mark", lastName: "Melancon" });
+        let resultCreatedRecord2 = await freedomService.create({ firstName: "Gregory", lastName: "Polanco" });
+        let resultCreatedRecord3 = await freedomService.create({ firstName: "Jordy", lastName: "Mercer" });
+        let resultCreatedRecord4 = await freedomService.create({ firstName: "Pedro", lastName: "Alvarez" });
+        let resultCreatedRecord5 = await freedomService.create({ firstName: "Matt", lastName: "Joyce" });
 
         createdCount += 5;
 
         //Act
-        let count = await dataService.count();
+        let count = await freedomService.count();
 
         assert.equal(count, createdCount);
 
@@ -96,11 +96,11 @@ contract('DataService', async (accounts) => {
     it("Test update: Update a record and make sure the changes are saved.", async () => {
         
         //Arrange
-        let resultCreatedRecord = await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
 
         
         //Act
-        await dataService.update(
+        await freedomService.update(
             resultCreatedRecord.id, 
             {
                 firstName: "Charlie",
@@ -110,7 +110,7 @@ contract('DataService', async (accounts) => {
 
 
         //Assert
-        let refetchechRecord = await dataService.read(resultCreatedRecord.id);
+        let refetchechRecord = await freedomService.read(resultCreatedRecord.id);
 
         assert.equal(refetchechRecord.firstName, "Charlie");
         assert.equal(refetchechRecord.lastName, "Morton");
@@ -121,14 +121,14 @@ contract('DataService', async (accounts) => {
     it("Test update: Update a record this account doesn't own", async () => {
         
         //Arrange
-        let resultCreatedRecord = await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
 
         
         let error;
 
 
         try {
-            await dataService.update(
+            await freedomService.update(
                 resultCreatedRecord.id, 
                 {
                     firstName: "Charlie",
@@ -153,7 +153,7 @@ contract('DataService', async (accounts) => {
         );
 
         //Do a read and make sure it shows the original value
-        let refetchechRecord = await dataService.read(resultCreatedRecord.id);
+        let refetchechRecord = await freedomService.read(resultCreatedRecord.id);
 
 
         assert.equal(refetchechRecord.firstName, "Gerrit");
@@ -245,10 +245,10 @@ contract('DataService', async (accounts) => {
 
         //Arrange
         for (var i=0; i < 50; i++) {
-            await dataService.create({ firstName: "Gerrit", lastName: "Cole" });
+            await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
         }
 
-        assert.equal(await dataService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(), 58, "Count is incorrect");
 
 
         //Act
@@ -257,8 +257,8 @@ contract('DataService', async (accounts) => {
         var foundIds = [];
         for (var i=0; i < 5; i++) {
         
-            let recordList = await dataService.readList(limit, i*limit);
-            console.log(recordList);
+            let recordList = await freedomService.readList(limit, i*limit);
+
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
                     assert.fail("Duplicate ID found in page");
@@ -274,14 +274,14 @@ contract('DataService', async (accounts) => {
     it("Test readList: Negative offset", async () => {
 
         //Arrange
-        assert.equal(await dataService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await dataService.readList(10, -1);
+            let results = await freedomService.readList(10, -1);
         } catch(ex) {
            error = ex;
           }
@@ -296,14 +296,14 @@ contract('DataService', async (accounts) => {
     it("Test readList: Negative limit", async () => {
 
         //Arrange
-        assert.equal(await dataService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await dataService.readList(-1, 0);
+            let results = await freedomService.readList(-1, 0);
         } catch(ex) {
             error = ex;
         }
@@ -320,14 +320,14 @@ contract('DataService', async (accounts) => {
     it("Test readList: Zero limit", async () => {
 
         //Arrange
-        assert.equal(await dataService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await dataService.readList(0, 0);
+            let results = await freedomService.readList(0, 0);
         } catch(ex) {
             error = ex;
         }
@@ -347,7 +347,7 @@ contract('DataService', async (accounts) => {
 
     async function assertIndexAndRecordMatch(index, record) {
 
-        let recordAtIndex = await dataService.readByIndex(index);
+        let recordAtIndex = await freedomService.readByIndex(index);
 
         testUtils.assertRecordsMatch(record, recordAtIndex);
     }

@@ -1,7 +1,7 @@
 var Utils = require('./utils.js');
 
 
-class DataService {
+class FreedomService {
     
     constructor(recordService, ipfsService) {
 
@@ -106,4 +106,4 @@ class DataService {
 
 
 
-module.exports = DataService;
+module.exports = FreedomService;

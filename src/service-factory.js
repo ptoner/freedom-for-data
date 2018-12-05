@@ -1,5 +1,5 @@
 const RecordService = require('./record-service.js');
-const DataService = require('./data-service.js');
+const FreedomService = require('./freedom-service.js');
 const IPFSService = require('./ipfs-service.js');
 
 
@@ -17,7 +17,7 @@ class ServiceFactory {
     initialize(recordServiceContract, ipfs) {
         this.recordService = new RecordService(recordServiceContract);
         this.ipfsService = new IPFSService(ipfs);
-        this.dataService = new DataService(this.recordService, this.ipfsService);
+        this.freedomService = new FreedomService(this.recordService, this.ipfsService);
     }
 
     /**
@@ -32,8 +32,8 @@ class ServiceFactory {
         return this.ipfsService;
     }
 
-    getDataService() {
-        return this.dataService;
+    getFreedomService() {
+        return this.freedomService;
     }
 
 }

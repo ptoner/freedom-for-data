@@ -1,7 +1,7 @@
 {
-  "name": "solidity-storage-service",
-  "version": "0.1.0",
-  "description": "Solidity Storage Service",
+  "name": "freedom-for-data",
+  "version": "0.2.0",
+  "description": "An easy to use Ethereum/IPFS data storage library.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ptoner/solidity-storage-service.git"
+    "url": "git+https://github.com/ptoner/freedom-for-data.git"
   },
   "author": "Patrick Toner",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ptoner/solidity-storage-service/issues"
+    "url": "https://github.com/ptoner/freedom-for-data/issues"
   },
-  "homepage": "https://github.com/ptoner/solidity-storage-service#readme"
+  "homepage": "https://github.com/ptoner/freedom-for-data#readme"
 }

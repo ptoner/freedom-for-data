@@ -1,9 +1,10 @@
-# Solidity/IPFS Data Access Service
+# Freedom For Data
+**An easy to use Ethereum/IPFS data access library**
 
 ## About
-A simple reusable data access pattern to tie an Ethereum smart contract to data stored in IPFS.  Transactional data can be stored in Ethereum while other data can be externalized to IPFS. 
+Freedom uses a simple, reusable pattern to tie data in an Ethereum smart contract to data stored in IPFS.  Transactional data is stored in Ethereum while everything else is stored in IPFS. 
 
-My goal with this library is to help DApp developers more easily abstract this away and create a simple mechanism to programmaticaly store and access large amounts of data. This will make it far quicker to build working and testable DApps. It also makes the smart contract function like any other REST endpoint as far as the front-end is concerned. 
+The goal is to help DApp developers abstract these details away and create a simple mechanism to programmaticaly store and access large amounts of data. It makes communicating with a DApp feel like using other REST endpoint. 
 
 Over time the Ethereum/IPFS implementation details can evolve and all the CRUD DApps we build won't be coupled so tightly to the rapidly changing implementation details.
 
@@ -11,7 +12,7 @@ Over time the Ethereum/IPFS implementation details can evolve and all the CRUD D
 
 TODO://show how the library gets set up
 
-# Data Access Service
+# How to use
 
 ## Create a record
 ```javascript
@@ -23,7 +24,7 @@ let createdRecord = {
 }
 
 //Call the 'create' function
-let result = await dataService.create(createdRecord);
+let result = await freedom.create(createdRecord);
 
 
 /**
@@ -44,7 +45,7 @@ let result = await dataService.create(createdRecord);
 ```javascript
 
 //Pass the id created above to the read function. The id was 1.
-let record = await dataService.read(1);
+let record = await freedom.read(1);
 
 /**
 * Example record
@@ -64,7 +65,7 @@ let record = await dataService.read(1);
 ```javascript
 
 //We've created one record. Indexing begins at 0. 
-let record = await dataService.readByIndex(0);
+let record = await freedom.readByIndex(0);
 
 /**
 * Example record. This is the same record as the above example.
@@ -93,13 +94,14 @@ let record = {
 }
 
 // Update it in ethereum and IPFS.
-await dataService.update( 1, record)
+await freedom.update( 1, record)
 
 // Get it by ID. It will list Charlie Morton.
-let updatedRecord = await dataService.read(1);
+let updatedRecord = await freedom.read(1);
 
 /**
- * Example updatedRecord 
+ * Example updatedRecord. What actually happened is that we saved a new file in IPFS and updated the
+ * ethereum record to point to it. 
     { 
         id: 1,
         owner: '...your address...',
@@ -119,7 +121,7 @@ let updatedRecord = await dataService.read(1);
 let offset = 0;  # The index where we want to start reading. The first record is 0. 
 let limit = 10;  # The number of records to return.
 
-let recordList = await dataService.readList(limit, offset);
+let recordList = await freedom.readList(limit, offset);
 
 
 /**
@@ -192,18 +194,18 @@ let recordList = await dataService.readList(limit, offset);
         { 
             id: 9,
             owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            ipfsCid: 'MdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLVM',
             index: 8,
-            lastName: 'Cole',
-            firstName: 'Gerrit' 
+            lastName: 'Francisco',
+            firstName: 'Cervelli' 
         },
         { 
             id: 10,
             owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            ipfsCid: 'nRpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgBhT',
             index: 9,
-            lastName: 'Cole',
-            firstName: 'Gerrit' 
+            lastName: 'Josh',
+            firstName: 'Bell' 
         } 
     ]
  * 

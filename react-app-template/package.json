@@ -9,10 +9,7 @@
     "material-design-icons": "^3.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "2.0.0-next.66cc7a90",
-    "solidity-storage-service": "0.1.0",
-    "truffle-contract":"3.0.6",
-    "ipfs-http-client": "27.0.0"
+    "react-scripts": "2.0.0-next.66cc7a90"
   },
   "scripts": {
     "start": "react-scripts start",

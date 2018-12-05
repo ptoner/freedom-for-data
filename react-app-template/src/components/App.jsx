@@ -15,8 +15,8 @@ import routes from '../routes';
 import ipfsClient from '../../node_modules/ipfs-http-client/src/index.js';
 import RecordServiceJson from '../truffle/RecordService.json';
 import TruffleContract from '../../node_modules/truffle-contract';
-import SolidityStorageService from '../../node_modules/solidity-storage-service';
-// import '../../node_modules/web3/dist/web3.min.js'
+import Freedom from '../../node_modules/freedom-for-data';
+
 
 
 
@@ -81,12 +81,14 @@ export default function (props) {
                 protocol: 'http' 
               })
               
-              var storageService = SolidityStorageService(recordServiceContract, ipfs);
+              var freedom = Freedom(recordServiceContract, ipfs);
+              
+
               
               /**
                * Call the create method
                */
-              var result = await storageService.create({
+              var result = await freedom.create({
                 firstName: 'Andrew',
                 lastName: 'McCutchen'
               });
@@ -96,7 +98,7 @@ export default function (props) {
               /**
                * Read the result
                */
-              var readResult = await storageService.read(result.id);
+              var readResult = await freedom.read(result.id);
 
               console.log(readResult);
             });

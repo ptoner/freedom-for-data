@@ -5,5 +5,5 @@ export default function(recordServiceContract, ipfs) {
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
 
-    return serviceFactory.getDataService();
+    return serviceFactory.getFreedomService();
 };
