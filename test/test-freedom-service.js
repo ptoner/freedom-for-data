@@ -184,7 +184,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(2, { 
             id: 3,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
             index: 2,
             lastName: 'Polanco',
@@ -193,7 +193,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(3, { 
             id: 4,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
             index: 3,
             lastName: 'Mercer',
@@ -202,7 +202,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(4, { 
             id: 5,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
             index: 4,
             lastName: 'Alvarez',
@@ -211,7 +211,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(5, { 
             id: 6,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
             index: 5,
             lastName: 'Joyce',
@@ -220,7 +220,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(6, { 
             id: 7,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
             index: 6,
             lastName: 'Morton',
@@ -229,7 +229,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(7, { 
             id: 8,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             index: 7,
             lastName: 'Cole',
