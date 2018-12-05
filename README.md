@@ -9,7 +9,6 @@ The goal is to help DApp developers abstract these details away and create a sim
 Over time the Ethereum/IPFS implementation details can evolve and all the CRUD DApps we build won't be coupled so tightly to the rapidly changing implementation details.
 
 # Installation
-TODO://show how the library gets set up
 
 ### Clone repo and install 
 ```console
@@ -33,6 +32,7 @@ This is fake blockchain you run on your own machine.
 
 ### Install IPFS
 This is where your JSON data will be stored.
+
 [Instructions](https://docs.ipfs.io/introduction/install/)
 
 ### Run IPFS daemon
