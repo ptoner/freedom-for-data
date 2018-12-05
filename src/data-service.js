@@ -49,6 +49,20 @@ class DataService {
         //Get metadata from contract
         let record = await this.recordService.callRead(id);
 
+        return this.fetchIpfs(record);;
+       
+    }
+
+    async readByIndex(index) {
+
+        //Get metadata from contract
+        let record = await this.recordService.callReadByIndex(index);
+
+        return this.fetchIpfs(record);
+
+    }
+
+    async fetchIpfs(record) {
 
         //Get json data from IPFS
         let data = await this.ipfsService.ipfsGet(record.ipfsCid);
@@ -57,8 +71,8 @@ class DataService {
         Object.assign(record, data);
         
         return record;
-        
     }
+
 
     async update(id, data, transactionObject) {
 

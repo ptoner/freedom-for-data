@@ -58,11 +58,11 @@ contract('RecordService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let result1 = await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result2 = await recordService.sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result3 = await recordService.sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result4 = await recordService.sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        let result5 = await recordService.sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        let result1 = await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        let result2 = await recordService.sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
+        let result3 = await recordService.sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
+        let result4 = await recordService.sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
+        let result5 = await recordService.sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
 
         createdCount += 5;
 
@@ -138,6 +138,27 @@ contract('RecordService', async (accounts) => {
 
 
 
+    it("Test readByIndex: Read all the records we've written so far", async () => {
+
+        //Verify the cids of all the records we added in the above tests
+        await assertCidMatch(0, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        await assertCidMatch(1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        await assertCidMatch(2, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
+        await assertCidMatch(3, "GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
+        await assertCidMatch(4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
+        await assertCidMatch(5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
+        await assertCidMatch(6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+
+    });
+
+
+
+
+
+    async function assertCidMatch(index, ipfsCid) {
+        let record = await recordService.callReadByIndex(index);
+        assert.equal(record.ipfsCid, ipfsCid);
+    }
 
 
 });

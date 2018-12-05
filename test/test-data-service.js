@@ -69,8 +69,9 @@ contract('DataService', async (accounts) => {
         })
 
 
-
     });
+
+
 
 
     it("Test count: Create some records and then call count and make sure it matches", async () => {
@@ -161,7 +162,20 @@ contract('DataService', async (accounts) => {
 
 
 
+    it("Test readByIndex: Read all the records we've written so far", async () => {
 
+        let record = await dataService.readByIndex(0);
+
+        testUtils.assertRecordsMatch( record, {
+            id: 1,
+            index: 0,
+            ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
+            owner: accounts[0],
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        });
+
+    });
 
 
 
