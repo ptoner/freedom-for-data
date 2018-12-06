@@ -21,6 +21,9 @@ contract('RecordService', async (accounts) => {
     });
 
 
+
+
+
     it("Test sendCreate and callRead: Create a record and verify the info is stored by RecordService contract", async () => {
 
         //Arrange
@@ -53,6 +56,58 @@ contract('RecordService', async (accounts) => {
         assert.equal(record.index, loggedRecord.index, "Indexes should match");
         assert.equal(record.ipfsCid, loggedRecord.ipfsCid, "ipfsHash should match");
         assert.equal(record.owner,accounts[0], "Owner should be this contract");
+
+    });
+
+    it("Test sendCreate: Try with an account that's not the owner. Should throw an exception.", async () => {
+        
+        //Arrange
+        let error;
+
+
+        try {
+            let result = await recordService.sendCreate(
+                TEST_REPO1, 
+                "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB",
+                {
+                    from: accounts[1]
+                }    
+            );
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "Permission denied -- Reason given: Permission denied.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Should fail to let non-owner call create"
+        );
+
+    });
+
+    it("Test sendCreate: Zero repoId", async () => {
+        
+        //Arrange
+        let error;
+
+
+        try {
+            let result = await recordService.sendCreate(0, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo -- Reason given: You must supply a repo.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Should fail to let non-owner call create"
+        );
 
     });
 

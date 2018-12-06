@@ -77,7 +77,70 @@ contract('FreedomService', async (accounts) => {
 
     });
 
+    it("Test create: Try with an account that's not the owner. Should throw an exception.", async () => {
+        
+        //Arrange
+        let createdRecord = {
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        }
 
+
+        let error;
+    
+
+        try {
+            await freedomService.create(
+                TEST_REPO1, 
+                createdRecord, 
+                {
+                    from: accounts[1]
+                } 
+            );
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "Permission denied -- Reason given: Permission denied.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Should fail to let non-owner call create"
+        );
+
+    });
+
+
+
+    it("Test sendCreate: Zero repoId", async () => {
+        
+        //Arrange
+        let createdRecord = {
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        }
+
+        let error;
+
+
+        try {
+            await freedomService.create(0, createdRecord);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo -- Reason given: You must supply a repo.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Should fail to let non-owner call create"
+        );
+
+    });
 
 
     it("Test count: Create some records and then call count and make sure it matches", async () => {

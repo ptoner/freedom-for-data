@@ -51,8 +51,8 @@ contract RecordService {
 
     function create(uint _repoId, string calldata _ipfsCid) external returns (uint256 id) {
         
-        require(serviceOwner == msg.sender, "Permission denied");//need unit test
-        require(_repoId != 0, "You must supply a repo."); //need unit test
+        require(serviceOwner == msg.sender, "Permission denied");
+        require(_repoId != 0, "You must supply a repo"); 
         require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid");//need unit test
 
         nextId++;
