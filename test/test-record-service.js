@@ -220,7 +220,7 @@ contract('RecordService', async (accounts) => {
         
     });
 
-    it("Test update: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
+    it("Test sendUpdate: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
         
         //Arrange
         let result = await recordService.sendCreate(TEST_REPO1, "VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
@@ -241,7 +241,7 @@ contract('RecordService', async (accounts) => {
 
     });
     
-    it("Test update: Update a record we don't own. Make sure we can't change them. ", async () => {
+    it("Test sendUpdate: Update a record we don't own. Make sure we can't change them. ", async () => {
 
         //Arrange
         let result = await recordService.sendCreate(TEST_REPO1, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
@@ -281,6 +281,59 @@ contract('RecordService', async (accounts) => {
 
 
         assert.equal(refetchechRecord.ipfsCid, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB"); //the original one
+        
+    });
+
+
+    it("Test sendUpdate: Invalid positive id", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await recordService.sendUpdate(
+                TEST_REPO1,
+                5000, 
+                "CELTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MN"
+            )
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You don't own this record -- Reason given: You don't own this record.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Invalid positive id"
+        );
+
+        
+    });
+
+    it("Test sendUpdate: Blank IPFS cid", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await recordService.sendUpdate(
+                TEST_REPO1,
+                1, 
+                ""
+            )
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.", 
+            testUtils.getRequireMessage(error), 
+            
+            "You must supply an ipfsCid"
+        );
+
         
     });
 

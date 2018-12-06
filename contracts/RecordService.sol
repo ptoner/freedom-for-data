@@ -106,8 +106,8 @@ contract RecordService {
         Record storage record = recordMapping[_id];
 
         require(record.owner == msg.sender, "You don't own this record");
-        require(record.repoId == _repoId, "No record found"); //Need unit test
-        require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid"); //need unit test
+        require(record.repoId == _repoId, "No record found"); 
+        require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid"); 
 
 
         if (keccak256(bytes(record.ipfsCid)) != keccak256(bytes(_ipfsCid))) {

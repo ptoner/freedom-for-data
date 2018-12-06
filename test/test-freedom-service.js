@@ -301,6 +301,36 @@ contract('FreedomService', async (accounts) => {
     });
 
 
+    it("Test update: Invalid positive id", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await freedomService.update(
+                TEST_REPO1, 
+                5000, 
+                {
+                    firstName: "Charlie",
+                    lastName: "Morton"
+                }
+            )
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You don't own this record -- Reason given: You don't own this record.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Invalid positive id"
+        );
+
+        
+    });
+    
 
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
