@@ -1,4 +1,4 @@
-import ServiceFactory from './service-factory.js';
+import ServiceFactory from './src/service-factory.js';
 
 
 export default function(recordServiceContract, ipfs) {

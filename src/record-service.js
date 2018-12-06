@@ -7,19 +7,19 @@ class RecordService {
     /**
      * CALLS
      */
-    async callRead(id) {
-        let resultArray = await this.recordServiceContract.read.call(id);
+    async callRead(repoId, id) {
+        let resultArray = await this.recordServiceContract.read.call(repoId, id);
         return this.recordMapper(resultArray);
     }
 
-    async callReadByIndex(index) {
-        let resultArray = await this.recordServiceContract.readByIndex.call(index);
+    async callReadByIndex(repoId, index) {
+        let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
         return this.recordMapper(resultArray);
     }
 
-    async callReadList(limit, offset) {
+    async callReadList(repoId, limit, offset) {
 
-        let currentCount = await this.callCount();
+        let currentCount = await this.callCount(repoId);
 
         let items = [];
 
@@ -45,15 +45,15 @@ class RecordService {
         // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
         for (var i=offset; i <= endIndex; i++) {
-            items.push(await this.callReadByIndex(i));
+            items.push(await this.callReadByIndex(repoId, i));
         }
 
         return items;
 
     }
 
-    async callCount() {
-        let result = await this.recordServiceContract.count.call();
+    async callCount(repoId) {
+        let result = await this.recordServiceContract.count.call(repoId);
         return result.toNumber();
     }
 
@@ -61,22 +61,22 @@ class RecordService {
     /**
      * SEND
      */
-    async sendCreate(ipfsCid, transactionObject) {      
+    async sendCreate(repoId, ipfsCid, transactionObject) {      
         if (transactionObject) {
-            return this.recordServiceContract.create(ipfsCid, transactionObject);
+            return this.recordServiceContract.create(repoId, ipfsCid, transactionObject);
         }
         
-        return this.recordServiceContract.create(ipfsCid);
+        return this.recordServiceContract.create(repoId, ipfsCid);
 
     }
 
-    async sendUpdate(id, ipfsCid, transactionObject) {      
+    async sendUpdate(repoId, id, ipfsCid, transactionObject) {      
         
         if (transactionObject) {
-            return this.recordServiceContract.update(id, ipfsCid, transactionObject);
+            return this.recordServiceContract.update(repoId, id, ipfsCid, transactionObject);
         }
 
-        return this.recordServiceContract.update(id, ipfsCid);
+        return this.recordServiceContract.update(repoId, id, ipfsCid);
         
     }
 
@@ -90,7 +90,8 @@ class RecordService {
             id: resultArray[0].toNumber(),
             owner: resultArray[1],
             ipfsCid: resultArray[2],
-            index: resultArray[3].toNumber()
+            repoId: resultArray[3].toNumber(),
+            index: resultArray[4].toNumber()
         }
     }
 

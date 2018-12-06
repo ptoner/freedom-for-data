@@ -10,6 +10,8 @@ contract('FreedomService', async (accounts) => {
     var testUtils = new TestUtils();
 
     let createdCount = 0;
+
+    let TEST_REPO1 = 1;
    
     let freedomService;
 
@@ -28,7 +30,8 @@ contract('FreedomService', async (accounts) => {
         }
 
         //Act
-        let resultCreatedRecord = await freedomService.create(createdRecord);
+        let resultCreatedRecord = await freedomService.create(TEST_REPO1, createdRecord);
+        
 
         createdCount++;
 
@@ -36,6 +39,7 @@ contract('FreedomService', async (accounts) => {
         testUtils.assertRecordsMatch( resultCreatedRecord, {
             id: 1,
             eventType: "NEW",
+            repoId: TEST_REPO1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
@@ -44,7 +48,8 @@ contract('FreedomService', async (accounts) => {
         })
 
         //Also verify with a read.
-        let record = await freedomService.read(resultCreatedRecord.id);
+        let record = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
+        
 
         /**
          * Expected record
@@ -61,6 +66,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch( record, {
             id: 1,
+            repoId: TEST_REPO1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
@@ -77,16 +83,16 @@ contract('FreedomService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let resultCreatedRecord1 = await freedomService.create({ firstName: "Mark", lastName: "Melancon" });
-        let resultCreatedRecord2 = await freedomService.create({ firstName: "Gregory", lastName: "Polanco" });
-        let resultCreatedRecord3 = await freedomService.create({ firstName: "Jordy", lastName: "Mercer" });
-        let resultCreatedRecord4 = await freedomService.create({ firstName: "Pedro", lastName: "Alvarez" });
-        let resultCreatedRecord5 = await freedomService.create({ firstName: "Matt", lastName: "Joyce" });
+        await freedomService.create(TEST_REPO1, { firstName: "Mark", lastName: "Melancon" });
+        await freedomService.create(TEST_REPO1, { firstName: "Gregory", lastName: "Polanco" });
+        await freedomService.create(TEST_REPO1, { firstName: "Jordy", lastName: "Mercer" });
+        await freedomService.create(TEST_REPO1, { firstName: "Pedro", lastName: "Alvarez" });
+        await freedomService.create(TEST_REPO1, { firstName: "Matt", lastName: "Joyce" });
 
         createdCount += 5;
 
         //Act
-        let count = await freedomService.count();
+        let count = await freedomService.count(TEST_REPO1);
 
         assert.equal(count, createdCount);
 
@@ -96,11 +102,12 @@ contract('FreedomService', async (accounts) => {
     it("Test update: Update a record and make sure the changes are saved.", async () => {
         
         //Arrange
-        let resultCreatedRecord = await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
 
         
         //Act
         await freedomService.update(
+            TEST_REPO1, 
             resultCreatedRecord.id, 
             {
                 firstName: "Charlie",
@@ -110,7 +117,7 @@ contract('FreedomService', async (accounts) => {
 
 
         //Assert
-        let refetchechRecord = await freedomService.read(resultCreatedRecord.id);
+        let refetchechRecord = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
 
         assert.equal(refetchechRecord.firstName, "Charlie");
         assert.equal(refetchechRecord.lastName, "Morton");
@@ -121,7 +128,7 @@ contract('FreedomService', async (accounts) => {
     it("Test update: Update a record this account doesn't own", async () => {
         
         //Arrange
-        let resultCreatedRecord = await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
+        let resultCreatedRecord = await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
 
         
         let error;
@@ -129,6 +136,7 @@ contract('FreedomService', async (accounts) => {
 
         try {
             await freedomService.update(
+                TEST_REPO1, 
                 resultCreatedRecord.id, 
                 {
                     firstName: "Charlie",
@@ -153,7 +161,7 @@ contract('FreedomService', async (accounts) => {
         );
 
         //Do a read and make sure it shows the original value
-        let refetchechRecord = await freedomService.read(resultCreatedRecord.id);
+        let refetchechRecord = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
 
 
         assert.equal(refetchechRecord.firstName, "Gerrit");
@@ -166,6 +174,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(0, {
             id: 1,
+            repoId: TEST_REPO1,
             index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
@@ -175,6 +184,7 @@ contract('FreedomService', async (accounts) => {
 
         await assertIndexAndRecordMatch(1, {
             id: 2,
+            repoId: TEST_REPO1,
             index: 1,
             ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
             owner: accounts[0],
@@ -186,6 +196,7 @@ contract('FreedomService', async (accounts) => {
             id: 3,
             owner: accounts[0],
             ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
+            repoId: TEST_REPO1,
             index: 2,
             lastName: 'Polanco',
             firstName: 'Gregory' 
@@ -195,6 +206,7 @@ contract('FreedomService', async (accounts) => {
             id: 4,
             owner: accounts[0],
             ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
+            repoId: TEST_REPO1,
             index: 3,
             lastName: 'Mercer',
             firstName: 'Jordy' 
@@ -204,6 +216,7 @@ contract('FreedomService', async (accounts) => {
             id: 5,
             owner: accounts[0],
             ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
+            repoId: TEST_REPO1,
             index: 4,
             lastName: 'Alvarez',
             firstName: 'Pedro' 
@@ -213,6 +226,7 @@ contract('FreedomService', async (accounts) => {
             id: 6,
             owner: accounts[0],
             ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
+            repoId: TEST_REPO1,
             index: 5,
             lastName: 'Joyce',
             firstName: 'Matt' 
@@ -222,6 +236,7 @@ contract('FreedomService', async (accounts) => {
             id: 7,
             owner: accounts[0],
             ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
+            repoId: TEST_REPO1,
             index: 6,
             lastName: 'Morton',
             firstName: 'Charlie' 
@@ -231,6 +246,7 @@ contract('FreedomService', async (accounts) => {
             id: 8,
             owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            repoId: TEST_REPO1,
             index: 7,
             lastName: 'Cole',
             firstName: 'Gerrit' 
@@ -245,10 +261,10 @@ contract('FreedomService', async (accounts) => {
 
         //Arrange
         for (var i=0; i < 50; i++) {
-            await freedomService.create({ firstName: "Gerrit", lastName: "Cole" });
+            await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
         }
 
-        assert.equal(await freedomService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -257,7 +273,7 @@ contract('FreedomService', async (accounts) => {
         var foundIds = [];
         for (var i=0; i < 5; i++) {
         
-            let recordList = await freedomService.readList(limit, i*limit);
+            let recordList = await freedomService.readList(TEST_REPO1, limit, i*limit);
 
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
@@ -274,14 +290,14 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Negative offset", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await freedomService.readList(10, -1);
+            let results = await freedomService.readList(TEST_REPO1, 10, -1);
         } catch(ex) {
            error = ex;
           }
@@ -296,14 +312,14 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Negative limit", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await freedomService.readList(-1, 0);
+            let results = await freedomService.readList(TEST_REPO1, -1, 0);
         } catch(ex) {
             error = ex;
         }
@@ -320,14 +336,14 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Zero limit", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let results = await freedomService.readList(0, 0);
+            let results = await freedomService.readList(TEST_REPO1, 0, 0);
         } catch(ex) {
             error = ex;
         }
@@ -347,7 +363,7 @@ contract('FreedomService', async (accounts) => {
 
     async function assertIndexAndRecordMatch(index, record) {
 
-        let recordAtIndex = await freedomService.readByIndex(index);
+        let recordAtIndex = await freedomService.readByIndex(TEST_REPO1, index);
 
         testUtils.assertRecordsMatch(record, recordAtIndex);
     }

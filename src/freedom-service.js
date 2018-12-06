@@ -13,7 +13,7 @@ class FreedomService {
         this.utils = new Utils();
     }
 
-    async create(data, transactionObject) {
+    async create(repoId, data, transactionObject) {
 
         //Put the data in IPFS
         const ipfsHash = await this.ipfsService.ipfsPut(data);
@@ -23,7 +23,7 @@ class FreedomService {
         }
         
         //Get the hash and pass to sendCreate
-        let result = await this.recordService.sendCreate(ipfsHash, transactionObject);
+        let result = await this.recordService.sendCreate(repoId, ipfsHash, transactionObject);
 
         
         //The event returns the metadata about our created data.
@@ -32,6 +32,7 @@ class FreedomService {
         const record = {
             id: log.args.id.toNumber(),
             eventType: log.args.eventType,
+            repoId: log.args.repoId.toNumber(),
             index: log.args.index.toNumber(),
             ipfsCid:log.args.ipfsCid,
             owner: log.args.owner
@@ -44,31 +45,29 @@ class FreedomService {
     }
 
 
-    async read(id) {
+    async read(repoId, id) {
 
         //Get metadata from contract
-        let record = await this.recordService.callRead(id);
-
-        return this.fetchIpfs(record);;
-       
+        let record = await this.recordService.callRead(repoId, id);
+        return this.fetchIpfs(record);
     }
 
-    async readByIndex(index) {
+    async readByIndex(repoId, index) {
 
         //Get metadata from contract
-        let record = await this.recordService.callReadByIndex(index);
+        let record = await this.recordService.callReadByIndex(repoId, index);
 
         return this.fetchIpfs(record);
 
     }
 
-    async readList(limit, offset) {
+    async readList(repoId, limit, offset) {
 
         let merged = [];
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadList(limit, offset);
+        let results = await this.recordService.callReadList(repoId, limit, offset);
 
         for (const result of results) {
             merged.push(await this.fetchIpfs(result));
@@ -89,18 +88,18 @@ class FreedomService {
     }
 
 
-    async update(id, data, transactionObject) {
+    async update(repoId, id, data, transactionObject) {
 
         //Put the data in IPFS
         const ipfsCid = await this.ipfsService.ipfsPut(data);
 
-        await this.recordService.sendUpdate(id, ipfsCid, transactionObject);
+        await this.recordService.sendUpdate(repoId, id, ipfsCid, transactionObject);
 
     }
 
 
-    async count() {
-        return this.recordService.callCount();
+    async count(repoId) {
+        return this.recordService.callCount(repoId);
     }
 }
 

@@ -18,6 +18,7 @@ class TestUtils {
         assert.equal(record1.index, record2.index, "Index should match");
         assert.equal(record1.ipfsCid, record2.ipfsCid, "IPFS cid should match");
         assert.equal(record1.owner, record2.owner, "Owner should match");
+        assert.equal(record1.repoId, record2.repoId, "Repo id should match");
 
         //Check saved fields
         assert.equal(record1.firstName, record2.firstName, "Incorrect firstName value");

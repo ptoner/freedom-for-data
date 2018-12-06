@@ -11,6 +11,8 @@ contract('RecordService', async (accounts) => {
 
     let createdCount = 0;
 
+    let TEST_REPO1 = 1;
+
     let recordService;
 
     before('Setup', async () => {
@@ -25,7 +27,7 @@ contract('RecordService', async (accounts) => {
         let fakeCid = "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT";
 
         //Act
-        let result = await recordService.sendCreate(fakeCid);
+        let result = await recordService.sendCreate(TEST_REPO1, fakeCid);
         createdCount++;
 
         //Assert
@@ -43,7 +45,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Also verify with a read.
-        let record = await recordService.callRead(loggedRecord.id);
+        let record = await recordService.callRead(TEST_REPO1, loggedRecord.id);
 
 
         //Check that the metadata matches.
@@ -58,16 +60,16 @@ contract('RecordService', async (accounts) => {
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
-        let result1 = await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
-        let result2 = await recordService.sendCreate("MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
-        let result3 = await recordService.sendCreate("GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
-        let result4 = await recordService.sendCreate("AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
-        let result5 = await recordService.sendCreate("RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
+        let result1 = await recordService.sendCreate(TEST_REPO1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        let result2 = await recordService.sendCreate(TEST_REPO1, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
+        let result3 = await recordService.sendCreate(TEST_REPO1, "GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
+        let result4 = await recordService.sendCreate(TEST_REPO1, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
+        let result5 = await recordService.sendCreate(TEST_REPO1, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
 
         createdCount += 5;
 
         //Act
-        let count = await recordService.callCount();
+        let count = await recordService.callCount(TEST_REPO1);
 
         assert.equal(count, createdCount);
         
@@ -76,17 +78,17 @@ contract('RecordService', async (accounts) => {
     it("Test update: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
         
         //Arrange
-        let result = await recordService.sendCreate("VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        let result = await recordService.sendCreate(TEST_REPO1, "VXLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
 
         var log = utils.getLogByEventName("RecordEvent", result.logs);
         const createdId = log.args.id.toNumber();
         
         //Act
-        await recordService.sendUpdate(createdId, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+        await recordService.sendUpdate(TEST_REPO1, createdId, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
 
 
         //Assert
-        let refetchechRecord = await recordService.callRead(createdId);
+        let refetchechRecord = await recordService.callRead(TEST_REPO1, createdId);
 
 
         assert.equal(refetchechRecord.ipfsCid, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB")
@@ -97,7 +99,7 @@ contract('RecordService', async (accounts) => {
     it("Test update: Update a record we don't own. Make sure we can't change them. ", async () => {
 
         //Arrange
-        let result = await recordService.sendCreate("KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
+        let result = await recordService.sendCreate(TEST_REPO1, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
 
         //Get record from result
         var loggedRecord = utils.recordEventToRecord(result);
@@ -108,6 +110,7 @@ contract('RecordService', async (accounts) => {
 
         try {
             await recordService.sendUpdate(
+                TEST_REPO1,
                 loggedRecord.id, 
                 "CELTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MN",
                 {
@@ -129,7 +132,7 @@ contract('RecordService', async (accounts) => {
         );
 
         //Do a read and make sure it shows the original value
-        let refetchechRecord = await recordService.callRead(loggedRecord.id);
+        let refetchechRecord = await recordService.callRead(TEST_REPO1, loggedRecord.id);
 
 
         assert.equal(refetchechRecord.ipfsCid, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB"); //the original one
@@ -141,13 +144,13 @@ contract('RecordService', async (accounts) => {
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
         // Verify the cids of all the records we added in the above tests
-        await assertCidMatch(0, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        await assertCidMatch(1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
-        await assertCidMatch(2, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
-        await assertCidMatch(3, "GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
-        await assertCidMatch(4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
-        await assertCidMatch(5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
-        await assertCidMatch(6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+        await assertCidMatch(TEST_REPO1, 0, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
+        await assertCidMatch(TEST_REPO1, 1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+        await assertCidMatch(TEST_REPO1, 2, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
+        await assertCidMatch(TEST_REPO1, 3, "GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
+        await assertCidMatch(TEST_REPO1, 4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
+        await assertCidMatch(TEST_REPO1, 5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
+        await assertCidMatch(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
     });
 
 
@@ -155,10 +158,10 @@ contract('RecordService', async (accounts) => {
 
         //Arrange
         for (var i=0; i < 50; i++) {
-            await recordService.sendCreate("TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
+            await recordService.sendCreate(TEST_REPO1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
         }
 
-        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -167,7 +170,7 @@ contract('RecordService', async (accounts) => {
         var foundIds = [];
         for (var i=0; i < 5; i++) {
 
-            let recordList = await recordService.callReadList(limit, i*limit);
+            let recordList = await recordService.callReadList(TEST_REPO1, limit, i*limit);
 
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
@@ -184,14 +187,14 @@ contract('RecordService', async (accounts) => {
     it("Test callReadList: Negative offset", async () => {
 
         //Arrange
-        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await recordService.callReadList(10, -1);
+            let itemList = await recordService.callReadList(TEST_REPO1, 10, -1);
         } catch(ex) {
            error = ex;
           }
@@ -206,14 +209,14 @@ contract('RecordService', async (accounts) => {
     it("Test callReadList: Negative limit", async () => {
 
         //Arrange
-        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await recordService.callReadList(-1, 0);
+            let itemList = await recordService.callReadList(TEST_REPO1, -1, 0);
         } catch(ex) {
             error = ex;
         }
@@ -230,14 +233,14 @@ contract('RecordService', async (accounts) => {
     it("Test callReadList: Zero limit", async () => {
 
         //Arrange
-        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await recordService.callReadList(0, 0);
+            let itemList = await recordService.callReadList(TEST_REPO1, 0, 0);
         } catch(ex) {
             error = ex;
         }
@@ -250,8 +253,8 @@ contract('RecordService', async (accounts) => {
     });
 
 
-    async function assertCidMatch(index, ipfsCid) {
-        let record = await recordService.callReadByIndex(index);
+    async function assertCidMatch(repoId, index, ipfsCid) {
+        let record = await recordService.callReadByIndex(repoId, index);
         assert.equal(record.ipfsCid, ipfsCid);
     }
 
