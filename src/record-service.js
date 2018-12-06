@@ -27,7 +27,7 @@ class RecordService {
             throw "Invalid limit provided";
         }
 
-        if (offset < 0) {
+        if (offset < 0 || offset >= currentCount) {
             throw "Invalid offset provided";
         }
 

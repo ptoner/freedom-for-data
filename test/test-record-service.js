@@ -153,6 +153,14 @@ contract('RecordService', async (accounts) => {
         await assertCidMatch(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
     });
 
+    it("Test callReadList: Limit greater than list size", async () => {
+        assert.equal(await recordService.callCount(), 8, "Count is incorrect");
+
+        let itemList = await recordService.callReadList(10, 0);
+
+        assert.equal(itemList.length, 8);
+    });
+
 
     it("Test callReadList: Check for duplicates", async () => {
 
@@ -199,6 +207,27 @@ contract('RecordService', async (accounts) => {
            error = ex;
           }
 
+
+        //Assert
+        assert.equal("Invalid offset provided", error, "Error message does not match");
+
+
+    });
+
+    it("Test callReadList: Offset greater than list size", async () => {
+
+        //Arrange
+        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+
+
+        //Act
+        let error;
+
+        try {
+            let itemList = await recordService.callReadList(10, 58);
+        } catch(ex) {
+            error = ex;
+        }
 
         //Assert
         assert.equal("Invalid offset provided", error, "Error message does not match");
