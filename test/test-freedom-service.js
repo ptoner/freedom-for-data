@@ -77,6 +77,75 @@ contract('FreedomService', async (accounts) => {
 
     });
 
+
+    it("Test read: Zero repoId", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await freedomService.read(0, 1);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "Supply a non-empty repo"
+        );
+
+    });
+
+    it("Test read: Zero id", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await freedomService.read(1, 0);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply an id", 
+            testUtils.getRequireMessage(error), 
+            
+            "Supply an id"
+        );
+
+    });
+
+
+    it("Test read: Invalid positive id", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await freedomService.read(1, 5000);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "No record found", 
+            testUtils.getRequireMessage(error), 
+            
+            "No record found"
+        );
+
+    });
+
+
     it("Test create: Try with an account that's not the owner. Should throw an exception.", async () => {
         
         //Arrange

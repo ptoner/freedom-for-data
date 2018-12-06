@@ -112,6 +112,96 @@ contract('RecordService', async (accounts) => {
     });
 
 
+    it("Test sendCreate: Blank ipfsCid. Should throw an error.", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await recordService.sendCreate(TEST_REPO1, "");
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.", 
+            testUtils.getRequireMessage(error), 
+            
+            "Supply a non-empty ipfsCid"
+        );
+
+    });
+
+
+    it("Test callRead: Zero repoId", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await recordService.callRead(0, 1);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "Supply a non-empty repo"
+        );
+
+    });
+
+    it("Test callRead: Zero id", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await recordService.callRead(1, 0);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply an id", 
+            testUtils.getRequireMessage(error), 
+            
+            "Supply an id"
+        );
+
+    });
+
+    it("Test callRead: Invalid positive id", async () => {
+        
+        //Arrange
+        let error;
+
+        try {
+            let result = await recordService.callRead(1, 5000);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "No record found", 
+            testUtils.getRequireMessage(error), 
+            
+            "No record found"
+        );
+
+    });
+
+
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange

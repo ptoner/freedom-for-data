@@ -53,7 +53,7 @@ contract RecordService {
         
         require(serviceOwner == msg.sender, "Permission denied");
         require(_repoId != 0, "You must supply a repo"); 
-        require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid");//need unit test
+        require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid");
 
         nextId++;
 
@@ -91,12 +91,12 @@ contract RecordService {
 
     function read(uint _repoId, uint256 _id) public view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index ) {
 
-        require(_repoId != 0, "You must supply a repo"); //need unit test
-        require(_id != 0, "You must supply an id");//need unit test
+        require(_repoId != 0, "You must supply a repo");
+        require(_id != 0, "You must supply an id");
 
         Record storage record = recordMapping[_id];
 
-        require(record.repoId == _repoId, "No record found"); //Need unit test
+        require(record.repoId == _repoId, "No record found");
 
         return (record.id, record.owner, record.ipfsCid, record.repoId, record.index);
     }
