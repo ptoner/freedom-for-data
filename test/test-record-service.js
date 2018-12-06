@@ -154,9 +154,9 @@ contract('RecordService', async (accounts) => {
     });
 
     it("Test callReadList: Limit greater than list size", async () => {
-        assert.equal(await recordService.callCount(), 8, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 8, "Count is incorrect");
 
-        let itemList = await recordService.callReadList(10, 0);
+        let itemList = await recordService.callReadList(TEST_REPO1, 10, 0);
 
         assert.equal(itemList.length, 8);
     });
@@ -217,14 +217,14 @@ contract('RecordService', async (accounts) => {
     it("Test callReadList: Offset greater than list size", async () => {
 
         //Arrange
-        assert.equal(await recordService.callCount(), 58, "Count is incorrect");
+        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await recordService.callReadList(10, 58);
+            let itemList = await recordService.callReadList(TEST_REPO1, 10, 58);
         } catch(ex) {
             error = ex;
         }

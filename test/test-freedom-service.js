@@ -256,9 +256,9 @@ contract('FreedomService', async (accounts) => {
     });
 
     it("Test readList: Limit greater than list size", async () => {
-        assert.equal(await freedomService.count(), 8, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 8, "Count is incorrect");
 
-        let itemList = await freedomService.readList(10, 0);
+        let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
 
         assert.equal(itemList.length, 8);
     });
@@ -319,14 +319,14 @@ contract('FreedomService', async (accounts) => {
     it("Test callReadList: Offset greater than list size", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(), 58, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await freedomService.readList(10, 58);
+            let itemList = await freedomService.readList(TEST_REPO1, 10, 58);
         } catch(ex) {
             error = ex;
         }
