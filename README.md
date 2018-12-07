@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ptoner/freedom-for-data.svg?branch=ci-setup)](https://travis-ci.com/ptoner/freedom-for-data)
+[![Build Status](https://travis-ci.org/ptoner/freedom-for-data.svg?branch=ci-setup)](https://travis-ci.org/ptoner/freedom-for-data)
 
 # freedom-for-data
 An easy to use javascript library to read and write Ethereum and IPFS data. Can be used with Node.js or in a DApp-enabled browser.
@@ -48,6 +48,7 @@ ipfs daemon
 ```
 
 ### Run tests
+Inside the freedom-for-data root directory:
 ```console
 npm run test
 ```
