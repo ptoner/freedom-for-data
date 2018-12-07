@@ -451,6 +451,27 @@ contract('FreedomService', async (accounts) => {
 
     });
 
+    it("Test readByIndex: Zero repoId", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await freedomService.readByIndex(0, 0);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            "You must supply a repo"
+        );
+
+    });
+
+
     it("Test readList: Limit greater than list size", async () => {
         assert.equal(await freedomService.count(TEST_REPO1), 8, "Count is incorrect");
 

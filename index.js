@@ -1,7 +1,7 @@
-import ServiceFactory from './src/service-factory.js';
+const ServiceFactory = require('./src/service-factory.js');
 
 
-export default function(recordServiceContract, ipfs) {
+module.exports = function(recordServiceContract, ipfs) {
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
 

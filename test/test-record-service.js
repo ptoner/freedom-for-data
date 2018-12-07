@@ -364,7 +364,6 @@ contract('RecordService', async (accounts) => {
         assert.equal(
             "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.", 
             testUtils.getRequireMessage(error), 
-            
             "You must supply an ipfsCid"
         );
 
@@ -383,6 +382,26 @@ contract('RecordService', async (accounts) => {
         await assertCidMatch(TEST_REPO1, 4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
         await assertCidMatch(TEST_REPO1, 5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
         await assertCidMatch(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
+    });
+
+    it("Test readByIndex: Zero repoId", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await recordService.callReadByIndex(0, 0);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            "You must supply a repo"
+        );
+
     });
 
     it("Test callReadList: Limit greater than list size", async () => {

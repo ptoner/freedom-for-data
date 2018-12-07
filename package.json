@@ -4,7 +4,8 @@
   "description": "An easy to use Ethereum/IPFS data storage library.",
   "main": "index.js",
   "scripts": {
-    "test": "truffle test"
+    "test": "truffle test",
+    "build": "browserify index.js > ./dist/freedom-for-data.js"
   },
   "dependencies": {
     "ipfs-http-client": "27.0.0"
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/ptoner/freedom-for-data#readme",
   "devDependencies": {
     "ganache-cli": "6.1.8",
-    "truffle": "beta"
+    "truffle": "beta",
+    "browserify": "16.2.3"
   }
 }

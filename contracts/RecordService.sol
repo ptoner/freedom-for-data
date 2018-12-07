@@ -127,15 +127,15 @@ contract RecordService {
 
     //Paging functionality
     function count(uint _repoId) external view returns (uint256 theCount) {
-        require(_repoId != 0, "You must supply a repo"); //need unit test
+        require(_repoId != 0, "You must supply a repo");
 
-        uint256[] storage repoIndex = repoIdIndexesMapping[_repoId]; //unit test before adding a record
+        uint256[] storage repoIndex = repoIdIndexesMapping[_repoId];
         return repoIndex.length;
     }
 
     function readByIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
         
-        require(_repoId != 0, "You must supply a repo"); //need unit test
+        require(_repoId != 0, "You must supply a repo");
         uint256[] storage repoIndex = repoIdIndexesMapping[_repoId]; //unit test before adding a record
 
         require(_index < repoIndex.length, "No record at index");
