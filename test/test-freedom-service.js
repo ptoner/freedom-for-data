@@ -231,6 +231,40 @@ contract('FreedomService', async (accounts) => {
     });
 
 
+
+    it("Test count: Pass zero repoId", async () => {
+        //Act
+
+        let error;
+        try {
+            await freedomService.count(0)
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "You must supply a repo"
+        );
+        
+    });
+
+    it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
+        
+        //Act
+        let count = await freedomService.count(200);
+        
+        //Assert
+        assert.equal(count, 0);
+        
+    });
+
+
+
     it("Test update: Update a record and make sure the changes are saved.", async () => {
         
         //Arrange

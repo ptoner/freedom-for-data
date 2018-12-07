@@ -202,7 +202,7 @@ contract('RecordService', async (accounts) => {
     });
 
 
-    it("Test count: Create some records and then call count and make sure it matches", async () => {
+    it("Test callCount: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
         let result1 = await recordService.sendCreate(TEST_REPO1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
@@ -219,6 +219,40 @@ contract('RecordService', async (accounts) => {
         assert.equal(count, createdCount);
         
     });
+
+
+    it("Test callCount: Pass zero repoId", async () => {
+        //Act
+
+        let error;
+        try {
+            await recordService.callCount(0)
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "You must supply a repo"
+        );
+        
+    });
+
+    it("Test callCount: Pass positive invalid repoId. Get zero count.", async () => {
+        
+        //Act
+        let count = await recordService.callCount(200);
+        
+        //Assert
+        assert.equal(count, 0);
+        
+    });
+
+
 
     it("Test sendUpdate: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
         
