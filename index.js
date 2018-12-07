@@ -3,7 +3,24 @@ const ipfsClient = require('ipfs-http-client');
 const TruffleContract = require('truffle-contract')
 
 
-export default function(recordServiceContract, ipfs) {
+export default async function(contractJson, account, web3Provider, ipfsConfig) {
+
+    /** 
+     * Get record contract service
+     */
+    const recordService = TruffleContract(contractJson);
+    recordService.setProvider(web3Provider);
+    recordService.defaults({from: account});  
+
+    var recordServiceContract = await recordService.deployed();
+
+
+    /**
+    * IPFS configuration for tests
+    */
+    var ipfs = ipfsClient(ipfsConfig);
+
+
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
 
