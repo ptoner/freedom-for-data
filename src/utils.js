@@ -11,7 +11,7 @@ class Utils {
 
         logs.forEach(function(log){
 
-            if (log.event == eventName) {
+            if (log.event === eventName) {
                 found = log;
             }
         });

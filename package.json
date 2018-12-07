@@ -23,6 +23,17 @@
   "devDependencies": {
     "ganache-cli": "6.1.8",
     "truffle": "beta",
-    "browserify": "16.2.3"
+    "truffle-contract": "3.0.6",
+    "browserify": "16.2.3",
+    "@babel/core": "7.2.0",
+    "@babel/cli": "7.2.0",
+    "@babel/preset-env": "7.2.0",
+    "@babel/preset-react": "7.0.0",
+    "babelify": "10.0.0"
+  },
+  "browserify": { 
+    "transform": [
+      ["babelify", {"presets": ["@babel/preset-env", "@babel/preset-react"] }]
+    ] 
   }
 }
