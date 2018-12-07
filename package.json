@@ -19,4 +19,8 @@
     "url": "https://github.com/ptoner/freedom-for-data/issues"
   },
   "homepage": "https://github.com/ptoner/freedom-for-data#readme"
+  "devDependencies": {
+    "ganache-cli": "6.1.8",
+    "truffle": "beta"
+  }
 }
