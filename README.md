@@ -329,12 +329,10 @@ let recordList = await freedom.readList(PLAYER_REPO, limit, offset);
 * **/test** - Unit tests for record-service.js, ipfs-service.js, and integration tests using data-access-service.js
 
 
-
-
-
+# Examples
+We're working on a very basic react app that uses freedom-for-data to store data. 
+https://github.com/ptoner/freedom-for-data-examples
 
 
 # Still very raw, unworking, and probably broken. So far.
 
-# Setup notes
-You'll need to run npm install inside react-app-template any time you deploy your contract to a new address (aka when you do 'truffle migrate').
