@@ -331,7 +331,7 @@ let recordList = await freedom.readList(PLAYER_REPO, limit, offset);
 
 # Examples
 We're working on a very basic react app that uses freedom-for-data to store data. 
-https://github.com/ptoner/freedom-for-data-examples
+(freedom-for-data-examples)[https://github.com/ptoner/freedom-for-data-examples]
 
 
 # Still very raw, unworking, and probably broken. So far.
