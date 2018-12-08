@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "truffle test",
-    "build": "browserify index.js > ./dist/freedom-for-data.js"
+    "build": "browserify -g uglifyify ./index.js > ./dist/freedom-for-data.js"
   },
   "dependencies": {
     "ipfs-http-client": "27.0.0"
@@ -27,8 +27,10 @@
     "browserify": "16.2.3",
     "@babel/core": "7.2.0",
     "@babel/preset-env": "7.2.0",
+    "@babel/polyfill": "7.0.0",
     "@babel/preset-react": "7.0.0",
-    "babelify": "10.0.0"
+    "babelify": "10.0.0",
+    "uglifyify": "5.0.1"
   },
   "browserify": { 
     "transform": [

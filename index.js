@@ -1,9 +1,9 @@
 const ServiceFactory = require('./src/service-factory.js');
 const ipfsClient = require('ipfs-http-client');
-const TruffleContract = require('truffle-contract')
+const TruffleContract = require('truffle-contract');
 
 
-export default async function(contractJson, account, web3Provider, ipfsConfig) {
+exports = async function(contractJson, account, web3Provider, ipfsConfig) {
 
     /** 
      * Get record contract service
