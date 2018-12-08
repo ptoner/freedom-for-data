@@ -3,7 +3,7 @@ const ipfsClient = require('ipfs-http-client');
 const TruffleContract = require('truffle-contract');
 
 
-exports = async function(contractJson, account, web3Provider, ipfsConfig) {
+exports = module.exports = async function(contractJson, account, web3Provider, ipfsConfig) {
 
     /** 
      * Get record contract service
