@@ -13,7 +13,7 @@ class IPFSService {
     async ipfsPut(data) {
 
         var self = this;
-
+        console.log(data);
         const cid = await self.ipfs.dag.put(data);
 
         

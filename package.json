@@ -8,7 +8,7 @@
     "build": "browserify -g uglifyify ./index.js > ./dist/freedom-for-data.js"
   },
   "dependencies": {
-    "ipfs-http-client": "27.1.0"
+    "ipfs-http-client": "27.0.0"
   },
   "repository": {
     "type": "git",
