@@ -30,11 +30,11 @@ npm install -g truffle@beta
 ```
 
 ### Install ganache
-This is fake blockchain you run on your own machine.
+This is fake blockchain you run on your own machine. This is optional but makes development faster.
 
 [Instructions](https://truffleframework.com/ganache)
 
-## Start ganache
+### Start ganache
 This will depend on your system. See the instructions in the link above.
 
 ### Install IPFS
