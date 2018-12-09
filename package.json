@@ -8,7 +8,8 @@
     "build": "browserify -g uglifyify ./index.js > ./dist/freedom-for-data.js"
   },
   "dependencies": {
-    "ipfs-http-client": "27.0.0"
+    "ipfs-http-client": "27.0.0",
+    "truffle-contract": "3.0.6"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,6 @@
   "devDependencies": {
     "ganache-cli": "6.1.8",
     "truffle": "beta",
-    "truffle-contract": "3.0.6",
     "browserify": "16.2.3",
     "@babel/core": "7.2.0",
     "@babel/preset-env": "7.2.0",
