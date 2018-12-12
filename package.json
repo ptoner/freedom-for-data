@@ -7,6 +7,11 @@
     "test": "truffle test",
     "build": "browserify -g uglifyify ./index.js > ./dist/freedom-for-data.js"
   },
+  "files": [
+    "build/contracts/RecordService.json",
+    "src/*",
+    "package.json"
+  ],
   "dependencies": {
     "ipfs-http-client": "27.0.0",
     "truffle-contract": "3.0.6"

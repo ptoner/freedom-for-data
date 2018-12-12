@@ -2,13 +2,14 @@ const ServiceFactory = require('./src/service-factory.js');
 const ipfsClient = require('ipfs-http-client');
 const TruffleContract = require('truffle-contract');
 
+const RecordServiceJson = require('./build/contracts/RecordService.json');
 
-exports = module.exports = async function(contractJson, account, web3Provider, ipfsConfig) {
+exports = module.exports = async function(account, web3Provider, ipfsConfig) {
 
     /** 
      * Get record contract service
      */
-    const recordService = TruffleContract(contractJson);
+    const recordService = TruffleContract(RecordServiceJson);
     recordService.setProvider(web3Provider);
     recordService.defaults({from: account});  
 
