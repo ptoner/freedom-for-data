@@ -99,10 +99,6 @@ class RecordService {
 
 }
 
-RecordService.prototype = {
-    constructor: RecordService,
 
-    
-}
 
 module.exports = RecordService;
