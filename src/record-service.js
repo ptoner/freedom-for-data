@@ -24,12 +24,17 @@ class RecordService {
         let items = [];
 
         if (limit <= 0) {
-            throw "Invalid limit provided";
+            throw `Negative limit given. Limit needs to be positive: ${limit}`;
         }
 
-        if (offset < 0 || offset >= currentCount) {
-            throw "Invalid offset provided";
+        if (offset < 0) {
+            throw `Negative offset provided. Offset needs to be positive: ${offset}`;
         }
+
+        if (offset >= currentCount) {
+            throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
+        }
+
 
         //Calculate end index
         let endIndex; 

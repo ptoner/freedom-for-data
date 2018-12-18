@@ -460,7 +460,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Assert
-        assert.equal("Invalid offset provided", error, "Error message does not match");
+        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
 
 
     });
@@ -480,8 +480,10 @@ contract('RecordService', async (accounts) => {
             error = ex;
         }
 
+        
+
         //Assert
-        assert.equal("Invalid offset provided", error, "Error message does not match");
+        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", error, "Error message does not match");
 
 
     });
@@ -503,7 +505,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Assert
-        assert.equal("Invalid limit provided", error, "Error message does not match");
+        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
 
 
     });
@@ -527,7 +529,7 @@ contract('RecordService', async (accounts) => {
 
 
         //Assert
-        assert.equal("Invalid limit provided", error, "Error message does not match");
+        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
 
 
     });
