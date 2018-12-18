@@ -3,6 +3,8 @@ const serviceFactory = new TestServiceFactory();
 
 var TestUtils = require('./test-utils.js');
 
+const fs = require('fs');
+
 
 
 contract('FreedomService', async (accounts) => {
@@ -599,9 +601,24 @@ contract('FreedomService', async (accounts) => {
 
 
     });
+  
+
+    it("Test ipfsPutFile & ipfsGetFile: Save an image then try to get it back out with IPFS directly and verify.", async function() {
+      
+        //Arrange
+        const buffer = fs.readFileSync('test/binary/test-image.jpeg');
 
 
+        //Act 
+        const cid = await freedomService.ipfsPutFile(buffer);
 
+
+        //Assert
+        const result = await freedomService.ipfsGetFile(cid);
+
+        assert.isTrue(buffer.equals(result));
+        
+    });
 
 
 

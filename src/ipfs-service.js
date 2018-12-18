@@ -12,20 +12,30 @@ class IPFSService {
      */
     async ipfsPutJson(data) {
 
-        var self = this;
-
-        const cid = await self.ipfs.dag.put(data);
+        const cid = await this.ipfs.dag.put(data);
 
         return cid.toBaseEncodedString();
     }
 
     async ipfsGetJson(hash) {
-        var self = this;
 
-        const node = await self.ipfs.dag.get(hash);
+        const node = await this.ipfs.dag.get(hash);
 
         return node.value;
 
+    }
+
+
+    async ipfsPutFile(file, options) {
+        let results = await this.ipfs.add(file, options);
+        let cid = results[0].hash;
+        return cid;
+
+    }
+
+    async ipfsGetFile(cid) {
+        let results = await this.ipfs.get(cid);
+        return results[0].content;
     }
 
     

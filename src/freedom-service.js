@@ -102,6 +102,17 @@ class FreedomService {
     async count(repoId) {
         return this.recordService.callCount(repoId);
     }
+
+
+    async ipfsPutFile(file, options) {
+        return this.ipfsService.ipfsPutFile(file, options);
+    }
+
+    async ipfsGetFile(cid) {
+        return this.ipfsService.ipfsGetFile(cid);
+    }
+
+
 }
 
 
