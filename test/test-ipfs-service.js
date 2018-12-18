@@ -20,11 +20,11 @@ describe("IPFSService", async function() {
         }
 
         //Act 
-        const cid = await ipfsService.ipfsPut(createdRecord);
+        const cid = await ipfsService.ipfsPutJson(createdRecord);
 
 
         //Assert
-        const result = await ipfsService.ipfsGet(cid);
+        const result = await ipfsService.ipfsGetJson(cid);
 
         assert.equal(result.firstName, "Joe");
         assert.equal(result.lastName, "Musgrove");

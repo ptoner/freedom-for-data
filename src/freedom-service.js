@@ -10,20 +10,21 @@ class FreedomService {
 
         //Passing in a js object that can talk to IPFS
         this.ipfsService = ipfsService;
+
         this.utils = new Utils();
     }
 
     async create(repoId, data, transactionObject) {
 
         //Put the data in IPFS
-        const ipfsHash = await this.ipfsService.ipfsPut(data);
+        const ipfsCid = await this.ipfsService.ipfsPutJson(data);
 
-        if (!ipfsHash) {
-            throw "Multihash not returned from IPFS";
+        if (!ipfsCid) {
+            throw "CID not returned from IPFS";
         }
         
         //Get the hash and pass to sendCreate
-        let result = await this.recordService.sendCreate(repoId, ipfsHash, transactionObject);
+        let result = await this.recordService.sendCreate(repoId, ipfsCid, transactionObject);
 
         
         //The event returns the metadata about our created data.
@@ -79,7 +80,7 @@ class FreedomService {
     async fetchIpfs(record) {
 
         //Get json data from IPFS
-        let data = await this.ipfsService.ipfsGet(record.ipfsCid);
+        let data = await this.ipfsService.ipfsGetJson(record.ipfsCid);
 
         //Merge
         Object.assign(record, data);
@@ -91,7 +92,7 @@ class FreedomService {
     async update(repoId, id, data, transactionObject) {
 
         //Put the data in IPFS
-        const ipfsCid = await this.ipfsService.ipfsPut(data);
+        const ipfsCid = await this.ipfsService.ipfsPutJson(data);
 
         await this.recordService.sendUpdate(repoId, id, ipfsCid, transactionObject);
 
