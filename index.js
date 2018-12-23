@@ -6,7 +6,7 @@ const TruffleContract = require('truffle-contract');
 
 const RecordServiceJson = require('./build/contracts/RecordService.json');
 
-const freedomService = async function(account, web3Provider, ipfsConfig) {
+const Freedom = async function(account, web3Provider, ipfsConfig) {
 
     /** 
      * Get record contract service
@@ -27,12 +27,11 @@ const freedomService = async function(account, web3Provider, ipfsConfig) {
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
 
+    window.Freedom = this;
+
     return serviceFactory.getFreedomService();
 
-}
+};
 
 
-module.exports.freedomService = freedomService;
-
-
-// exports = module.exports 
+exports = module.exports = Freedom;
