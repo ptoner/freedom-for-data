@@ -55,6 +55,20 @@ npm run test
 
 # How to use
 
+## Using the distributable version in a browser
+```html
+<script src="js/freedom-for-data.js"></script>
+<script>
+    const freedom = await Freedom({ 
+      ipfsHost: 'localhost', 
+      ipfsPort: '5001' 
+    });    
+</script>
+```
+
+
+
+
 ## Create a record
 ```javascript
 
