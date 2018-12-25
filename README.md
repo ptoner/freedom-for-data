@@ -56,13 +56,16 @@ npm run test
 # How to use
 
 ## Using the distributable version in a browser
+### Note: You can find the contract addresses by running 'truffle migrate'.
 ```html
 <script src="js/freedom-for-data.js"></script>
 <script>
     const freedom = await Freedom({ 
       ipfsHost: 'localhost', 
-      ipfsPort: '5001' 
-    });    
+      ipfsPort: '5001',
+      recordContractAddress: "<YOUR CONTRACT ADDRESS HERE>",
+      recordContractTransactionHash: "<YOUR CONTRACT TRANSACTION HASH HERE>"
+    });  
 </script>
 ```
 
