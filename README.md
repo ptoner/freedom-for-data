@@ -24,9 +24,7 @@ npm install -g
 
 ### Install truffle
 ```console
-npm install -g truffle@beta 
-
-# beta for solidity 0.5.0 compiler
+npm install -g truffle@5.0.0 
 ```
 
 ### Install ganache
