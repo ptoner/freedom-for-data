@@ -220,6 +220,15 @@ contract('RecordService', async (accounts) => {
         
     });
 
+    it("Test callCountOwner: Make sure it matches", async () => {
+
+        //Act
+        let count = await recordService.callCountOwner(TEST_REPO1);
+
+        assert.equal(count, createdCount);
+        
+    });
+
 
     it("Test callCount: Pass zero repoId", async () => {
         //Act
@@ -242,10 +251,42 @@ contract('RecordService', async (accounts) => {
         
     });
 
+
+    it("Test callCountOwner: Pass zero repoId", async () => {
+        //Act
+
+        let error;
+        try {
+            await recordService.callCountOwner(0)
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "You must supply a repo"
+        );
+        
+    });
+
     it("Test callCount: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
         let count = await recordService.callCount(200);
+        
+        //Assert
+        assert.equal(count, 0);
+        
+    });
+
+    it("Test callCountOwner: Pass positive invalid repoId. Get zero count.", async () => {
+        
+        //Act
+        let count = await recordService.callCountOwner(200);
         
         //Assert
         assert.equal(count, 0);

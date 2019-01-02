@@ -67,6 +67,10 @@ class RecordService {
         return result.toNumber();
     }
 
+    async callCountOwner(repoId) {
+        let result = await this.recordServiceContract.countOwner.call(repoId);
+        return result.toNumber();
+    }
 
     /**
      * SEND

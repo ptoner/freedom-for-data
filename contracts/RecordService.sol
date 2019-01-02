@@ -138,7 +138,7 @@ contract RecordService {
     }
 
 
-    //Paging functionality
+    
     function count(uint _repoId) external view returns (uint256 theCount) {
         require(_repoId != 0, "You must supply a repo");
 
@@ -158,6 +158,15 @@ contract RecordService {
         require(idAtIndex >= 0, "Invalid id at index");
 
         return read(_repoId, idAtIndex);
+    }
+
+    function countOwner(uint _repoId) external view returns (uint256 theCount) {
+        require(_repoId != 0, "You must supply a repo");
+
+        bytes32 repoIdAddressHash = keccak256RepoIdAndOwner(_repoId, msg.sender);
+
+        uint256[] storage repoIndex = repoIdAddressHashToIndexesMapping[repoIdAddressHash];
+        return repoIndex.length;
     }
 
     function readByOwnerIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {

@@ -232,6 +232,15 @@ contract('FreedomService', async (accounts) => {
 
     });
 
+    it("Test countOwner: Make sure it matches", async () => {
+
+        //Act
+        let count = await freedomService.countOwner(TEST_REPO1);
+
+        assert.equal(count, createdCount);
+
+    });
+
 
 
     it("Test count: Pass zero repoId", async () => {
@@ -255,10 +264,42 @@ contract('FreedomService', async (accounts) => {
         
     });
 
+
+    it("Test countOwner: Pass zero repoId", async () => {
+        //Act
+
+        let error;
+        try {
+            await freedomService.countOwner(0)
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            
+            "You must supply a repo"
+        );
+        
+    });
+
     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
         let count = await freedomService.count(200);
+        
+        //Assert
+        assert.equal(count, 0);
+        
+    });
+
+    it("Test countOwner: Pass positive invalid repoId. Get zero count.", async () => {
+        
+        //Act
+        let count = await freedomService.countOwner(200);
         
         //Assert
         assert.equal(count, 0);
@@ -537,6 +578,13 @@ contract('FreedomService', async (accounts) => {
 
 
     });
+
+    it("Test readByIndex and readByOwnerIndex: Add record with different owner", async () => {
+
+
+    });
+
+
 
     it("Test readByIndex: Zero repoId", async () => {
 
