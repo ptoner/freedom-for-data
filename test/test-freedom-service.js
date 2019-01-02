@@ -453,6 +453,91 @@ contract('FreedomService', async (accounts) => {
 
     });
 
+    it("Test readByOwnerIndex: Read all the records we've written so far", async () => {
+
+        await assertOwnerIndexAndRecordMatch(0, {
+            id: 1,
+            repoId: TEST_REPO1,
+            index: 0,
+            ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
+            owner: accounts[0],
+            firstName: "Andrew",
+            lastName: "McCutchen"
+        });
+
+        await assertOwnerIndexAndRecordMatch(1, {
+            id: 2,
+            repoId: TEST_REPO1,
+            index: 1,
+            ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
+            owner: accounts[0],
+            firstName: "Mark",
+            lastName: "Melancon"
+        });
+
+        await assertOwnerIndexAndRecordMatch(2, { 
+            id: 3,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
+            repoId: TEST_REPO1,
+            index: 2,
+            lastName: 'Polanco',
+            firstName: 'Gregory' 
+        });
+
+        await assertOwnerIndexAndRecordMatch(3, { 
+            id: 4,
+            owner: accounts[0],
+            ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
+            repoId: TEST_REPO1,
+            index: 3,
+            lastName: 'Mercer',
+            firstName: 'Jordy' 
+        });
+
+        await assertOwnerIndexAndRecordMatch(4, { 
+            id: 5,
+            owner: accounts[0],
+            ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
+            repoId: TEST_REPO1,
+            index: 4,
+            lastName: 'Alvarez',
+            firstName: 'Pedro' 
+        });
+
+        await assertOwnerIndexAndRecordMatch(5, { 
+            id: 6,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
+            repoId: TEST_REPO1,
+            index: 5,
+            lastName: 'Joyce',
+            firstName: 'Matt' 
+        });
+
+        await assertOwnerIndexAndRecordMatch(6, { 
+            id: 7,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
+            repoId: TEST_REPO1,
+            index: 6,
+            lastName: 'Morton',
+            firstName: 'Charlie' 
+        });
+
+        await assertOwnerIndexAndRecordMatch(7, { 
+            id: 8,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
+            repoId: TEST_REPO1,
+            index: 7,
+            lastName: 'Cole',
+            firstName: 'Gerrit' 
+        });
+
+
+    });
+
     it("Test readByIndex: Zero repoId", async () => {
 
         //Arrange
@@ -472,6 +557,68 @@ contract('FreedomService', async (accounts) => {
         );
 
     });
+
+    it("Test readByIndex: Invalid index out of bounds", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await freedomService.readByIndex(TEST_REPO1, 100000);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "No record at index", 
+            testUtils.getRequireMessage(error), 
+            "No record at index"
+        );
+
+    });
+    
+
+    it("Test readByOwnerIndex: Zero repoId", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await freedomService.readByOwnerIndex(0, 0);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            "You must supply a repo"
+        );
+
+    });
+
+    it("Test readByOwnerIndex: Invalid index out of bounds", async () => {
+
+        //Arrange
+        let error;
+
+        try {
+            await freedomService.readByOwnerIndex(TEST_REPO1, 100000);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "No record at index", 
+            testUtils.getRequireMessage(error), 
+            "No record at index"
+        );
+
+    });
+
 
 
     it("Test readList: Limit greater than list size", async () => {
@@ -630,6 +777,12 @@ contract('FreedomService', async (accounts) => {
         testUtils.assertRecordsMatch(record, recordAtIndex);
     }
 
+    async function assertOwnerIndexAndRecordMatch(index, record) {
+
+        let recordAtIndex = await freedomService.readByOwnerIndex(TEST_REPO1, index);
+
+        testUtils.assertRecordsMatch(record, recordAtIndex);
+    }
 
 
 

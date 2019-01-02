@@ -53,6 +53,12 @@ class FreedomService {
         return this.fetchIpfs(record);
     }
 
+    async readByOwnerIndex(repoId, index) {
+        let record = await this.recordService.callReadByOwnerIndex(repoId, index);
+
+        return this.fetchIpfs(record);
+    }
+
     async readByIndex(repoId, index) {
 
         //Get metadata from contract

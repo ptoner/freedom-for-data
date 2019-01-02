@@ -12,6 +12,11 @@ class RecordService {
         return this.recordMapper(resultArray);
     }
 
+    async callReadByOwnerIndex(repoId, index) {
+        let resultArray = await this.recordServiceContract.readByOwnerIndex.call(repoId, index);
+        return this.recordMapper(resultArray);
+    }
+
     async callReadByIndex(repoId, index) {
         let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
         return this.recordMapper(resultArray);

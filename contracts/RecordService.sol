@@ -44,8 +44,17 @@ contract RecordService {
      */
     mapping(uint => uint256[]) private repoIdIndexesMapping;
 
+    /*
+     * Map between a hash of the repoId and owner address and the array that
+     * holds the indexes for it.
+     */
+    mapping(bytes32 => uint256[]) private repoIdAddressHashToIndexesMapping;
+
+
     //Records are ultimately stored mapped by their id.
     mapping(uint256 => Record) private recordMapping;
+
+
 
     uint256 nextId;
 
@@ -60,6 +69,10 @@ contract RecordService {
         //Get the existing indexes for this repo
         uint256[] storage repoIndex = repoIdIndexesMapping[_repoId];
 
+        //Get the existing indexes for this repo/owner
+        bytes32 repoIdAddressHash = keccak256RepoIdAndOwner(_repoId, msg.sender);
+        uint256[] storage repoOwnerIndex = repoIdAddressHashToIndexesMapping[repoIdAddressHash];
+
         Record memory record = Record({
             id : nextId,
             owner: msg.sender,
@@ -71,9 +84,9 @@ contract RecordService {
         //Put item in mapping
         recordMapping[record.id] = record;
 
-
-        //Put id in index
+        //Put id in indexes
         repoIndex.push(record.id);
+        repoOwnerIndex.push(record.id);
 
 
         emit RecordEvent(
@@ -138,13 +151,37 @@ contract RecordService {
         require(_repoId != 0, "You must supply a repo");
         uint256[] storage repoIndex = repoIdIndexesMapping[_repoId]; //unit test before adding a record
 
-        require(_index < repoIndex.length, "No record at index");
+        require(_index < repoIndex.length, "No record at index"); //check if we're passed the end of the array
 
         uint256 idAtIndex = repoIndex[_index];
 
         require(idAtIndex >= 0, "Invalid id at index");
 
         return read(_repoId, idAtIndex);
+    }
+
+    function readByOwnerIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
+        
+        require(_repoId != 0, "You must supply a repo");
+        
+        bytes32 repoIdAddressHash = keccak256RepoIdAndOwner(_repoId, msg.sender);
+
+        uint256[] storage repoOwnerIndex = repoIdAddressHashToIndexesMapping[repoIdAddressHash];
+
+        require(_index < repoOwnerIndex.length, "No record at index"); //check if we're passed the end of the array
+
+        uint256 idAtIndex = repoOwnerIndex[_index];
+        require(idAtIndex >= 0, "Invalid id at index");
+
+        return read(_repoId, idAtIndex);
+
+
+    }
+
+
+
+    function keccak256RepoIdAndOwner(uint _repoId, address owner) internal pure returns (bytes32) {
+        return keccak256(abi.encode(owner, _repoId));
     }
 
 }
