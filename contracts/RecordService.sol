@@ -60,7 +60,7 @@ contract RecordService {
 
     function create(uint _repoId, string calldata _ipfsCid) external returns (uint256 id) {
         
-        require(serviceOwner == msg.sender, "Permission denied");
+        // require(serviceOwner == msg.sender, "Permission denied");
         require(_repoId != 0, "You must supply a repo"); 
         require(bytes(_ipfsCid).length > 0, "You must supply an ipfsCid");
 
@@ -159,6 +159,10 @@ contract RecordService {
 
         return read(_repoId, idAtIndex);
     }
+
+
+
+
 
     function countOwner(uint _repoId) external view returns (uint256 theCount) {
         require(_repoId != 0, "You must supply a repo");
