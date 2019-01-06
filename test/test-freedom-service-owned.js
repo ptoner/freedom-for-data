@@ -1,635 +1,287 @@
-// const TestServiceFactory = require('./test-service-factory.js');
-// const serviceFactory = new TestServiceFactory();
+const TestServiceFactory = require('./test-service-factory.js');
+const serviceFactory = new TestServiceFactory();
 
-// var TestUtils = require('./test-utils.js');
+var TestUtils = require('./test-utils.js');
 
-// const fs = require('fs');
+const fs = require('fs');
 
 
 
-// contract('FreedomService', async (accounts) => {
+contract('FreedomService', async (accounts) => {
 
-//     var testUtils = new TestUtils();
+    var testUtils = new TestUtils();
 
-//     let createdCount = 0;
-
-//     let TEST_REPO1 = 1;
+    let TEST_REPO1 = 1;
    
-//     let freedomService;
+    let freedomService;
 
-//     before('Setup', async () => {
-//         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
-//         freedomService = serviceFactory.getFreedomService();
-//     });
-
-
-//     it("Test create/read: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
-
-//         //Arrange
-//         let createdRecord = {
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         }
-
-//         //Act
-//         let resultCreatedRecord = await freedomService.create(TEST_REPO1, createdRecord);
-        
-
-//         createdCount++;
-
-//         //Compare what we just created with what we expect the result to look like. 
-//         testUtils.assertRecordsMatch( resultCreatedRecord, {
-//             id: 1,
-//             eventType: "NEW",
-//             repoId: TEST_REPO1,
-//             index: 0,
-//             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
-//             owner: accounts[0],
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         })
-
-//         //Also verify with a read.
-//         let record = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
-        
-
-//         /**
-//          * Expected record
-//          * 
-//          * { 
-//          *      id: 1,
-//                 owner: '...will match first address...',
-//                 ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
-//                 index: 0,
-//                 firstName: 'Andrew'
-//                 lastName: 'McCutchen'
-//             }
-//          */
-
-//         testUtils.assertRecordsMatch( record, {
-//             id: 1,
-//             repoId: TEST_REPO1,
-//             index: 0,
-//             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
-//             owner: accounts[0],
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         })
+    before('Setup', async () => {
+        serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
+        freedomService = serviceFactory.getFreedomService();
+    });
 
 
-//     });
+    it("Test count: Create some records and then call count and make sure it matches", async () => {
+
+        //Arrange
+        await freedomService.create(TEST_REPO1, { firstName: "Mark", lastName: "Melancon" }, {from: accounts[0]});
+        await freedomService.create(TEST_REPO1, { firstName: "Gregory", lastName: "Polanco" }, {from: accounts[0]});
+        await freedomService.create(TEST_REPO1, { firstName: "Jordy", lastName: "Mercer" }, {from: accounts[1]});
+        await freedomService.create(TEST_REPO1, { firstName: "Pedro", lastName: "Alvarez" }, {from: accounts[2]});
 
 
-//     it("Test read: Zero repoId", async () => {
-        
-//         //Arrange
-//         let error;
+        //Act
+        let count = await freedomService.countOwned(TEST_REPO1);
 
-//         try {
-//             let result = await freedomService.read(0, 1);
-//         } catch(ex) {
-//             error = ex;
-//         }
+        assert.equal(count, 2);
 
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You must supply a repo", 
-//             testUtils.getRequireMessage(error), 
+    });
+
+
+    it("Test count: Pass zero repoId", async () => {
+        //Act
+
+        let error;
+        try {
+            await freedomService.countOwned(0)
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
             
-//             "Supply a non-empty repo"
-//         );
-
-//     });
-
-//     it("Test read: Zero id", async () => {
+            "You must supply a repo"
+        );
         
-//         //Arrange
-//         let error;
-
-//         try {
-//             let result = await freedomService.read(1, 0);
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You must supply an id", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "Supply an id"
-//         );
-
-//     });
+    });
 
 
-//     it("Test read: Invalid positive id", async () => {
+    it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
         
-//         //Arrange
-//         let error;
-
-//         try {
-//             let result = await freedomService.read(1, 5000);
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "No record found", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "No record found"
-//         );
-
-//     });
-
-
-//     it("Test sendCreate: Zero repoId", async () => {
+        //Act
+        let count = await freedomService.countOwned(200);
         
-//         //Arrange
-//         let createdRecord = {
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         }
-
-//         let error;
-
-
-//         try {
-//             await freedomService.create(0, createdRecord);
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You must supply a repo -- Reason given: You must supply a repo.", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "Should fail to let non-owner call create"
-//         );
-
-//     });
-
-
-//     it("Test count: Create some records and then call count and make sure it matches", async () => {
-
-//         //Arrange
-//         await freedomService.create(TEST_REPO1, { firstName: "Mark", lastName: "Melancon" });
-//         await freedomService.create(TEST_REPO1, { firstName: "Gregory", lastName: "Polanco" });
-//         await freedomService.create(TEST_REPO1, { firstName: "Jordy", lastName: "Mercer" });
-//         await freedomService.create(TEST_REPO1, { firstName: "Pedro", lastName: "Alvarez" });
-//         await freedomService.create(TEST_REPO1, { firstName: "Matt", lastName: "Joyce" });
-
-//         createdCount += 5;
-
-//         //Act
-//         let count = await freedomService.count(TEST_REPO1);
-
-//         assert.equal(count, createdCount);
-
-//     });
-
-
-//     it("Test count: Pass zero repoId", async () => {
-//         //Act
-
-//         let error;
-//         try {
-//             await freedomService.count(0)
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You must supply a repo", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "You must supply a repo"
-//         );
+        //Assert
+        assert.equal(count, 0);
         
-//     });
+    });
 
 
-//     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
-        
-//         //Act
-//         let count = await freedomService.count(200);
-        
-//         //Assert
-//         assert.equal(count, 0);
-        
-//     });
+    it("Test readByIndexOwned: Read the records we've written so far", async () => {
+
+        await assertIndexAndRecordMatch(0, {
+            id: 1,
+            repoId: TEST_REPO1,
+            index: 0,
+            ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
+            owner: accounts[0],
+            firstName: "Mark",
+            lastName: "Melancon"
+        });
+
+        await assertIndexAndRecordMatch(1, { 
+            id: 2,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
+            repoId: TEST_REPO1,
+            index: 1,
+            lastName: 'Polanco',
+            firstName: 'Gregory' 
+        });
 
 
-//     it("Test update: Update a record and make sure the changes are saved.", async () => {
-        
-//         //Arrange
-//         let resultCreatedRecord = await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
-
-        
-//         //Act
-//         await freedomService.update(
-//             TEST_REPO1, 
-//             resultCreatedRecord.id, 
-//             {
-//                 firstName: "Charlie",
-//                 lastName: "Morton"
-//             }
-//         )
+    });
 
 
-//         //Assert
-//         let refetchedRecord = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
+    it("Test readByIndexOwned: Zero repoId", async () => {
 
-//         assert.equal(refetchedRecord.firstName, "Charlie");
-//         assert.equal(refetchedRecord.lastName, "Morton");
-//     });
+        //Arrange
+        let error;
 
+        try {
+            await freedomService.readByOwnedIndex(0, 0);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "You must supply a repo", 
+            testUtils.getRequireMessage(error), 
+            "You must supply a repo"
+        );
 
-//     it("Test update: Update a record this account doesn't own", async () => {
-        
-//         //Arrange
-//         let resultCreatedRecord = await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
+    });
 
-        
-//         let error;
+    it("Test readByIndexOwned: Invalid index out of bounds", async () => {
 
+        //Arrange
+        let error;
 
-//         try {
-//             await freedomService.update(
-//                 TEST_REPO1, 
-//                 resultCreatedRecord.id, 
-//                 {
-//                     firstName: "Charlie",
-//                     lastName: "Morton"
-//                 },
-//                 {
-//                     from: accounts[1]
-//                 }
-//             )
-//         } catch(ex) {
-//             error = ex;
-//         }
+        try {
+            await freedomService.readByOwnedIndex(TEST_REPO1, 100000);
+        } catch(ex) {
+            error = ex;
+        }
+        //Assert
+        assert.isTrue(error instanceof Error, "Should have thrown an error");
+        assert.equal(
+            "No record at index", 
+            testUtils.getRequireMessage(error), 
+            "No record at index"
+        );
 
-        
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You don't own this record -- Reason given: You don't own this record.", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "Should fail to update record user doesn't own."
-//         );
-
-//         //Do a read and make sure it shows the original value
-//         let refetchechRecord = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
-
-
-//         assert.equal(refetchechRecord.firstName, "Gerrit");
-//         assert.equal(refetchechRecord.lastName, "Cole");
-//     });
-
-
-//     it("Test update: Invalid positive id", async () => {
-
-//         //Arrange
-//         let error;
-
-//         try {
-//             await freedomService.update(
-//                 TEST_REPO1, 
-//                 5000, 
-//                 {
-//                     firstName: "Charlie",
-//                     lastName: "Morton"
-//                 }
-//             )
-//         } catch(ex) {
-//             error = ex;
-//         }
-
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You don't own this record -- Reason given: You don't own this record.", 
-//             testUtils.getRequireMessage(error), 
-            
-//             "Invalid positive id"
-//         );
-
-        
-//     });
-    
-
-//     it("Test readByIndex: Read all the records we've written so far", async () => {
-
-//         await assertIndexAndRecordMatch(0, {
-//             id: 1,
-//             repoId: TEST_REPO1,
-//             index: 0,
-//             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
-//             owner: accounts[0],
-//             firstName: "Andrew",
-//             lastName: "McCutchen"
-//         });
-
-//         await assertIndexAndRecordMatch(1, {
-//             id: 2,
-//             repoId: TEST_REPO1,
-//             index: 1,
-//             ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
-//             owner: accounts[0],
-//             firstName: "Mark",
-//             lastName: "Melancon"
-//         });
-
-//         await assertIndexAndRecordMatch(2, { 
-//             id: 3,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
-//             repoId: TEST_REPO1,
-//             index: 2,
-//             lastName: 'Polanco',
-//             firstName: 'Gregory' 
-//         });
-
-//         await assertIndexAndRecordMatch(3, { 
-//             id: 4,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
-//             repoId: TEST_REPO1,
-//             index: 3,
-//             lastName: 'Mercer',
-//             firstName: 'Jordy' 
-//         });
-
-//         await assertIndexAndRecordMatch(4, { 
-//             id: 5,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
-//             repoId: TEST_REPO1,
-//             index: 4,
-//             lastName: 'Alvarez',
-//             firstName: 'Pedro' 
-//         });
-
-//         await assertIndexAndRecordMatch(5, { 
-//             id: 6,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
-//             repoId: TEST_REPO1,
-//             index: 5,
-//             lastName: 'Joyce',
-//             firstName: 'Matt' 
-//         });
-
-//         await assertIndexAndRecordMatch(6, { 
-//             id: 7,
-//             owner: accounts[1],
-//             ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
-//             repoId: 1,
-//             index: 6,
-//             lastName: 'McCutchen',
-//             firstName: 'Andrew' 
-//         });
-        
-
-//         await assertIndexAndRecordMatch(7, { 
-//             id: 8,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
-//             repoId: TEST_REPO1,
-//             index: 7,
-//             lastName: 'Morton',
-//             firstName: 'Charlie' 
-//         });
-
-//         await assertIndexAndRecordMatch(8, { 
-//             id: 9,
-//             owner: accounts[0],
-//             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
-//             repoId: TEST_REPO1,
-//             index: 8,
-//             lastName: 'Cole',
-//             firstName: 'Gerrit' 
-//         });
-
-
-//     });
-
-
-//     it("Test readByIndex: Zero repoId", async () => {
-
-//         //Arrange
-//         let error;
-
-//         try {
-//             await freedomService.readByIndex(0, 0);
-//         } catch(ex) {
-//             error = ex;
-//         }
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "You must supply a repo", 
-//             testUtils.getRequireMessage(error), 
-//             "You must supply a repo"
-//         );
-
-//     });
-
-//     it("Test readByIndex: Invalid index out of bounds", async () => {
-
-//         //Arrange
-//         let error;
-
-//         try {
-//             await freedomService.readByIndex(TEST_REPO1, 100000);
-//         } catch(ex) {
-//             error = ex;
-//         }
-//         //Assert
-//         assert.isTrue(error instanceof Error, "Should have thrown an error");
-//         assert.equal(
-//             "No record at index", 
-//             testUtils.getRequireMessage(error), 
-//             "No record at index"
-//         );
-
-//     });
+    });
     
 
 
-//     it("Test readList: Limit greater than list size", async () => {
-//         assert.equal(await freedomService.count(TEST_REPO1), 9, "Count is incorrect");
+    it("Test readOwnedList: Limit greater than list size", async () => {
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 2, "Count is incorrect");
 
-//         let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
+        let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 0);
 
-//         assert.equal(itemList.length, 9);
-//     });
-
-
-//     it("Test readList: Check for duplicates", async () => {
-
-//         //Arrange
-//         for (var i=0; i < 50; i++) {
-//             await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
-//         }
-
-//         assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(itemList.length, 2);
+    });
 
 
-//         //Act
-//         let limit = 10;
+    it("Test readOwnedList: Check for duplicates", async () => {
 
-//         var foundIds = [];
-//         for (var i=0; i < 5; i++) {
+        //Arrange
+        for (var i=0; i < 50; i++) {
+            await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
+        }
+
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
+
+
+        //Act
+        let limit = 10;
+
+        var foundIds = [];
+        for (var i=0; i < 5; i++) {
         
-//             let recordList = await freedomService.readList(TEST_REPO1, limit, i*limit);
+            let recordList = await freedomService.readList(TEST_REPO1, limit, i*limit);
 
-//             for (record of recordList) {
-//                 if (foundIds.includes(record.id)) {
-//                     assert.fail("Duplicate ID found in page");
-//                 }
+            for (record of recordList) {
+                if (foundIds.includes(record.id)) {
+                    assert.fail("Duplicate ID found in page");
+                }
 
-//                 foundIds.push(record.id);
-//             }
-//         }
+                foundIds.push(record.id);
+            }
+        }
 
-//     });
-
-
-//     it("Test readList: Negative offset", async () => {
-
-//         //Arrange
-//         assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+    });
 
 
-//         //Act
-//         let error;
+    it("Test readOwnedList: Negative offset", async () => {
 
-//         try {
-//             let results = await freedomService.readList(TEST_REPO1, 10, -1);
-//         } catch(ex) {
-//            error = ex;
-//           }
+        //Arrange
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
 
 
-//         //Assert
-//         assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
+        //Act
+        let error;
+
+        try {
+            let results = await freedomService.readOwnedList(TEST_REPO1, 10, -1);
+        } catch(ex) {
+           error = ex;
+          }
 
 
-//     });
-
-//     it("Test callReadList: Offset greater than list size", async () => {
-
-//         //Arrange
-//         assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        //Assert
+        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
 
 
-//         //Act
-//         let error;
+    });
 
-//         try {
-//             let itemList = await freedomService.readList(TEST_REPO1, 10, 59);
-//         } catch(ex) {
-//             error = ex;
-//         }
+    it("Test readOwnedList: Offset greater than list size", async () => {
 
-//         //Assert
-//         assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 59, currrentCount: 59", error, "Error message does not match");
+        //Arrange
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
 
 
-//     });
+        //Act
+        let error;
 
-//     it("Test readList: Negative limit", async () => {
+        try {
+            let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 52);
+        } catch(ex) {
+            error = ex;
+        }
 
-//         //Arrange
-//         assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
-
-
-//         //Act
-//         let error;
-
-//         try {
-//             let results = await freedomService.readList(TEST_REPO1, -1, 0);
-//         } catch(ex) {
-//             error = ex;
-//         }
+        //Assert
+        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 52, currrentCount: 52", error, "Error message does not match");
 
 
-//         //Assert
-//         assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
+    });
+
+    it("Test readOwnedList: Negative limit", async () => {
+
+        //Arrange
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
 
 
-//     });
+        //Act
+        let error;
+
+        try {
+            let results = await freedomService.readOwnedList(TEST_REPO1, -1, 0);
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
+
+
+    });
 
 
 
-//     it("Test readList: Zero limit", async () => {
+    it("Test readOwnedList: Zero limit", async () => {
 
-//         //Arrange
-//         assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
-
-
-//         //Act
-//         let error;
-
-//         try {
-//             let results = await freedomService.readList(TEST_REPO1, 0, 0);
-//         } catch(ex) {
-//             error = ex;
-//         }
+        //Arrange
+        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
 
 
-//         //Assert
-//         assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
+        //Act
+        let error;
+
+        try {
+            let results = await freedomService.readOwnedList(TEST_REPO1, 0, 0);
+        } catch(ex) {
+            error = ex;
+        }
 
 
-//     });
+        //Assert
+        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
+
+
+    });
   
 
-//     it("Test ipfsPutFile & ipfsGetFile: Save an image then try to get it back out with IPFS directly and verify.", async function() {
-      
-//         //Arrange
-//         const buffer = fs.readFileSync('test/binary/test-image.jpeg');
+
+    async function assertIndexAndRecordMatch(index, record) {
+
+        let recordAtIndex = await freedomService.readByOwnedIndex(TEST_REPO1, index);
+
+        // console.log("assertIndexAndRecordMatch");
+        // console.log("Record:");
+        // console.log(record);
+        // console.log("Record at index:" + index);
+        // console.log(recordAtIndex);
+        // console.log('---------------');
+
+        testUtils.assertRecordsMatch(record, recordAtIndex);
+    }
 
 
-//         //Act 
-//         const cid = await freedomService.ipfsPutFile(buffer);
-
-
-//         //Assert
-//         const result = await freedomService.ipfsGetFile(cid);
-
-//         assert.isTrue(buffer.equals(result));
-        
-//     });
-
-
-
-
-//     async function assertIndexAndRecordMatch(index, record) {
-
-//         let recordAtIndex = await freedomService.readByIndex(TEST_REPO1, index);
-
-//         // console.log("assertIndexAndRecordMatch");
-//         // console.log("Record:");
-//         // console.log(record);
-//         // console.log("Record at index:" + index);
-//         // console.log(recordAtIndex);
-//         // console.log('---------------');
-
-//         testUtils.assertRecordsMatch(record, recordAtIndex);
-//     }
-
-
-// });
+});

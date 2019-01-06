@@ -83,6 +83,21 @@ class FreedomService {
         return merged;
     }
 
+    async readOwnedList(repoId, limit, offset) {
+
+        let merged = [];
+
+        // console.log(`limit: ${limit}, offset: ${offset}`);
+
+        let results = await this.recordService.callReadOwnedList(repoId, limit, offset);
+
+        for (const result of results) {
+            merged.push(await this.fetchIpfs(result));
+        }
+
+        return merged;
+    }
+
     async fetchIpfs(record) {
 
         //Get json data from IPFS

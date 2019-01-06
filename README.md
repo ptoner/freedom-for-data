@@ -220,12 +220,12 @@ let updatedRecord = await freedom.read(PLAYER_REPO, 1);
 
 ```
 
-## Get a paged list of records
+## Get a paged list of records. Includes records created by everyone.
 ```javascript
 
-//This example will get the first 10 records from the list.
+//This example will get the first 2 records from the list.
 let offset = 0;  # The index where we want to start reading. The first record is 0. 
-let limit = 10;  # The number of records to return.
+let limit = 2;  # The number of records to return.
 
 let recordList = await freedom.readList(PLAYER_REPO, limit, offset);
 
@@ -252,82 +252,53 @@ let recordList = await freedom.readList(PLAYER_REPO, limit, offset);
             index: 1,
             lastName: 'Melancon',
             firstName: 'Mark' 
-        },
-        { 
-            id: 3,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
-            repoId: 1,            
-            index: 2,
-            lastName: 'Polanco',
-            firstName: 'Gregory' 
-        },
-        {   id: 4,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
-            repoId: 1,            
-            index: 3,
-            lastName: 'Mercer',
-            firstName: 'Jordy' 
-        },
-        { 
-            id: 5,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
-            repoId: 1,            
-            index: 4,
-            lastName: 'Alvarez',
-            firstName: 'Pedro' 
-        },
-        {   id: 6,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
-            repoId: 1,            
-            index: 5,
-            lastName: 'Joyce',
-            firstName: 'Matt' 
-        },
-        { 
-            id: 7,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
-            repoId: 1,            
-            index: 6,
-            lastName: 'Morton',
-            firstName: 'Charlie' 
-        },
-        { 
-            id: 8,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
-            repoId: 1,            
-            index: 7,
-            lastName: 'Cole',
-            firstName: 'Gerrit' 
-        },
-        { 
-            id: 9,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'MdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLVM',
-            repoId: 1,            
-            index: 8,
-            lastName: 'Francisco',
-            firstName: 'Cervelli' 
-        },
-        { 
-            id: 10,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
-            ipfsCid: 'nRpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgBhT',
-            repoId: 1,            
-            index: 9,
-            lastName: 'Josh',
-            firstName: 'Bell' 
-        } 
+        }
     ]
  * 
  */
 
 ```
+
+
+## Get a paged list of records you own. Only includes records created by the calling address. 
+```javascript
+
+//This example will get the first 2 records from the list.
+let offset = 0;  # The index where we want to start reading. The first record is 0. 
+let limit = 2;  # The number of records to return.
+
+let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
+
+
+/**
+ * Example recordList
+ * 
+ * 
+ * [ 
+    * { 
+    *       id: 1,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
+            repoId: 1,
+            index: 0,
+            lastName: 'McCutchen',
+            firstName: 'Andrew' 
+        },
+        { 
+            id: 2,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL',
+            repoId: 1,            
+            index: 1,
+            lastName: 'Melancon',
+            firstName: 'Mark' 
+        }
+    ]
+ * 
+ */
+
+```
+
 
 
 
