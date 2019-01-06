@@ -18,6 +18,8 @@ const promisify = (inner) =>
 
 const Freedom = async function(config) {
 
+    console.log(config);
+
     //Replace contract info
     RecordServiceJson.networks["5777"].address = config.recordContractAddress;
     RecordServiceJson.networks["5777"].transactionHash = config.recordContractTransactionHash;
