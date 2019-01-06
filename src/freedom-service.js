@@ -53,8 +53,8 @@ class FreedomService {
         return this.fetchIpfs(record);
     }
 
-    async readByOwnerIndex(repoId, index) {
-        let record = await this.recordService.callReadByOwnerIndex(repoId, index);
+    async readByOwnedIndex(repoId, index) {
+        let record = await this.recordService.callReadByOwnedIndex(repoId, index);
 
         return this.fetchIpfs(record);
     }
@@ -109,8 +109,8 @@ class FreedomService {
         return this.recordService.callCount(repoId);
     }
 
-    async countOwner(repoId) {
-        return this.recordService.callCountOwner(repoId);
+    async countOwned(repoId) {
+        return this.recordService.callCountOwned(repoId);
     }
 
 

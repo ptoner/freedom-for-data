@@ -59,34 +59,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-    // it("Test sendCreate: Try with an account that's not the owner. Should throw an exception.", async () => {
-        
-    //     //Arrange
-    //     let error;
-
-
-    //     try {
-    //         let result = await recordService.sendCreate(
-    //             TEST_REPO1, 
-    //             "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB",
-    //             {
-    //                 from: accounts[1]
-    //             }    
-    //         );
-    //     } catch(ex) {
-    //         error = ex;
-    //     }
-
-    //     //Assert
-    //     assert.isTrue(error instanceof Error, "Should have thrown an error");
-    //     assert.equal(
-    //         "Permission denied -- Reason given: Permission denied.", 
-    //         testUtils.getRequireMessage(error), 
-            
-    //         "Should fail to let non-owner call create"
-    //     );
-
-    // });
 
     it("Test sendCreate: Zero repoId", async () => {
         
@@ -220,15 +192,6 @@ contract('RecordService', async (accounts) => {
         
     });
 
-    it("Test callCountOwner: Make sure it matches", async () => {
-
-        //Act
-        let count = await recordService.callCountOwner(TEST_REPO1);
-
-        assert.equal(count, createdCount);
-        
-    });
-
 
     it("Test callCount: Pass zero repoId", async () => {
         //Act
@@ -252,26 +215,6 @@ contract('RecordService', async (accounts) => {
     });
 
 
-    it("Test callCountOwner: Pass zero repoId", async () => {
-        //Act
-
-        let error;
-        try {
-            await recordService.callCountOwner(0)
-        } catch(ex) {
-            error = ex;
-        }
-
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "You must supply a repo"
-        );
-        
-    });
 
     it("Test callCount: Pass positive invalid repoId. Get zero count.", async () => {
         
@@ -282,18 +225,6 @@ contract('RecordService', async (accounts) => {
         assert.equal(count, 0);
         
     });
-
-    it("Test callCountOwner: Pass positive invalid repoId. Get zero count.", async () => {
-        
-        //Act
-        let count = await recordService.callCountOwner(200);
-        
-        //Assert
-        assert.equal(count, 0);
-        
-    });
-
-
 
     it("Test sendUpdate: Update a record with a new IPFS cid and make sure the changes are saved.", async () => {
         
@@ -425,19 +356,6 @@ contract('RecordService', async (accounts) => {
         await assertCallReadByIndexIpfsCid(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
     });
 
-    it("Test readByOwnerIndex: Read all the records we've written so far", async() => {
-
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 0, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 2, "MdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iF");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 3, "GdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iB");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 4, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
-        await assertCallReadByOwnerIndexIpfsCid(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
-
-    });
-
-
 
 
     it("Test readByIndex: Zero repoId", async () => {
@@ -479,47 +397,6 @@ contract('RecordService', async (accounts) => {
         );
 
     });
-
-    it("Test readByOwnerIndex: Zero repoId", async () => {
-
-        //Arrange
-        let error;
-
-        try {
-            await recordService.callReadByOwnerIndex(0, 0);
-        } catch(ex) {
-            error = ex;
-        }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            "You must supply a repo"
-        );
-
-    });
-
-    it("Test readByOwnerIndex:  Invalid index out of bounds", async () => {
-
-        //Arrange
-        let error;
-
-        try {
-            await recordService.callReadByOwnerIndex(TEST_REPO1, 1000000);
-        } catch(ex) {
-            error = ex;
-        }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record at index", 
-            testUtils.getRequireMessage(error), 
-            "No record at index"
-        );
-
-    });
-
 
 
     it("Test callReadList: Limit greater than list size", async () => {
@@ -657,11 +534,5 @@ contract('RecordService', async (accounts) => {
         let record = await recordService.callReadByIndex(repoId, index);
         assert.equal(record.ipfsCid, ipfsCid);
     }
-
-    async function assertCallReadByOwnerIndexIpfsCid(repoId, index, ipfsCid) {
-        let record = await recordService.callReadByOwnerIndex(repoId, index);
-        assert.equal(record.ipfsCid, ipfsCid);
-    }
-
 
 });

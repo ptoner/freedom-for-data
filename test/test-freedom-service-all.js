@@ -195,43 +195,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-    it("Test countOwner: Make sure it matches", async () => {
-
-        //Act
-        let count = await freedomService.countOwner(TEST_REPO1);
-
-        assert.equal(count, createdCount);
-
-    });
-
-    it("Test count and countOwner: Add non-owned players", async () => {
-
-        //Arrange. Create object with different account
-        await freedomService.create(
-            TEST_REPO1, 
-            {
-                firstName: "Andrew",
-                lastName: "McCutchen"
-            }, 
-            {
-                from: accounts[1]
-            } 
-        );
-
-        createdCount++;
-
-        //Act
-        let count = await freedomService.count(TEST_REPO1);
-        let countOwner = await freedomService.countOwner(TEST_REPO1);
-
-        assert.equal(count, createdCount);
-        assert.equal(countOwner, createdCount - 1);
-        
-
-    });
-
-
-
 
     it("Test count: Pass zero repoId", async () => {
         //Act
@@ -255,27 +218,6 @@ contract('FreedomService', async (accounts) => {
     });
 
 
-    it("Test countOwner: Pass zero repoId", async () => {
-        //Act
-
-        let error;
-        try {
-            await freedomService.countOwner(0)
-        } catch(ex) {
-            error = ex;
-        }
-
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "You must supply a repo"
-        );
-        
-    });
-
     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
@@ -285,17 +227,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(count, 0);
         
     });
-
-    it("Test countOwner: Pass positive invalid repoId. Get zero count.", async () => {
-        
-        //Act
-        let count = await freedomService.countOwner(200);
-        
-        //Assert
-        assert.equal(count, 0);
-        
-    });
-
 
 
     it("Test update: Update a record and make sure the changes are saved.", async () => {
@@ -321,7 +252,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(refetchedRecord.firstName, "Charlie");
         assert.equal(refetchedRecord.lastName, "Morton");
     });
-
 
 
     it("Test update: Update a record this account doesn't own", async () => {
@@ -461,130 +391,29 @@ contract('FreedomService', async (accounts) => {
             firstName: 'Matt' 
         });
 
+
         await assertIndexAndRecordMatch(6, { 
             id: 7,
-            owner: accounts[1],
-            ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
-            repoId: 1,
+            owner: accounts[0],
+            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
+            repoId: TEST_REPO1,
             index: 6,
-            lastName: 'McCutchen',
-            firstName: 'Andrew' 
+            lastName: 'Morton',
+            firstName: 'Charlie' 
         });
-        
 
         await assertIndexAndRecordMatch(7, { 
             id: 8,
             owner: accounts[0],
-            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
-            repoId: TEST_REPO1,
-            index: 7,
-            lastName: 'Morton',
-            firstName: 'Charlie' 
-        });
-
-        await assertIndexAndRecordMatch(8, { 
-            id: 9,
-            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: TEST_REPO1,
-            index: 8,
+            index: 7,
             lastName: 'Cole',
             firstName: 'Gerrit' 
         });
 
 
     });
-
-    it("Test readByOwnerIndex: Read all the records we've written so far", async () => {
-
-        await assertOwnerIndexAndRecordMatch(0, {
-            id: 1,
-            repoId: TEST_REPO1,
-            index: 0,
-            ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
-            owner: accounts[0],
-            firstName: "Andrew",
-            lastName: "McCutchen"
-        });
-
-        await assertOwnerIndexAndRecordMatch(1, {
-            id: 2,
-            repoId: TEST_REPO1,
-            index: 1,
-            ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
-            owner: accounts[0],
-            firstName: "Mark",
-            lastName: "Melancon"
-        });
-
-        await assertOwnerIndexAndRecordMatch(2, { 
-            id: 3,
-            owner: accounts[0],
-            ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
-            repoId: TEST_REPO1,
-            index: 2,
-            lastName: 'Polanco',
-            firstName: 'Gregory' 
-        });
-
-        await assertOwnerIndexAndRecordMatch(3, { 
-            id: 4,
-            owner: accounts[0],
-            ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
-            repoId: TEST_REPO1,
-            index: 3,
-            lastName: 'Mercer',
-            firstName: 'Jordy' 
-        });
-
-        await assertOwnerIndexAndRecordMatch(4, { 
-            id: 5,
-            owner: accounts[0],
-            ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
-            repoId: TEST_REPO1,
-            index: 4,
-            lastName: 'Alvarez',
-            firstName: 'Pedro' 
-        });
-
-        await assertOwnerIndexAndRecordMatch(5, { 
-            id: 6,
-            owner: accounts[0],
-            ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
-            repoId: TEST_REPO1,
-            index: 5,
-            lastName: 'Joyce',
-            firstName: 'Matt' 
-        });
-
-        await assertOwnerIndexAndRecordMatch(6, { 
-            id: 8,
-            owner: accounts[0],
-            ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
-            repoId: TEST_REPO1,
-            index: 7,
-            lastName: 'Morton',
-            firstName: 'Charlie' 
-        });
-
-        await assertOwnerIndexAndRecordMatch(7, { 
-            id: 9,
-            owner: accounts[0],
-            ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
-            repoId: TEST_REPO1,
-            index: 8,
-            lastName: 'Cole',
-            firstName: 'Gerrit' 
-        });
-
-
-    });
-
-    // it("Test readByIndex and readByOwnerIndex: Add record with different owner", async () => {
-
-
-    // });
-
 
 
     it("Test readByIndex: Zero repoId", async () => {
@@ -628,54 +457,13 @@ contract('FreedomService', async (accounts) => {
     });
     
 
-    it("Test readByOwnerIndex: Zero repoId", async () => {
-
-        //Arrange
-        let error;
-
-        try {
-            await freedomService.readByOwnerIndex(0, 0);
-        } catch(ex) {
-            error = ex;
-        }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            "You must supply a repo"
-        );
-
-    });
-
-    it("Test readByOwnerIndex: Invalid index out of bounds", async () => {
-
-        //Arrange
-        let error;
-
-        try {
-            await freedomService.readByOwnerIndex(TEST_REPO1, 100000);
-        } catch(ex) {
-            error = ex;
-        }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record at index", 
-            testUtils.getRequireMessage(error), 
-            "No record at index"
-        );
-
-    });
-
-
 
     it("Test readList: Limit greater than list size", async () => {
-        assert.equal(await freedomService.count(TEST_REPO1), 9, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 8, "Count is incorrect");
 
         let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
 
-        assert.equal(itemList.length, 9);
+        assert.equal(itemList.length, 8);
     });
 
 
@@ -686,7 +474,7 @@ contract('FreedomService', async (accounts) => {
             await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
         }
 
-        assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -712,7 +500,7 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Negative offset", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -734,20 +522,20 @@ contract('FreedomService', async (accounts) => {
     it("Test callReadList: Offset greater than list size", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await freedomService.readList(TEST_REPO1, 10, 59);
+            let itemList = await freedomService.readList(TEST_REPO1, 10, 58);
         } catch(ex) {
             error = ex;
         }
 
         //Assert
-        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 59, currrentCount: 59", error, "Error message does not match");
+        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", error, "Error message does not match");
 
 
     });
@@ -755,7 +543,7 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Negative limit", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -779,7 +567,7 @@ contract('FreedomService', async (accounts) => {
     it("Test readList: Zero limit", async () => {
 
         //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 59, "Count is incorrect");
+        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
 
 
         //Act
@@ -832,26 +620,6 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(record, recordAtIndex);
     }
-
-    async function assertOwnerIndexAndRecordMatch(index, record) {
-
-        let recordAtIndex = await freedomService.readByOwnerIndex(TEST_REPO1, index);
-
-        // console.log("assertOwnerIndexAndRecordMatch");
-        // console.log("Record:");
-        // console.log(record);
-        // console.log("Record at index:" + index);
-        // console.log(recordAtIndex);
-        // console.log('---------------');
-
-        testUtils.assertRecordsMatch(record, recordAtIndex);
-    }
-
-
-
-
-
-
 
 
 });

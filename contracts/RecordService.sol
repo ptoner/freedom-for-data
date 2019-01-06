@@ -164,7 +164,7 @@ contract RecordService {
 
 
 
-    function countOwner(uint _repoId) external view returns (uint256 theCount) {
+    function countOwned(uint _repoId) external view returns (uint256 theCount) {
         require(_repoId != 0, "You must supply a repo");
 
         bytes32 repoIdAddressHash = keccak256RepoIdAndOwner(_repoId, msg.sender);
@@ -173,7 +173,7 @@ contract RecordService {
         return repoIndex.length;
     }
 
-    function readByOwnerIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
+    function readByOwnedIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
         
         require(_repoId != 0, "You must supply a repo");
         
