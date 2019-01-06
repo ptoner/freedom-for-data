@@ -304,6 +304,30 @@ let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
 
 
 
+# API
+
+* create(repoId, data, transactionObject)
+* read(repoId, id)
+* update(repoId, id, data, transactionObject)
+
+* readByIndex(repoId, index)
+* readList(repoId, limit, offset)
+
+* readByOwnedIndex(repoId, index)
+* readOwnedList(repoId, limit, offset)
+
+* count(repoId)
+* countOwned(repoId)
+
+* ipfsPutFile(file, options)
+* ipfsGetFile(cid)
+
+
+
+
+
+
+
 # Configurable
 * IPFS gateway is configurable. You can have this be a setting chosen by the user in your app. 
     - It assumes localhost by default. 

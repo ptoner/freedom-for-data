@@ -2,11 +2,11 @@ var Utils = require('./utils.js');
 
 
 class FreedomService {
-    
+
     constructor(recordService, ipfsService) {
 
         //Passing in a js object that can talk to the RecordService contract
-        this.recordService = recordService; 
+        this.recordService = recordService;
 
         //Passing in a js object that can talk to IPFS
         this.ipfsService = ipfsService;
@@ -22,20 +22,20 @@ class FreedomService {
         if (!ipfsCid) {
             throw "CID not returned from IPFS";
         }
-        
+
         //Get the hash and pass to sendCreate
         let result = await this.recordService.sendCreate(repoId, ipfsCid, transactionObject);
 
-        
+
         //The event returns the metadata about our created data.
         var log = this.utils.getLogByEventName("RecordEvent", result.logs);
-        
+
         const record = {
             id: log.args.id.toNumber(),
             eventType: log.args.eventType,
             repoId: log.args.repoId.toNumber(),
             index: log.args.index.toNumber(),
-            ipfsCid:log.args.ipfsCid,
+            ipfsCid: log.args.ipfsCid,
             owner: log.args.owner
         }
 
@@ -44,7 +44,6 @@ class FreedomService {
         return record;
 
     }
-
 
     async read(repoId, id) {
 
@@ -105,10 +104,9 @@ class FreedomService {
 
         //Merge
         Object.assign(record, data);
-        
+
         return record;
     }
-
 
     async update(repoId, id, data, transactionObject) {
 
@@ -119,7 +117,6 @@ class FreedomService {
 
     }
 
-
     async count(repoId) {
         return this.recordService.callCount(repoId);
     }
@@ -128,7 +125,6 @@ class FreedomService {
         return this.recordService.callCountOwned(repoId);
     }
 
-
     async ipfsPutFile(file, options) {
         return this.ipfsService.ipfsPutFile(file, options);
     }
@@ -136,8 +132,6 @@ class FreedomService {
     async ipfsGetFile(cid) {
         return this.ipfsService.ipfsGetFile(cid);
     }
-
-
 }
 
 
