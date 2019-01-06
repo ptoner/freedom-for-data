@@ -42,7 +42,6 @@ contract('FreedomService', async (accounts) => {
             id: 1,
             eventType: "NEW",
             repoId: TEST_REPO1,
-            index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
             firstName: "Andrew",
@@ -60,7 +59,6 @@ contract('FreedomService', async (accounts) => {
          *      id: 1,
                 owner: '...will match first address...',
                 ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
-                index: 0,
                 firstName: 'Andrew'
                 lastName: 'McCutchen'
             }
@@ -69,7 +67,6 @@ contract('FreedomService', async (accounts) => {
         testUtils.assertRecordsMatch( record, {
             id: 1,
             repoId: TEST_REPO1,
-            index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
             firstName: "Andrew",
@@ -334,7 +331,6 @@ contract('FreedomService', async (accounts) => {
         await assertIndexAndRecordMatch(0, {
             id: 1,
             repoId: TEST_REPO1,
-            index: 0,
             ipfsCid: "zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0],
             firstName: "Andrew",
@@ -344,7 +340,6 @@ contract('FreedomService', async (accounts) => {
         await assertIndexAndRecordMatch(1, {
             id: 2,
             repoId: TEST_REPO1,
-            index: 1,
             ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
             owner: accounts[0],
             firstName: "Mark",
@@ -356,7 +351,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
             repoId: TEST_REPO1,
-            index: 2,
             lastName: 'Polanco',
             firstName: 'Gregory' 
         });
@@ -366,7 +360,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuApos8UX53uT1Hiwz1ovSB7nUToi2TSz8FQyzMHpQUtWmx',
             repoId: TEST_REPO1,
-            index: 3,
             lastName: 'Mercer',
             firstName: 'Jordy' 
         });
@@ -376,7 +369,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuB3UBv6XoPD8xim1CWuXBNvoXb3heydJfurQ5EQTGHcqAa',
             repoId: TEST_REPO1,
-            index: 4,
             lastName: 'Alvarez',
             firstName: 'Pedro' 
         });
@@ -386,7 +378,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuAynrpuQwgY4DwsDbd4TfPF6pv25f8rcvjnHLCw9j6sp6k',
             repoId: TEST_REPO1,
-            index: 5,
             lastName: 'Joyce',
             firstName: 'Matt' 
         });
@@ -397,7 +388,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuAmRyFGYaKdVmEH3uwqzjv8RdSJmnrABkaSizvAu9JBivG',
             repoId: TEST_REPO1,
-            index: 6,
             lastName: 'Morton',
             firstName: 'Charlie' 
         });
@@ -407,7 +397,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: TEST_REPO1,
-            index: 7,
             lastName: 'Cole',
             firstName: 'Gerrit' 
         });

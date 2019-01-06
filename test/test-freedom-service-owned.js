@@ -76,7 +76,6 @@ contract('FreedomService', async (accounts) => {
         await assertIndexAndRecordMatch(0, {
             id: 1,
             repoId: TEST_REPO1,
-            index: 0,
             ipfsCid: "zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL",
             owner: accounts[0],
             firstName: "Mark",
@@ -88,7 +87,6 @@ contract('FreedomService', async (accounts) => {
             owner: accounts[0],
             ipfsCid: 'zdpuAy4MmXJTPVReEWNpqnRJ7JTABiQ6zhXvE9kNcqKi4pL81',
             repoId: TEST_REPO1,
-            index: 1,
             lastName: 'Polanco',
             firstName: 'Gregory' 
         });

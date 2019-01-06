@@ -144,8 +144,7 @@ class RecordService {
             id: resultArray[0].toNumber(),
             owner: resultArray[1],
             ipfsCid: resultArray[2],
-            repoId: resultArray[3].toNumber(),
-            index: resultArray[4].toNumber()
+            repoId: resultArray[3].toNumber()
         }
     }
 

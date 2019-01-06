@@ -41,7 +41,6 @@ contract('RecordService', async (accounts) => {
         testUtils.assertRecordsMatch(loggedRecord, {
             id: 1,
             eventType: "NEW",
-            index: 0,
             ipfsCid: "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT",
             owner: accounts[0]
         })
@@ -53,7 +52,6 @@ contract('RecordService', async (accounts) => {
 
         //Check that the metadata matches.
         assert.equal(record.id, loggedRecord.id, "Ids need to match");
-        assert.equal(record.index, loggedRecord.index, "Indexes should match");
         assert.equal(record.ipfsCid, loggedRecord.ipfsCid, "ipfsHash should match");
         assert.equal(record.owner,accounts[0], "Owner should be this contract");
 

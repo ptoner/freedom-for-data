@@ -17,7 +17,6 @@ contract RecordService {
         address owner;
         string ipfsCid;
         uint repoId;
-        uint256 index;
     }
 
     event RecordEvent (
@@ -25,7 +24,6 @@ contract RecordService {
         address owner,
         string ipfsCid,
         uint repoId,
-        uint256 index,
         string eventType
     );
 
@@ -77,7 +75,6 @@ contract RecordService {
             id : nextId,
             owner: msg.sender,
             ipfsCid : _ipfsCid,
-            index: repoIndex.length,
             repoId: _repoId
         });
 
@@ -94,7 +91,6 @@ contract RecordService {
             recordMapping[record.id].owner,
             recordMapping[record.id].ipfsCid,
             recordMapping[record.id].repoId,
-            recordMapping[record.id].index,
             "NEW"
         );
 
@@ -102,7 +98,7 @@ contract RecordService {
         return recordMapping[id].id;
     }
 
-    function read(uint _repoId, uint256 _id) public view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index ) {
+    function read(uint _repoId, uint256 _id) public view returns (uint256 id, address owner, string memory ipfsCid, uint repoId) {
 
         require(_repoId != 0, "You must supply a repo");
         require(_id != 0, "You must supply an id");
@@ -111,7 +107,7 @@ contract RecordService {
 
         require(record.repoId == _repoId, "No record found");
 
-        return (record.id, record.owner, record.ipfsCid, record.repoId, record.index);
+        return (record.id, record.owner, record.ipfsCid, record.repoId);
     }
 
     function update(uint _repoId, uint256 _id, string calldata _ipfsCid) external {
@@ -131,7 +127,6 @@ contract RecordService {
                 record.owner,
                 record.ipfsCid,
                 record.repoId,
-                record.index,
                 "UPDATE"
             );   
         }
@@ -146,7 +141,7 @@ contract RecordService {
         return repoIndex.length;
     }
 
-    function readByIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
+    function readByIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId) {
         
         require(_repoId != 0, "You must supply a repo");
         uint256[] storage repoIndex = repoIdIndexesMapping[_repoId]; //unit test before adding a record
@@ -173,7 +168,7 @@ contract RecordService {
         return repoIndex.length;
     }
 
-    function readByOwnedIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId, uint256 index) {
+    function readByOwnedIndex(uint _repoId, uint256 _index) external view returns (uint256 id, address owner, string memory ipfsCid, uint repoId) {
         
         require(_repoId != 0, "You must supply a repo");
         

@@ -34,7 +34,6 @@ class FreedomService {
             id: log.args.id.toNumber(),
             eventType: log.args.eventType,
             repoId: log.args.repoId.toNumber(),
-            index: log.args.index.toNumber(),
             ipfsCid: log.args.ipfsCid,
             owner: log.args.owner
         }

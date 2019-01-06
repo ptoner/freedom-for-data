@@ -24,7 +24,6 @@ class Utils {
         return {
             id: args.id.toNumber(),
             eventType: "NEW",
-            index: args.index.toNumber(),
             ipfsCid: args.ipfsCid,
             owner: args.owner
         }
