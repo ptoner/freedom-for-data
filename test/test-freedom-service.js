@@ -148,43 +148,6 @@ contract('FreedomService', async (accounts) => {
     });
 
 
-    // it("Test create: Try with an account that's not the owner. Should throw an exception.", async () => {
-        
-    //     //Arrange
-    //     let createdRecord = {
-    //         firstName: "Andrew",
-    //         lastName: "McCutchen"
-    //     }
-
-
-    //     let error;
-    
-
-    //     try {
-    //         await freedomService.create(
-    //             TEST_REPO1, 
-    //             createdRecord, 
-    //             {
-    //                 from: accounts[1]
-    //             } 
-    //         );
-    //     } catch(ex) {
-    //         error = ex;
-    //     }
-
-    //     //Assert
-    //     assert.isTrue(error instanceof Error, "Should have thrown an error");
-    //     assert.equal(
-    //         "Permission denied -- Reason given: Permission denied.", 
-    //         testUtils.getRequireMessage(error), 
-            
-    //         "Should fail to let non-owner call create"
-    //     );
-
-    // });
-
-
-
     it("Test sendCreate: Zero repoId", async () => {
         
         //Arrange
@@ -240,6 +203,33 @@ contract('FreedomService', async (accounts) => {
         assert.equal(count, createdCount);
 
     });
+
+    it("Test count and countOwner: Add non-owned players", async () => {
+
+        //Arrange. Create object with different account
+        await freedomService.create(
+            TEST_REPO1, 
+            {
+                firstName: "Andrew",
+                lastName: "McCutchen"
+            }, 
+            {
+                from: accounts[1]
+            } 
+        );
+
+        createdCount++;
+
+        //Act
+        let count = await freedomService.count(TEST_REPO1);
+        let countOwner = await freedomService.countOwner(TEST_REPO1);
+
+        assert.equal(count, createdCount);
+        assert.equal(countOwner, createdCount - 1);
+        
+
+    });
+
 
 
 

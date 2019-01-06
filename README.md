@@ -121,6 +121,27 @@ let record = await freedom.read(PLAYER_REPO, 1);
 */
 ```
 
+## Count records in repo
+```javascript
+let count = await freedom.count(PLAYER_REPO);
+
+/**
+ * 'count' is a number. 
+ * It's the total number of records in the supplied repo.
+ * 
+```
+
+## Count the records created by you in repo
+```javascript
+let count = await freedom.countOwned(PLAYER_REPO);
+
+/**
+ * 'count' is a number. 
+ * It's the total number of records in the supplied repo that were created by your address.
+ * 
+```
+
+
 
 ## Read a record by index
 ```javascript
