@@ -619,35 +619,35 @@ contract('RecordService', async (accounts) => {
 
         assertCompareRecords(records[0], {
             id: 58,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[1], {
             id: 57,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[2], {
             id: 56,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[3], {
             id: 55,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[4], {
             id: 54,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
@@ -655,35 +655,35 @@ contract('RecordService', async (accounts) => {
 
         assertCompareRecords(records[5], {
             id: 53,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[6], {
             id: 52,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[7], {
             id: 51,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[8], {
             id: 50,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })
 
         assertCompareRecords(records[9], {
             id: 49,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ',
             repoId: 1
         })

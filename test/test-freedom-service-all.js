@@ -584,7 +584,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[0], {
             id: 58,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -593,7 +593,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[1], {
             id: 57,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -602,7 +602,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[2], {
             id: 56,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -611,7 +611,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[3], {
             id: 55,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -620,7 +620,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[4], {
             id: 54,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -629,7 +629,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[5], {
             id: 53,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -638,7 +638,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[6], {
             id: 52,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -647,7 +647,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[7], {
             id: 51,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -656,7 +656,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[8], {
             id: 50,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',
@@ -665,7 +665,7 @@ contract('FreedomService', async (accounts) => {
 
         testUtils.assertRecordsMatch(records[9], {
             id: 49,
-            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            owner: accounts[0],
             ipfsCid: 'zdpuAxYoviWmkBkQf32U1RXyG2tNK4ajMtdVa456hJt6wgLac',
             repoId: 1,
             lastName: 'Cole',

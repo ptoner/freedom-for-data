@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c72693c1-36cf-478e-ae17-408239b57a95" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/test/test-freedom-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-owned.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test-record-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-owned.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-freedom-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-record-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-all.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,17 +25,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="579" column="14" selection-start-line="579" selection-start-column="14" selection-end-line="579" selection-end-column="14" />
+            <state relative-caret-position="160">
+              <caret line="667" column="30" selection-start-line="667" selection-start-column="30" selection-end-line="667" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="621" column="30" selection-start-line="621" selection-start-column="30" selection-end-line="621" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="671">
-              <caret line="356" column="30" selection-start-line="356" selection-start-column="30" selection-end-line="356" selection-end-column="30" />
+            <state relative-caret-position="300">
+              <caret line="338" column="19" selection-start-line="338" selection-start-column="19" selection-end-line="338" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -43,13 +52,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="332" lean-forward="true" selection-start-line="332" selection-end-line="332" />
+            <state relative-caret-position="282">
+              <caret line="341" column="19" lean-forward="true" selection-start-line="341" selection-start-column="19" selection-end-line="341" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>0x1E950C631065885d76b21311905acD02c14Aa07E</find>
+      <find>7</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,12 +73,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/record-service.js" />
-        <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
         <option value="$PROJECT_DIR$/src/freedom-service.js" />
-        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/test-record-service-owned.js" />
         <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
+        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
+        <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
       </list>
     </option>
   </component>
@@ -133,12 +148,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1547204705330</updated>
-      <workItem from="1547204706540" duration="14647000" />
+      <workItem from="1547204706540" duration="15549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14647000" />
+    <option name="totallyTimeSpent" value="15549000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -187,51 +202,10 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="692" lean-forward="true" selection-start-line="615" selection-start-column="3" selection-end-line="692" />
-          <folding>
-            <element signature="e#726#1675#0" />
-            <element signature="e#1731#2296#0" />
-            <element signature="e#2378#2896#0" />
-            <element signature="e#2950#3404#0" />
-            <element signature="e#3453#3895#0" />
-            <element signature="e#3956#4398#0" />
-            <element signature="e#4506#5286#0" />
-            <element signature="e#5346#5778#0" />
-            <element signature="e#5868#6021#0" />
-            <element signature="e#6137#6757#0" />
-            <element signature="e#6867#8086#0" />
-            <element signature="e#8821#9378#0" />
-            <element signature="e#9466#10332#0" />
-            <element signature="e#10390#10815#0" />
-            <element signature="e#10888#11320#0" />
-            <element signature="e#11395#11612#0" />
-            <element signature="e#11679#12392#0" />
-            <element signature="e#12454#12902#0" />
-            <element signature="e#12977#13481#0" />
-            <element signature="e#13541#13982#0" />
-            <element signature="e#14040#14479#0" />
-            <element signature="e#14513#14529#0" />
-            <element signature="e#14948#15297#0" />
-            <element signature="e#15390#15831#0" />
-            <element signature="e#15880#16319#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/record-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="579" column="14" selection-start-line="579" selection-start-column="14" selection-end-line="579" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -257,15 +231,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="332" lean-forward="true" selection-start-line="332" selection-end-line="332" />
+        <state relative-caret-position="282">
+          <caret line="341" column="19" lean-forward="true" selection-start-line="341" selection-start-column="19" selection-end-line="341" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="356" column="30" selection-start-line="356" selection-start-column="30" selection-end-line="356" selection-end-column="30" />
+        <state relative-caret-position="300">
+          <caret line="338" column="19" selection-start-line="338" selection-start-column="19" selection-end-line="338" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="667" column="30" selection-start-line="667" selection-start-column="30" selection-end-line="667" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="621" column="30" selection-start-line="621" selection-start-column="30" selection-end-line="621" selection-end-column="30" />
         </state>
       </provider>
     </entry>
