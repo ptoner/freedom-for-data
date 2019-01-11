@@ -252,6 +252,47 @@ let recordList = await freedom.readList(PLAYER_REPO, limit, offset);
 
 ```
 
+## Get the same list but in descending order, by date created. Includes records created by everyone.
+```javascript
+
+//This example will get the first 2 records from the list.
+let offset = 0;  # The index where we want to start reading. The first record is 0. 
+let limit = 2;  # The number of records to return.
+
+let recordList = await freedom.readListDescending(PLAYER_REPO, limit, offset);
+
+
+/**
+ * Example recordList
+ * 
+ * 
+ * [ 
+ * 
+       { 
+           id: 2,
+           owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+           ipfsCid: 'zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL',
+           repoId: 1,            
+           lastName: 'Melancon',
+           firstName: 'Mark' 
+       }
+       { 
+           id: 1,
+           owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+           ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
+           repoId: 1,
+           lastName: 'McCutchen',
+           firstName: 'Andrew' 
+        }
+    ]
+ * 
+ */
+
+```
+
+
+
+
 
 ## Get a paged list of records you own. Only includes records created by the calling address. 
 ```javascript
@@ -292,7 +333,42 @@ let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
 
 
 
+## Get the same list but in descending order, by date created. Only includes records created by the calling address. 
+```javascript
 
+//This example will get the first 2 records from the list.
+let offset = 0;  # The index where we want to start reading. The first record is 0. 
+let limit = 2;  # The number of records to return.
+
+let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, limit, offset);
+
+
+/**
+ * Example recordList
+ * 
+ * 
+ * [ 
+ *    {   
+           id: 2,
+           owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+           ipfsCid: 'zdpuAmZw9bUAufGj4rRddtn6Fu1JDkQqt99rJmDerq1z4B1gL',
+           repoId: 1,            
+           lastName: 'Melancon',
+           firstName: 'Mark' 
+       }
+    * { 
+    *       id: 1,
+            owner: '0x1E950C631065885d76b21311905acD02c14Aa07E',
+            ipfsCid: 'zdpuB31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iT',
+            repoId: 1,
+            lastName: 'McCutchen',
+            firstName: 'Andrew' 
+        }
+    ]
+ * 
+ */
+
+```
 
 
 # API
@@ -303,9 +379,11 @@ let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
 
 * readByIndex(repoId, index)
 * readList(repoId, limit, offset)
+* readListDescending(repoId, limit, offset)
 
 * readByOwnedIndex(repoId, index)
 * readOwnedList(repoId, limit, offset)
+* readOwnedListDescending(repoId, limit, offset)
 
 * count(repoId)
 * countOwned(repoId)
