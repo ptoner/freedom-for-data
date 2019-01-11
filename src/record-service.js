@@ -59,11 +59,12 @@ class RecordService {
 
 
         //Calculate end index
-        let endIndex = this.calculateEndIndex(limit, offset, currentCount);
+        let endIndex = this.calculateDescendingEndIndex(limit, calculatedOffset);
 
-        // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
+        // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
-        for (var i=offset; i <= endIndex; i++) {
+
+        for (var i=calculatedOffset; i >= endIndex; i--) {
             items.push(await this.callReadByIndex(repoId, i));
         }
 
@@ -94,6 +95,33 @@ class RecordService {
 
     }
 
+
+    async callReadOwnedListDescending(repoId, limit, offset) {
+
+        let currentCount = await this.callCountOwned(repoId);
+
+        //Adjust the offset to start at the end of the list.
+        let calculatedOffset = this.calculateDescendingOffset(offset, currentCount);
+
+
+        let items = [];
+
+        this.validateLimitOffset(limit, calculatedOffset, currentCount);
+
+
+        //Calculate end index
+        let endIndex = this.calculateDescendingEndIndex(limit, calculatedOffset);
+
+        // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
+
+
+        for (var i=calculatedOffset; i >= endIndex; i--) {
+            items.push(await this.callReadByOwnedIndex(repoId, i));
+        }
+
+        return items;
+
+    }
 
 
     async callCount(repoId) {
@@ -162,6 +190,14 @@ class RecordService {
 
         //If it's the last page don't go past the final record
         return Math.min( currentCount - 1,  endIndex )
+    }
+
+
+    calculateDescendingEndIndex(limit, offset) {
+        let endIndex = offset - (limit - 1)
+
+        //Don't go lower than 0
+        return Math.max( 0,  endIndex )
     }
 
     calculateDescendingOffset(offset, currentCount) {
