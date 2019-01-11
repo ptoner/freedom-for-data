@@ -81,6 +81,21 @@ class FreedomService {
         return merged;
     }
 
+    async readListDescending(repoId, limit, offset) {
+
+        let merged = [];
+
+        // console.log(`limit: ${limit}, offset: ${offset}`);
+
+        let results = await this.recordService.callReadListDescending(repoId, limit, offset);
+
+        for (const result of results) {
+            merged.push(await this.fetchIpfs(result));
+        }
+
+        return merged;
+    }
+
     async readOwnedList(repoId, limit, offset) {
 
         let merged = [];
@@ -88,6 +103,21 @@ class FreedomService {
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
         let results = await this.recordService.callReadOwnedList(repoId, limit, offset);
+
+        for (const result of results) {
+            merged.push(await this.fetchIpfs(result));
+        }
+
+        return merged;
+    }
+
+    async readOwnedListDescending(repoId, limit, offset) {
+
+        let merged = [];
+
+        // console.log(`limit: ${limit}, offset: ${offset}`);
+
+        let results = await this.recordService.callReadOwnedListDescending(repoId, limit, offset);
 
         for (const result of results) {
             merged.push(await this.fetchIpfs(result));
