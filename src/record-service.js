@@ -22,35 +22,44 @@ class RecordService {
         return this.recordMapper(resultArray);
     }
 
-    async callReadList(repoId, limit, offset) {
+    async callReadList(repoId, limit, offset, ascending=true) {
 
         let currentCount = await this.callCount(repoId);
 
         let items = [];
 
-        if (limit <= 0) {
-            throw `Negative limit given. Limit needs to be positive: ${limit}`;
-        }
 
-        if (offset < 0) {
-            throw `Negative offset provided. Offset needs to be positive: ${offset}`;
-        }
-
-        if (offset >= currentCount) {
-            throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
-        }
+        this.validateLimitOffset(limit, offset, currentCount);
 
 
         //Calculate end index
-        let endIndex; 
-        if (offset > 0) {
-            endIndex = offset + limit -1;
-        } else {
-            endIndex = limit - 1; 
+        let endIndex = this.calculateEndIndex(limit, offset, currentCount);
+
+        // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
+
+        for (var i=offset; i <= endIndex; i++) {
+            items.push(await this.callReadByIndex(repoId, i));
         }
 
-        //If it's the last page don't go past the final record
-        endIndex = Math.min( currentCount - 1,  endIndex );
+        return items;
+
+    }
+
+    async callReadListDescending(repoId, limit, offset) {
+
+        let currentCount = await this.callCount(repoId);
+
+        //Adjust the offset to start at the end of the list.
+        let calculatedOffset = this.calculateDescendingOffset(offset, currentCount);
+
+
+        let items = [];
+
+        this.validateLimitOffset(limit, calculatedOffset, currentCount);
+
+
+        //Calculate end index
+        let endIndex = this.calculateEndIndex(limit, offset, currentCount);
 
         // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
@@ -68,29 +77,12 @@ class RecordService {
 
         let items = [];
 
-        if (limit <= 0) {
-            throw `Negative limit given. Limit needs to be positive: ${limit}`;
-        }
-
-        if (offset < 0) {
-            throw `Negative offset provided. Offset needs to be positive: ${offset}`;
-        }
-
-        if (offset >= currentCount) {
-            throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
-        }
+        this.validateLimitOffset(limit, offset, currentCount);
 
 
         //Calculate end index
-        let endIndex; 
-        if (offset > 0) {
-            endIndex = offset + limit -1;
-        } else {
-            endIndex = limit - 1; 
-        }
+        let endIndex = this.calculateEndIndex(limit, offset, currentCount);
 
-        //If it's the last page don't go past the final record
-        endIndex = Math.min( currentCount - 1,  endIndex );
 
         // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
@@ -101,6 +93,8 @@ class RecordService {
         return items;
 
     }
+
+
 
     async callCount(repoId) {
         let result = await this.recordServiceContract.count.call(repoId);
@@ -148,7 +142,34 @@ class RecordService {
         }
     }
 
+    validateLimitOffset(limit, offset, currentCount) {
+        if (limit <= 0) {
+            throw `Negative limit given. Limit needs to be positive: ${limit}`;
+        }
 
+        if (offset < 0) {
+            throw `Negative offset provided. Offset needs to be positive: ${offset}`;
+        }
+
+        if (offset >= currentCount) {
+            throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
+        }
+    }
+
+
+    calculateEndIndex(limit, offset, currentCount) {
+        let endIndex = offset + limit - 1
+
+        //If it's the last page don't go past the final record
+        return Math.min( currentCount - 1,  endIndex )
+    }
+
+    calculateDescendingOffset(offset, currentCount) {
+
+        let calculatedOffset = (currentCount - 1) - offset
+        // console.log(`offset: ${offset}, currentCount: ${currentCount}, calculatedOffset: ${calculatedOffset}`)
+        return Math.max( 0,  calculatedOffset )
+    }
 
 }
 

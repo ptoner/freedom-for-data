@@ -20,10 +20,6 @@ contract('RecordService', async (accounts) => {
         recordService = serviceFactory.getRecordService();
     });
 
-
-
-
-
     it("Test sendCreate and callRead: Create a record and verify the info is stored by RecordService contract", async () => {
 
         //Arrange
@@ -57,7 +53,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-
     it("Test sendCreate: Zero repoId", async () => {
         
         //Arrange
@@ -81,7 +76,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-
     it("Test sendCreate: Blank ipfsCid. Should throw an error.", async () => {
         
         //Arrange
@@ -103,7 +97,6 @@ contract('RecordService', async (accounts) => {
         );
 
     });
-
 
     it("Test callRead: Zero repoId", async () => {
         
@@ -171,7 +164,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-
     it("Test callCount: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
@@ -189,7 +181,6 @@ contract('RecordService', async (accounts) => {
         assert.equal(count, createdCount);
         
     });
-
 
     it("Test callCount: Pass zero repoId", async () => {
         //Act
@@ -211,8 +202,6 @@ contract('RecordService', async (accounts) => {
         );
         
     });
-
-
 
     it("Test callCount: Pass positive invalid repoId. Get zero count.", async () => {
         
@@ -288,7 +277,6 @@ contract('RecordService', async (accounts) => {
         
     });
 
-
     it("Test sendUpdate: Invalid positive id", async () => {
 
         //Arrange
@@ -340,8 +328,6 @@ contract('RecordService', async (accounts) => {
         
     });
 
-
-
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
         // Verify the cids of all the records we added in the above tests
@@ -353,8 +339,6 @@ contract('RecordService', async (accounts) => {
         await assertCallReadByIndexIpfsCid(TEST_REPO1, 5, "RdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iY");
         await assertCallReadByIndexIpfsCid(TEST_REPO1, 6, "CRLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b7ViB");
     });
-
-
 
     it("Test readByIndex: Zero repoId", async () => {
 
@@ -396,7 +380,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-
     it("Test callReadList: Limit greater than list size", async () => {
         assert.equal(await recordService.callCount(TEST_REPO1), 8, "Count is incorrect");
 
@@ -404,7 +387,6 @@ contract('RecordService', async (accounts) => {
 
         assert.equal(itemList.length, 8);
     });
-
 
     it("Test callReadList: Check for duplicates", async () => {
 
@@ -434,7 +416,6 @@ contract('RecordService', async (accounts) => {
         }
 
     });
-
 
     it("Test callReadList: Negative offset", async () => {
 
@@ -503,8 +484,6 @@ contract('RecordService', async (accounts) => {
 
     });
 
-
-
     it("Test callReadList: Zero limit", async () => {
 
         //Arrange
@@ -526,6 +505,107 @@ contract('RecordService', async (accounts) => {
 
 
     });
+
+    it("Test validateLimitOffset: Negative offset", async () => {
+
+        //Act
+        let error;
+
+        try {
+            let itemList = recordService.validateLimitOffset(10, -1, 10);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
+
+    });
+
+    it("Test validateLimitOffset: Offset greater than list size", async () => {
+
+        //Act
+        let error;
+
+        try {
+            let itemList = recordService.validateLimitOffset(10, 10, 10);
+        } catch(ex) {
+            error = ex;
+        }
+
+        //Assert
+        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 10, currrentCount: 10", error, "Error message does not match");
+
+    });
+
+    it("Test validateLimitOffset: Negative limit", async () => {
+
+        //Act
+        let error;
+
+        try {
+            let itemList = recordService.validateLimitOffset(-1, 0, 5);
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
+
+
+    });
+
+    it("Test validateLimitOffset: Zero limit", async () => {
+
+        //Act
+        let error;
+
+        try {
+            let itemList = recordService.validateLimitOffset(0, 0, 10);
+        } catch(ex) {
+            error = ex;
+        }
+
+
+        //Assert
+        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
+
+    });
+
+    it("Test calculateEndIndex: Positive values", async () => {
+
+        assert.equal(recordService.calculateEndIndex(10, 0, 50), 9);
+        assert.equal(recordService.calculateEndIndex(10, 0, 5), 4);
+        assert.equal(recordService.calculateEndIndex(10, 3, 5), 4);
+
+        //TODO: Expand these tests
+
+    });
+
+    it("Test calculateDescendingOffset: Positive values", async () => {
+
+        assert.equal(recordService.calculateDescendingOffset(0, 100), 99);
+        assert.equal(recordService.calculateDescendingOffset(9, 100), 90);
+        assert.equal(recordService.calculateDescendingOffset(19, 100), 80);
+        assert.equal(recordService.calculateDescendingOffset(29, 100), 70);
+        assert.equal(recordService.calculateDescendingOffset(39, 100), 60);
+        assert.equal(recordService.calculateDescendingOffset(49, 100), 50);
+        assert.equal(recordService.calculateDescendingOffset(59, 100), 40);
+        assert.equal(recordService.calculateDescendingOffset(69, 100), 30);
+        assert.equal(recordService.calculateDescendingOffset(79, 100), 20);
+        assert.equal(recordService.calculateDescendingOffset(89, 100), 10);
+        assert.equal(recordService.calculateDescendingOffset(99, 100), 0);
+
+    });
+
+
+    it("Test calculateDescendingOffset: Negative values", async () => {
+        assert.equal(recordService.calculateDescendingOffset(100, 100), 0);
+        assert.equal(recordService.calculateDescendingOffset(105, 100), 0);
+
+    });
+
 
 
     async function assertCallReadByIndexIpfsCid(repoId, index, ipfsCid) {
