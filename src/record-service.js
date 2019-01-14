@@ -22,11 +22,13 @@ class RecordService {
         return this.recordMapper(resultArray);
     }
 
-    async callReadList(repoId, limit, offset, ascending=true) {
+    async callReadList(repoId, limit, offset) {
+
+        let items = [];
 
         let currentCount = await this.callCount(repoId);
 
-        let items = [];
+        if (currentCount <= 0) return items
 
 
         this.validateLimitOffset(limit, offset, currentCount);
@@ -47,13 +49,16 @@ class RecordService {
 
     async callReadListDescending(repoId, limit, offset) {
 
+        let items = [];
+
         let currentCount = await this.callCount(repoId);
+
+        if (currentCount <= 0) return items
+
 
         //Adjust the offset to start at the end of the list.
         let calculatedOffset = this.calculateDescendingOffset(offset, currentCount);
 
-
-        let items = [];
 
         this.validateLimitOffset(limit, calculatedOffset, currentCount);
 
@@ -74,9 +79,12 @@ class RecordService {
 
     async callReadOwnedList(repoId, limit, offset) {
 
+        let items = [];
+
         let currentCount = await this.callCountOwned(repoId);
 
-        let items = [];
+        if (currentCount <= 0) return items
+
 
         this.validateLimitOffset(limit, offset, currentCount);
 
@@ -98,13 +106,15 @@ class RecordService {
 
     async callReadOwnedListDescending(repoId, limit, offset) {
 
+        let items = [];
+
         let currentCount = await this.callCountOwned(repoId);
+
+        if (currentCount <= 0) return items
 
         //Adjust the offset to start at the end of the list.
         let calculatedOffset = this.calculateDescendingOffset(offset, currentCount);
 
-
-        let items = [];
 
         this.validateLimitOffset(limit, calculatedOffset, currentCount);
 

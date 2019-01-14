@@ -19,6 +19,21 @@ contract('RecordService', async (accounts) => {
     });
 
 
+    it("Test callReadOwnedList: Get empty list", async () => {
+
+        let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+    });
+
+    it("Test callReadOwnedListDescending: Get empty list", async () => {
+
+        let itemList = await recordService.callReadOwnedListDescending(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+
+    });
+
 
     it("Test callCountOwned: Create some records and then call count and make sure it matches", async () => {
 

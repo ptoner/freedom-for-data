@@ -20,6 +20,21 @@ contract('RecordService', async (accounts) => {
         recordService = serviceFactory.getRecordService();
     });
 
+    it("Test callReadList: Get empty list", async () => {
+
+        let itemList = await recordService.callReadList(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+    });
+
+    it("Test callReadListDescending: Get empty list", async () => {
+
+        let itemList = await recordService.callReadListDescending(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+
+    });
+
     it("Test sendCreate and callRead: Create a record and verify the info is stored by RecordService contract", async () => {
 
         //Arrange
@@ -606,7 +621,6 @@ contract('RecordService', async (accounts) => {
         assert.equal(recordService.calculateDescendingOffset(0, 0), 0);
 
     });
-
 
     it("Test calculateDescendingOffset: Negative values", async () => {
         assert.equal(recordService.calculateDescendingOffset(100, 100), 0);

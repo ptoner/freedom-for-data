@@ -23,6 +23,22 @@ contract('FreedomService', async (accounts) => {
     });
 
 
+    it("Test callReadList: Get empty list", async () => {
+
+        let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+    });
+
+    it("Test callReadListDescending: Get empty list", async () => {
+
+        let itemList = await freedomService.readListDescending(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+
+    });
+
+
     it("Test create/read: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
 
         //Arrange

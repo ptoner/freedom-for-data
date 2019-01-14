@@ -21,6 +21,22 @@ contract('FreedomService', async (accounts) => {
     });
 
 
+    it("Test callReadOwnedList: Get empty list", async () => {
+
+        let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+    });
+
+    it("Test callReadOwnedListDescending: Get empty list", async () => {
+
+        let itemList = await freedomService.readOwnedListDescending(TEST_REPO1, 10, 0);
+
+        assert.equal(itemList.length, 0);
+
+    });
+
+
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
