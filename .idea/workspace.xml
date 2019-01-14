@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c72693c1-36cf-478e-ae17-408239b57a95" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/exceptions/ipfs-exception.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/validation-exception.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/freedom-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/freedom-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ipfs-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ipfs-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/record-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/record-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test-freedom-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-all.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test-ipfs-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-ipfs-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test-record-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-all.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test-record-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-owned.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-freedom-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-owned.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,15 +28,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/record-service.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
@@ -54,24 +37,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+        <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+            <state relative-caret-position="142">
+              <caret line="203" column="48" selection-start-line="203" selection-start-column="48" selection-end-line="203" selection-end-column="48" />
               <folding>
-                <element signature="e#424#594#0" />
+                <element signature="e#389#561#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
+        <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+            <state relative-caret-position="360">
+              <caret line="201" column="96" selection-start-line="201" selection-start-column="96" selection-end-line="201" selection-end-column="96" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="81" />
               <folding>
-                <element signature="e#2433#2591#0" />
+                <element signature="e#424#594#0" />
               </folding>
             </state>
           </provider>
@@ -83,6 +75,8 @@
     <findStrings>
       <find>0x1E950C631065885d76b21311905acD02c14Aa07E</find>
       <find>7</find>
+      <find>Negative offset</find>
+      <find>count</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,17 +86,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
         <option value="$PROJECT_DIR$/src/exceptions/web3-exception.js" />
         <option value="$PROJECT_DIR$/src/exceptions/ipfs-exception.js" />
         <option value="$PROJECT_DIR$/src/ipfs-service.js" />
         <option value="$PROJECT_DIR$/test/test-ipfs-service.js" />
-        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
         <option value="$PROJECT_DIR$/src/freedom-service.js" />
         <option value="$PROJECT_DIR$/src/exceptions/validation-exception.js" />
         <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
         <option value="$PROJECT_DIR$/src/record-service.js" />
         <option value="$PROJECT_DIR$/test/test-record-service-owned.js" />
+        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
+        <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
       </list>
     </option>
   </component>
@@ -151,7 +145,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547498411856" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547499898621" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -187,12 +181,12 @@
       <workItem from="1547204706540" duration="16805000" />
       <workItem from="1547306017713" duration="1898000" />
       <workItem from="1547311867470" duration="13000" />
-      <workItem from="1547472568159" duration="11631000" />
+      <workItem from="1547472568159" duration="13120000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30347000" />
+    <option name="totallyTimeSpent" value="31836000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -261,13 +255,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/exceptions/ipfs-exception.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -289,13 +276,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/exceptions/validation-exception.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -303,23 +283,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13320">
-          <caret line="689" lean-forward="true" selection-start-line="689" selection-end-line="689" />
-          <folding>
-            <element signature="e#389#561#0" />
-            <element signature="e#3540#3979#0" />
-            <element signature="e#3601#3673#0" />
-            <element signature="e#3684#3719#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="48" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1440">
+          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="e#2433#2591#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1940">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
@@ -333,20 +317,27 @@
     <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="81" />
           <folding>
             <element signature="e#424#594#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
+    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        <state relative-caret-position="142">
+          <caret line="203" column="48" selection-start-line="203" selection-start-column="48" selection-end-line="203" selection-end-column="48" />
           <folding>
-            <element signature="e#2433#2591#0" />
+            <element signature="e#389#561#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="201" column="96" selection-start-line="201" selection-start-column="96" selection-end-line="201" selection-end-column="96" />
         </state>
       </provider>
     </entry>

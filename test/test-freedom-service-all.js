@@ -5,7 +5,8 @@ var TestUtils = require('./test-utils.js');
 
 const fs = require('fs');
 
-
+const Web3Exception = require('../src/exceptions/web3-exception.js');
+const ValidationException = require('../src/exceptions/validation-exception.js');
 
 contract('FreedomService', async (accounts) => {
 
@@ -21,7 +22,7 @@ contract('FreedomService', async (accounts) => {
         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
         freedomService = serviceFactory.getFreedomService();
     });
-    
+
     it("Test callReadList: Get empty list", async () => {
 
         let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
@@ -92,67 +93,57 @@ contract('FreedomService', async (accounts) => {
 
     it("Test read: Zero repoId", async () => {
         
-        //Arrange
-        let error;
-
+        //Act
         try {
             let result = await freedomService.read(0, 1);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
+                "Supply a non-empty repo"
+            );
         }
-
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "Supply a non-empty repo"
-        );
 
     });
 
     it("Test read: Zero id", async () => {
         
-        //Arrange
-        let error;
-
+        //Act
         try {
             let result = await freedomService.read(1, 0);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply an id",
+                testUtils.getRequireMessage(ex),
+                "Supply an id"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply an id", 
-            testUtils.getRequireMessage(error), 
-            
-            "Supply an id"
-        );
+
 
     });
 
     it("Test read: Invalid positive id", async () => {
         
-        //Arrange
-        let error;
-
+        //Act
         try {
             let result = await freedomService.read(1, 5000);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "No record found",
+                testUtils.getRequireMessage(ex),
+                "No record found"
+            );
         }
-
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record found", 
-            testUtils.getRequireMessage(error), 
-            
-            "No record found"
-        );
 
     });
 
@@ -164,23 +155,20 @@ contract('FreedomService', async (accounts) => {
             lastName: "McCutchen"
         }
 
-        let error;
-
-
         try {
             await freedomService.create(0, createdRecord);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo -- Reason given: You must supply a repo.",
+                testUtils.getRequireMessage(ex),
+                "Should fail to let non-owner call create"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo -- Reason given: You must supply a repo.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Should fail to let non-owner call create"
-        );
+
 
     });
 
@@ -203,24 +191,21 @@ contract('FreedomService', async (accounts) => {
     });
 
     it("Test count: Pass zero repoId", async () => {
-        //Act
 
-        let error;
+        //Act
         try {
             await freedomService.count(0)
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
+                "You must supply a repo"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "You must supply a repo"
-        );
-        
     });
 
     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
@@ -278,19 +263,18 @@ contract('FreedomService', async (accounts) => {
                     from: accounts[1]
                 }
             )
+
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You don't own this record -- Reason given: You don't own this record.",
+                testUtils.getRequireMessage(ex),
+                "Should fail to update record user doesn't own."
+            );
         }
 
-        
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You don't own this record -- Reason given: You don't own this record.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Should fail to update record user doesn't own."
-        );
 
         //Do a read and make sure it shows the original value
         let refetchechRecord = await freedomService.read(TEST_REPO1, resultCreatedRecord.id);
@@ -302,9 +286,7 @@ contract('FreedomService', async (accounts) => {
 
     it("Test update: Invalid positive id", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await freedomService.update(
                 TEST_REPO1, 
@@ -314,18 +296,17 @@ contract('FreedomService', async (accounts) => {
                     lastName: "Morton"
                 }
             )
-        } catch(ex) {
-            error = ex;
-        }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You don't own this record -- Reason given: You don't own this record.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Invalid positive id"
-        );
+            assert.fail("Did not throw Web3Exception")
+        } catch(ex) {
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You don't own this record -- Reason given: You don't own this record.",
+                testUtils.getRequireMessage(ex),
+                "Invalid positive id"
+            );
+        }
 
         
     });
@@ -410,41 +391,39 @@ contract('FreedomService', async (accounts) => {
 
     it("Test readByIndex: Zero repoId", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await freedomService.readByIndex(0, 0);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
+                "You must supply a repo"
+            );
         }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            "You must supply a repo"
-        );
 
     });
 
     it("Test readByIndex: Invalid index out of bounds", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await freedomService.readByIndex(TEST_REPO1, 100000);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "No record at index",
+                testUtils.getRequireMessage(ex),
+                "No record at index"
+            );
         }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record at index", 
-            testUtils.getRequireMessage(error), 
-            "No record at index"
-        );
+
 
     });
 
@@ -487,65 +466,50 @@ contract('FreedomService', async (accounts) => {
 
     it("Test readList: Negative offset", async () => {
 
-        //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
         let error;
 
         try {
             let results = await freedomService.readList(TEST_REPO1, 10, -1);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-           error = ex;
-          }
+
+            //Assert
+            assert.equal("Negative offset provided. Offset needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
+        }
 
 
-        //Assert
-        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
+
 
 
     });
 
     it("Test callReadList: Offset greater than list size", async () => {
 
-        //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
-        let error;
-
         try {
             let itemList = await freedomService.readList(TEST_REPO1, 10, 58);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
-
-        //Assert
-        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", error, "Error message does not match");
-
 
     });
 
     it("Test readList: Negative limit", async () => {
 
-        //Arrange
-        assert.equal(await freedomService.count(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
-        let error;
-
         try {
             let results = await freedomService.readList(TEST_REPO1, -1, 0);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
-
-
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
 
 
     });
@@ -557,18 +521,14 @@ contract('FreedomService', async (accounts) => {
 
 
         //Act
-        let error;
-
         try {
             let results = await freedomService.readList(TEST_REPO1, 0, 0);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: 0", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
-
-
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
-
 
     });
 
