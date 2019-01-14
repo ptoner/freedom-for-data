@@ -1,3 +1,5 @@
+const IpfsException = require('./exceptions/ipfs-exception.js');
+
 
 class IPFSService {
     
@@ -12,30 +14,49 @@ class IPFSService {
      */
     async ipfsPutJson(data) {
 
-        const cid = await this.ipfs.dag.put(data);
+        try {
+            const cid = await this.ipfs.dag.put(data);
+            return cid.toBaseEncodedString();
 
-        return cid.toBaseEncodedString();
+        } catch (ex) {
+            throw new IpfsException(ex.message)
+        }
+
     }
 
     async ipfsGetJson(hash) {
 
-        const node = await this.ipfs.dag.get(hash);
-
-        return node.value;
+        try {
+            const node = await this.ipfs.dag.get(hash);
+            return node.value;
+        } catch (ex) {
+            throw new IpfsException(ex.message)
+        }
 
     }
 
 
     async ipfsPutFile(file, options) {
-        let results = await this.ipfs.add(file, options);
-        let cid = results[0].hash;
-        return cid;
+
+        try {
+            let results = await this.ipfs.add(file, options);
+            let cid = results[0].hash;
+            return cid;
+        } catch (ex) {
+            throw new IpfsException(ex.message)
+        }
 
     }
 
     async ipfsGetFile(cid) {
-        let results = await this.ipfs.get(cid);
-        return results[0].content;
+
+        try {
+            let results = await this.ipfs.get(cid);
+            return results[0].content;
+        } catch (ex) {
+            throw new IpfsException(ex.message)
+        }
+
     }
 
     

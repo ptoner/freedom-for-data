@@ -3,6 +3,9 @@ const serviceFactory = new TestServiceFactory();
 
 const fs = require('fs');
 
+const IpfsException = require('../src/exceptions/ipfs-exception.js');
+
+
 describe("IPFSService", async function() {
 
     let ipfsService;
@@ -42,6 +45,7 @@ describe("IPFSService", async function() {
         } catch (ex) {
 
             //Assert
+            assert.isTrue(ex instanceof IpfsException, "Should have thrown an error");
             assert.equal(ex.message, "invalid 'ipfs ref' path");
         }
         

@@ -1,4 +1,5 @@
-var Utils = require('./utils.js');
+const Utils = require('./utils.js');
+
 
 
 class FreedomService {
@@ -162,6 +163,8 @@ class FreedomService {
         return this.ipfsService.ipfsGetFile(cid);
     }
 }
+
+
 
 
 

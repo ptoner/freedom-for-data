@@ -1,3 +1,7 @@
+
+const Web3Exception = require('./exceptions/web3-exception.js');
+const ValidationException = require('./exceptions/validation-exception.js');
+
 class RecordService {
 
     constructor(recordServiceContract) {
@@ -8,18 +12,36 @@ class RecordService {
      * CALLS
      */
     async callRead(repoId, id) {
-        let resultArray = await this.recordServiceContract.read.call(repoId, id);
-        return this.recordMapper(resultArray);
+
+        try {
+            let resultArray = await this.recordServiceContract.read.call(repoId, id);
+            return this.recordMapper(resultArray);
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
+        }
+
     }
 
     async callReadByOwnedIndex(repoId, index) {
-        let resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index);
-        return this.recordMapper(resultArray);
+
+        try {
+            let resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index);
+            return this.recordMapper(resultArray);
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
+        }
+
     }
 
     async callReadByIndex(repoId, index) {
-        let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
-        return this.recordMapper(resultArray);
+
+        try {
+            let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
+            return this.recordMapper(resultArray);
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
+        }
+
     }
 
     async callReadList(repoId, limit, offset) {
@@ -27,23 +49,23 @@ class RecordService {
         let items = [];
 
         let currentCount = await this.callCount(repoId);
-
         if (currentCount <= 0) return items
 
 
         this.validateLimitOffset(limit, offset, currentCount);
-
-
-        //Calculate end index
         let endIndex = this.calculateEndIndex(limit, offset, currentCount);
 
-        // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
-        for (var i=offset; i <= endIndex; i++) {
-            items.push(await this.callReadByIndex(repoId, i));
+        try {
+
+            for (var i=offset; i <= endIndex; i++) {
+                items.push(await this.callReadByIndex(repoId, i));
+            }
+
+            return items;
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
-
-        return items;
 
     }
 
@@ -61,19 +83,19 @@ class RecordService {
 
 
         this.validateLimitOffset(limit, calculatedOffset, currentCount);
-
-
-        //Calculate end index
         let endIndex = this.calculateDescendingEndIndex(limit, calculatedOffset);
 
-        // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
+        try {
+            // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
+            for (var i=calculatedOffset; i >= endIndex; i--) {
+                items.push(await this.callReadByIndex(repoId, i));
+            }
 
-        for (var i=calculatedOffset; i >= endIndex; i--) {
-            items.push(await this.callReadByIndex(repoId, i));
+            return items;
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
-
-        return items;
 
     }
 
@@ -82,24 +104,23 @@ class RecordService {
         let items = [];
 
         let currentCount = await this.callCountOwned(repoId);
-
         if (currentCount <= 0) return items
 
 
         this.validateLimitOffset(limit, offset, currentCount);
-
-
-        //Calculate end index
         let endIndex = this.calculateEndIndex(limit, offset, currentCount);
 
+        try {
+            // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
-        // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
+            for (var i=offset; i <= endIndex; i++) {
+                items.push(await this.callReadByOwnedIndex(repoId, i));
+            }
 
-        for (var i=offset; i <= endIndex; i++) {
-            items.push(await this.callReadByOwnedIndex(repoId, i));
+            return items;
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
-
-        return items;
 
     }
 
@@ -122,48 +143,72 @@ class RecordService {
         //Calculate end index
         let endIndex = this.calculateDescendingEndIndex(limit, calculatedOffset);
 
-        // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
+        try {
+            // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
+            for (var i=calculatedOffset; i >= endIndex; i--) {
+                items.push(await this.callReadByOwnedIndex(repoId, i));
+            }
 
-        for (var i=calculatedOffset; i >= endIndex; i--) {
-            items.push(await this.callReadByOwnedIndex(repoId, i));
+            return items;
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
-
-        return items;
 
     }
 
 
     async callCount(repoId) {
-        let result = await this.recordServiceContract.count.call(repoId);
-        return result.toNumber();
+
+        try {
+            let result = await this.recordServiceContract.count.call(repoId);
+            return result.toNumber();
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
+        }
+
     }
 
     async callCountOwned(repoId) {
-        let result = await this.recordServiceContract.countOwned.call(repoId);
-        return result.toNumber();
+
+        try {
+            let result = await this.recordServiceContract.countOwned.call(repoId);
+            return result.toNumber();
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
+        }
+
     }
 
     /**
      * SEND
      */
-    async sendCreate(repoId, ipfsCid, transactionObject) {      
-        if (transactionObject) {
-            return this.recordServiceContract.create(repoId, ipfsCid, transactionObject);
+    async sendCreate(repoId, ipfsCid, transactionObject) {
+
+        try {
+            if (transactionObject) {
+                return await this.recordServiceContract.create(repoId, ipfsCid, transactionObject);
+            }
+
+            return await this.recordServiceContract.create(repoId, ipfsCid);
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
-        
-        return this.recordServiceContract.create(repoId, ipfsCid);
 
     }
 
-    async sendUpdate(repoId, id, ipfsCid, transactionObject) {      
-        
-        if (transactionObject) {
-            return this.recordServiceContract.update(repoId, id, ipfsCid, transactionObject);
+    async sendUpdate(repoId, id, ipfsCid, transactionObject) {
+
+        try {
+            if (transactionObject) {
+                return await this.recordServiceContract.update(repoId, id, ipfsCid, transactionObject);
+            }
+
+            return await this.recordServiceContract.update(repoId, id, ipfsCid);
+        } catch (ex) {
+            throw new Web3Exception(ex.message)
         }
 
-        return this.recordServiceContract.update(repoId, id, ipfsCid);
-        
     }
 
 
@@ -182,15 +227,15 @@ class RecordService {
 
     validateLimitOffset(limit, offset, currentCount) {
         if (limit <= 0) {
-            throw `Negative limit given. Limit needs to be positive: ${limit}`;
+            throw new ValidationException(`Negative limit given. Limit needs to be positive: ${limit}`)
         }
 
         if (offset < 0) {
-            throw `Negative offset provided. Offset needs to be positive: ${offset}`;
+            throw new ValidationException(`Negative offset provided. Offset needs to be positive: ${offset}`)
         }
 
         if (offset > 0 && offset >= currentCount) {
-            throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
+            throw new ValidationException(`Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`)
         }
     }
 

@@ -4,6 +4,9 @@ const serviceFactory = new TestServiceFactory();
 var TestUtils = require('./test-utils.js');
 var Utils = require('../src/utils.js');
 
+const Web3Exception = require('../src/exceptions/web3-exception.js');
+const ValidationException = require('../src/exceptions/validation-exception.js');
+
 contract('RecordService', async (accounts) => {
 
     var testUtils = new TestUtils();
@@ -69,113 +72,106 @@ contract('RecordService', async (accounts) => {
     });
 
     it("Test sendCreate: Zero repoId", async () => {
-        
-        //Arrange
-        let error;
 
-
+        //Act
         try {
             let result = await recordService.sendCreate(0, "KNLTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MB");
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown a Web3Exception");
+            assert.equal(
+                "You must supply a repo -- Reason given: You must supply a repo.",
+                testUtils.getRequireMessage(ex),
+
+                "Should fail to let non-owner call create"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo -- Reason given: You must supply a repo.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Should fail to let non-owner call create"
-        );
+
 
     });
 
     it("Test sendCreate: Blank ipfsCid. Should throw an error.", async () => {
         
-        //Arrange
-        let error;
-
+        //Act
         try {
             let result = await recordService.sendCreate(TEST_REPO1, "");
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
-        }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Supply a non-empty ipfsCid"
-        );
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.",
+                testUtils.getRequireMessage(ex),
+
+                "Supply a non-empty ipfsCid"
+            );        }
+
+
 
     });
 
     it("Test callRead: Zero repoId", async () => {
         
-        //Arrange
-        let error;
-
+        //ACT
         try {
             let result = await recordService.callRead(0, 1);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
+                "Supply a non-empty repo"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "Supply a non-empty repo"
-        );
+
 
     });
 
     it("Test callRead: Zero id", async () => {
-        
-        //Arrange
-        let error;
 
+        //Act
         try {
             let result = await recordService.callRead(1, 0);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply an id",
+                testUtils.getRequireMessage(ex),
+
+                "Supply an id"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply an id", 
-            testUtils.getRequireMessage(error), 
-            
-            "Supply an id"
-        );
+
 
     });
 
     it("Test callRead: Invalid positive id", async () => {
         
-        //Arrange
-        let error;
-
+        //Act
         try {
             let result = await recordService.callRead(1, 5000);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "No record found",
+                testUtils.getRequireMessage(ex),
+                "No record found"
+            );
         }
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record found", 
-            testUtils.getRequireMessage(error), 
-            
-            "No record found"
-        );
+
 
     });
 
@@ -198,24 +194,21 @@ contract('RecordService', async (accounts) => {
     });
 
     it("Test callCount: Pass zero repoId", async () => {
-        //Act
 
-        let error;
+        //Act
         try {
             await recordService.callCount(0)
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
-        }
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
 
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            
-            "You must supply a repo"
-        );
-        
+                "You must supply a repo"
+            );
+        }
     });
 
     it("Test callCount: Pass positive invalid repoId. Get zero count.", async () => {
@@ -258,9 +251,6 @@ contract('RecordService', async (accounts) => {
         var loggedRecord = utils.recordEventToRecord(result);
 
 
-        let error;
-
-
         try {
             await recordService.sendUpdate(
                 TEST_REPO1,
@@ -270,19 +260,19 @@ contract('RecordService', async (accounts) => {
                     from: accounts[1]
                 }
             )
+
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You don't own this record -- Reason given: You don't own this record.",
+                testUtils.getRequireMessage(ex),
+
+                "Should fail to update record user doesn't own."
+            );
         }
 
-
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You don't own this record -- Reason given: You don't own this record.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Should fail to update record user doesn't own."
-        );
 
         //Do a read and make sure it shows the original value
         let refetchechRecord = await recordService.callRead(TEST_REPO1, loggedRecord.id);
@@ -294,51 +284,50 @@ contract('RecordService', async (accounts) => {
 
     it("Test sendUpdate: Invalid positive id", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await recordService.sendUpdate(
                 TEST_REPO1,
                 5000, 
                 "CELTM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MN"
             )
-        } catch(ex) {
-            error = ex;
-        }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You don't own this record -- Reason given: You don't own this record.", 
-            testUtils.getRequireMessage(error), 
-            
-            "Invalid positive id"
-        );
 
-        
+            assert.fail("Did not throw Web3Exception")
+
+        } catch(ex) {
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You don't own this record -- Reason given: You don't own this record.",
+                testUtils.getRequireMessage(ex),
+
+                "Invalid positive id"
+            );
+        }
+
     });
 
     it("Test sendUpdate: Blank IPFS cid", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await recordService.sendUpdate(
                 TEST_REPO1,
                 1, 
                 ""
             )
+
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.",
+                testUtils.getRequireMessage(ex),
+                "You must supply an ipfsCid"
+            );
         }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply an ipfsCid -- Reason given: You must supply an ipfsCid.", 
-            testUtils.getRequireMessage(error), 
-            "You must supply an ipfsCid"
-        );
+
 
         
     });
@@ -357,41 +346,39 @@ contract('RecordService', async (accounts) => {
 
     it("Test readByIndex: Zero repoId", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await recordService.callReadByIndex(0, 0);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "You must supply a repo",
+                testUtils.getRequireMessage(ex),
+                "You must supply a repo"
+            );
         }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "You must supply a repo", 
-            testUtils.getRequireMessage(error), 
-            "You must supply a repo"
-        );
+
 
     });
 
     it("Test readByIndex:  Invalid index out of bounds", async () => {
 
-        //Arrange
-        let error;
-
+        //Act
         try {
             await recordService.callReadByIndex(TEST_REPO1, 1000000);
+            assert.fail("Did not throw Web3Exception")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
+            assert.equal(
+                "No record at index",
+                testUtils.getRequireMessage(ex),
+                "No record at index"
+            );
         }
-        //Assert
-        assert.isTrue(error instanceof Error, "Should have thrown an error");
-        assert.equal(
-            "No record at index", 
-            testUtils.getRequireMessage(error), 
-            "No record at index"
-        );
+
 
     });
 
@@ -434,89 +421,61 @@ contract('RecordService', async (accounts) => {
 
     it("Test callReadList: Negative offset", async () => {
 
-        //Arrange
-        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
-
-
-        //Act
-        let error;
-
         try {
             let itemList = await recordService.callReadList(TEST_REPO1, 10, -1);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-           error = ex;
-          }
-
-
-        //Assert
-        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
-
+            //Assert
+            assert.equal("Negative offset provided. Offset needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
+        }
 
     });
 
     it("Test callReadList: Offset greater than list size", async () => {
 
-        //Arrange
-        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
-        let error;
-
         try {
             let itemList = await recordService.callReadList(TEST_REPO1, 10, 58);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
-
-        
-
-        //Assert
-        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 58, currrentCount: 58", error, "Error message does not match");
-
 
     });
 
     it("Test callReadList: Negative limit", async () => {
 
-        //Arrange
-        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
-        let error;
-
         try {
             let itemList = await recordService.callReadList(TEST_REPO1, -1, 0);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
+
         }
-
-
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
-
 
     });
 
     it("Test callReadList: Zero limit", async () => {
 
-        //Arrange
-        assert.equal(await recordService.callCount(TEST_REPO1), 58, "Count is incorrect");
-
-
         //Act
-        let error;
-
         try {
             let itemList = await recordService.callReadList(TEST_REPO1, 0, 0);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: 0", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
 
 
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
+
+
 
 
     });
@@ -524,32 +483,32 @@ contract('RecordService', async (accounts) => {
     it("Test validateLimitOffset: Negative offset", async () => {
 
         //Act
-        let error;
-
         try {
             let itemList = recordService.validateLimitOffset(10, -1, 10);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
-        }
+            //Assert
+            assert.equal("Negative offset provided. Offset needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
 
-        //Assert
-        assert.equal("Negative offset provided. Offset needs to be positive: -1", error, "Error message does not match");
+        }
 
     });
 
     it("Test validateLimitOffset: Offset greater than list size", async () => {
 
         //Act
-        let error;
-
         try {
             let itemList = recordService.validateLimitOffset(10, 10, 10);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+
+            //Assert
+            assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 10, currrentCount: 10", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
 
-        //Assert
-        assert.equal("Invalid offset provided. Offset must be lower than total number of records: offset: 10, currrentCount: 10", error, "Error message does not match");
+
 
     });
 
@@ -560,13 +519,12 @@ contract('RecordService', async (accounts) => {
 
         try {
             let itemList = recordService.validateLimitOffset(-1, 0, 5);
+            assert.fail("Did not throw ValidationException")
         } catch(ex) {
-            error = ex;
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: -1", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
         }
-
-
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: -1", error, "Error message does not match");
 
 
     });
@@ -578,13 +536,19 @@ contract('RecordService', async (accounts) => {
 
         try {
             let itemList = recordService.validateLimitOffset(0, 0, 10);
+            assert.fail("Did not throw ValidationException")
+
         } catch(ex) {
-            error = ex;
+
+            //Assert
+            assert.equal("Negative limit given. Limit needs to be positive: 0", ex.message, "Error message does not match");
+            assert.isTrue(ex instanceof ValidationException, "Should have thrown ValidationException");
+
+
         }
 
 
-        //Assert
-        assert.equal("Negative limit given. Limit needs to be positive: 0", error, "Error message does not match");
+
 
     });
 

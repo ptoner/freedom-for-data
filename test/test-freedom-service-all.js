@@ -21,8 +21,7 @@ contract('FreedomService', async (accounts) => {
         serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
         freedomService = serviceFactory.getFreedomService();
     });
-
-
+    
     it("Test callReadList: Get empty list", async () => {
 
         let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
@@ -37,7 +36,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(itemList.length, 0);
 
     });
-
 
     it("Test create/read: Create a 'person' record and verify the info is stored on blockchain and IPFS", async () => {
 
@@ -92,7 +90,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-
     it("Test read: Zero repoId", async () => {
         
         //Arrange
@@ -137,7 +134,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-
     it("Test read: Invalid positive id", async () => {
         
         //Arrange
@@ -159,7 +155,6 @@ contract('FreedomService', async (accounts) => {
         );
 
     });
-
 
     it("Test sendCreate: Zero repoId", async () => {
         
@@ -189,7 +184,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-
     it("Test count: Create some records and then call count and make sure it matches", async () => {
 
         //Arrange
@@ -207,7 +201,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(count, createdCount);
 
     });
-
 
     it("Test count: Pass zero repoId", async () => {
         //Act
@@ -230,7 +223,6 @@ contract('FreedomService', async (accounts) => {
         
     });
 
-
     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
@@ -240,7 +232,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(count, 0);
         
     });
-
 
     it("Test update: Update a record and make sure the changes are saved.", async () => {
         
@@ -265,7 +256,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(refetchedRecord.firstName, "Charlie");
         assert.equal(refetchedRecord.lastName, "Morton");
     });
-
 
     it("Test update: Update a record this account doesn't own", async () => {
         
@@ -310,7 +300,6 @@ contract('FreedomService', async (accounts) => {
         assert.equal(refetchechRecord.lastName, "Cole");
     });
 
-
     it("Test update: Invalid positive id", async () => {
 
         //Arrange
@@ -340,7 +329,6 @@ contract('FreedomService', async (accounts) => {
 
         
     });
-    
 
     it("Test readByIndex: Read all the records we've written so far", async () => {
 
@@ -420,7 +408,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-
     it("Test readByIndex: Zero repoId", async () => {
 
         //Arrange
@@ -460,8 +447,6 @@ contract('FreedomService', async (accounts) => {
         );
 
     });
-    
-
 
     it("Test readList: Limit greater than list size", async () => {
         assert.equal(await freedomService.count(TEST_REPO1), 8, "Count is incorrect");
@@ -470,7 +455,6 @@ contract('FreedomService', async (accounts) => {
 
         assert.equal(itemList.length, 8);
     });
-
 
     it("Test readList: Check for duplicates", async () => {
 
@@ -500,7 +484,6 @@ contract('FreedomService', async (accounts) => {
         }
 
     });
-
 
     it("Test readList: Negative offset", async () => {
 
@@ -567,8 +550,6 @@ contract('FreedomService', async (accounts) => {
 
     });
 
-
-
     it("Test readList: Zero limit", async () => {
 
         //Arrange
@@ -590,8 +571,6 @@ contract('FreedomService', async (accounts) => {
 
 
     });
-
-
 
     it("Test readListDescending: Verify records already inserted", async () => {
 
@@ -690,8 +669,6 @@ contract('FreedomService', async (accounts) => {
 
 
     });
-
-
 
     it("Test ipfsPutFile & ipfsGetFile: Save an image then try to get it back out with IPFS directly and verify.", async function() {
       
