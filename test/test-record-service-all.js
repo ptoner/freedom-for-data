@@ -573,6 +573,12 @@ contract('RecordService', async (accounts) => {
 
     });
 
+    it ("Test validateLimitOffset: No records", async () => {
+
+        recordService.validateLimitOffset(10, 0, 0)
+
+    });
+
     it("Test calculateEndIndex: Positive values", async () => {
 
         assert.equal(recordService.calculateEndIndex(10, 0, 50), 9);
@@ -596,6 +602,8 @@ contract('RecordService', async (accounts) => {
         assert.equal(recordService.calculateDescendingOffset(79, 100), 20);
         assert.equal(recordService.calculateDescendingOffset(89, 100), 10);
         assert.equal(recordService.calculateDescendingOffset(99, 100), 0);
+
+        assert.equal(recordService.calculateDescendingOffset(0, 0), 0);
 
     });
 

@@ -179,7 +179,7 @@ class RecordService {
             throw `Negative offset provided. Offset needs to be positive: ${offset}`;
         }
 
-        if (offset >= currentCount) {
+        if (offset > 0 && offset >= currentCount) {
             throw `Invalid offset provided. Offset must be lower than total number of records: offset: ${offset}, currrentCount: ${currentCount}`;
         }
     }
