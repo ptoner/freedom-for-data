@@ -5,6 +5,7 @@ const ipfsClient = require('ipfs-http-client');
 const TruffleContract = require('truffle-contract');
 
 const RecordServiceJson = require('./build/contracts/RecordService.json');
+const Web3Exception = require('./src/exceptions/web3-exception.js');
 
 
 const promisify = (inner) =>
@@ -40,14 +41,22 @@ const Freedom = async function(config) {
     let account = accounts[0];
 
     
-   /** 
+    /**
      * Get record contract service
      */
     const recordService = TruffleContract(RecordServiceJson);
-    recordService.setProvider(web3Provider);
-    recordService.defaults({from: account});  
 
-    var recordServiceContract = await recordService.deployed();
+    try {
+
+        recordService.setProvider(web3Provider);
+        recordService.defaults({from: account});
+
+        var recordServiceContract = await recordService.deployed();
+    } catch (ex) {
+        throw new Web3Exception(ex.message)
+    }
+
+
 
 
     /**
