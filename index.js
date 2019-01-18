@@ -1,11 +1,16 @@
 require("@babel/polyfill");
 
-const ServiceFactory = require('./src/service-factory.js');
-const ipfsClient = require('ipfs-http-client');
-const TruffleContract = require('truffle-contract');
+const ServiceFactory = require('./src/service-factory.js')
+const ipfsClient = require('ipfs-http-client')
+const TruffleContract = require('truffle-contract')
 
-const RecordServiceJson = require('./build/contracts/RecordService.json');
-const Web3Exception = require('./src/exceptions/web3-exception.js');
+const RecordServiceJson = require('./build/contracts/RecordService.json')
+
+
+
+const Web3Exception = require('./src/exceptions/web3-exception.js')
+const IpfsException = require('./src/exceptions/ipfs-exception.js')
+const ValidationException = require('./src/exceptions/validation-exception')
 
 
 const promisify = (inner) =>
@@ -18,8 +23,6 @@ const promisify = (inner) =>
 
 
 const Freedom = async function(config) {
-
-    console.log(config);
 
     //Replace contract info
     RecordServiceJson.networks["5777"].address = config.recordContractAddress;
@@ -51,7 +54,7 @@ const Freedom = async function(config) {
         recordService.setProvider(web3Provider);
         recordService.defaults({from: account});
 
-        var recordServiceContract = await recordService.deployed();
+        const recordServiceContract = await recordService.deployed();
     } catch (ex) {
         throw new Web3Exception(ex.message)
     }
