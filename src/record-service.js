@@ -17,7 +17,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.read.call(repoId, id);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -28,7 +28,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -39,7 +39,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -64,7 +64,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -94,7 +94,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -119,7 +119,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -152,7 +152,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -164,7 +164,7 @@ class RecordService {
             let result = await this.recordServiceContract.count.call(repoId);
             return result.toNumber();
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -175,7 +175,7 @@ class RecordService {
             let result = await this.recordServiceContract.countOwned.call(repoId);
             return result.toNumber();
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -192,7 +192,7 @@ class RecordService {
 
             return await this.recordServiceContract.create(repoId, ipfsCid);
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -206,7 +206,7 @@ class RecordService {
 
             return await this.recordServiceContract.update(repoId, id, ipfsCid);
         } catch (ex) {
-            throw new Web3Exception(ex)
+            throw new Web3Exception(ex.message)
         }
 
     }
@@ -216,7 +216,7 @@ class RecordService {
      * UTIL
      */
     async recordMapper(resultArray) {
-        
+
         return {
             id: resultArray[0].toNumber(),
             owner: resultArray[1],

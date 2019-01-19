@@ -35,6 +35,7 @@ describe("IPFSService", async function() {
         //Assert
         const result = await ipfsService.ipfsGetJson(cid);
 
+
         assert.equal(result.firstName, "Joe");
         assert.equal(result.lastName, "Musgrove");
 

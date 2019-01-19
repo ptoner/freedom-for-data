@@ -47,14 +47,15 @@ const Freedom = async function(config) {
     /**
      * Get record contract service
      */
-    const recordService = TruffleContract(RecordServiceJson);
+    const truffleContract = TruffleContract(RecordServiceJson);
+    let recordServiceContract
 
     try {
 
-        recordService.setProvider(web3Provider);
-        recordService.defaults({from: account});
+        truffleContract.setProvider(web3Provider);
+        truffleContract.defaults({from: account});
 
-        const recordServiceContract = await recordService.deployed();
+        recordServiceContract = await truffleContract.deployed();
     } catch (ex) {
         throw new Web3Exception(ex)
     }
@@ -68,7 +69,8 @@ const Freedom = async function(config) {
     const ipfs = ipfsClient({
         host: config.ipfsHost, 
         port: config.ipfsPort 
-    });
+    })
+
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
 

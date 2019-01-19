@@ -73,11 +73,13 @@ class IPFSService {
      * @returns {*}
      */
     ipfsExceptionTranslator(ex) {
+
         if (ex.code == "ECONNREFUSED" || ex.code == "ENOTFOUND") {
             return new IpfsConnectionException(ex)
         } else {
             return new IpfsException(ex)
         }
+
     }
     
 }

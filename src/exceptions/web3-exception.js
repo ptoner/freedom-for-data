@@ -1,14 +1,14 @@
 class Web3Exception extends Error {
 
-    constructor(ex) {
-        super(ex.message)
+    constructor(message) {
+        super(message)
         this.name = "Web3Exception"
 
         // Use V8's native method if available, otherwise fallback
         if ("captureStackTrace" in Error)
-            Error.captureStackTrace(ex, Web3Exception);
+            Error.captureStackTrace(this, Web3Exception);
         else
-            this.stack = (ex).stack;
+            this.stack = (new Error()).stack;
     }
 
 }
