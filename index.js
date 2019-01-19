@@ -56,7 +56,7 @@ const Freedom = async function(config) {
 
         const recordServiceContract = await recordService.deployed();
     } catch (ex) {
-        throw new Web3Exception(ex.message)
+        throw new Web3Exception(ex)
     }
 
 
@@ -65,7 +65,7 @@ const Freedom = async function(config) {
     /**
     * IPFS configuration for tests
     */
-    var ipfs = ipfsClient({ 
+    const ipfs = ipfsClient({
         host: config.ipfsHost, 
         port: config.ipfsPort 
     });
