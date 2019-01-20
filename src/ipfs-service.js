@@ -16,48 +16,78 @@ class IPFSService {
      */
     async ipfsPutJson(data) {
 
-        try {
-            const cid = await this.ipfs.dag.put(data);
-            return cid.toBaseEncodedString();
+        let cid
 
+        try {
+            cid = await this.ipfs.dag.put(data);
         } catch (ex) {
             throw this.ipfsExceptionTranslator(ex)
         }
+
+        if (!cid) {
+            throw new IpfsException("No CID returned from IPFS")
+        }
+
+
+        return cid.toBaseEncodedString();
 
     }
 
     async ipfsGetJson(hash) {
 
+        let node
+
         try {
-            const node = await this.ipfs.dag.get(hash);
+            node = await this.ipfs.dag.get(hash);
             return node.value;
         } catch (ex) {
             throw this.ipfsExceptionTranslator(ex)
         }
+
+        if (!node) {
+            throw new IpfsException("No node returned from IPFS")
+        }
+
+        return node.value;
 
     }
 
 
     async ipfsPutFile(file, options) {
 
+        let results
+
         try {
-            let results = await this.ipfs.add(file, options);
-            let cid = results[0].hash;
-            return cid;
+            results = await this.ipfs.add(file, options)
         } catch (ex) {
             throw this.ipfsExceptionTranslator(ex)
         }
+
+        if (!results) {
+            throw new IpfsException("No results returned from IPFS")
+        }
+
+        let cid = results[0].hash;
+        return cid;
 
     }
 
     async ipfsGetFile(cid) {
 
+        let results
+
         try {
-            let results = await this.ipfs.get(cid);
-            return results[0].content;
+            results = await this.ipfs.get(cid)
         } catch (ex) {
             throw this.ipfsExceptionTranslator(ex)
         }
+
+        if (!results) {
+            throw new IpfsException("No results returned from IPFS")
+        }
+
+
+        return results[0].content
 
     }
 
