@@ -23,6 +23,16 @@ contract('RecordService', async (accounts) => {
         recordService = serviceFactory.getRecordService();
     });
 
+    it("Test callCount: Get a count before there are records", async () => {
+
+        //Act
+        let count = await recordService.callCount(TEST_REPO1);
+
+        assert.equal(0, count);
+
+    });
+
+
     it("Test callReadList: Get empty list", async () => {
 
         let itemList = await recordService.callReadList(TEST_REPO1, 10, 0);

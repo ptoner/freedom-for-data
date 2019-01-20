@@ -1,3 +1,3 @@
 node src/build-scripts/replace-record-service.js
 #browserify -s Freedom -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/plugin-proposal-class-properties ] ] -g uglifyify ./index.js > ./dist/freedom-for-data.js
-browserify --debug -s Freedom -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/plugin-proposal-class-properties ] ] -g uglifyify ./index.js > ./dist/freedom-for-data.js
+browserify --debug -s Freedom -t [ babelify --presets [ @babel/preset-env ] --plugins [ @babel/plugin-proposal-class-properties ] ] ./index.js > ./dist/freedom-for-data.js

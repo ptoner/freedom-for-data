@@ -22,6 +22,15 @@ contract('RecordService', async (accounts) => {
     });
 
 
+    it("Test callCountOwned: Get a count before there are records", async () => {
+
+        //Act
+        let count = await recordService.callCountOwned(TEST_REPO1);
+
+        assert.equal(0, count);
+
+    });
+
     it("Test callReadOwnedList: Get empty list", async () => {
 
         let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, 0);

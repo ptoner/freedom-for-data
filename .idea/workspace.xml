@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c72693c1-36cf-478e-ae17-408239b57a95" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ipfs-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ipfs-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/freedom-for-data.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/freedom-for-data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build-scripts/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/build-scripts/build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-record-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-record-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-owned.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,19 +31,157 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
+        <entry file="file://$PROJECT_DIR$/src/record-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="4260">
+              <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="433">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+              <folding>
+                <element signature="e#577#747#0" />
+                <element signature="e#807#934#0" />
+                <element signature="e#1004#1142#0" />
+                <element signature="e#1270#2219#0" />
+                <element signature="e#1647#1812#0" />
+                <element signature="e#2274#2862#0" />
+                <element signature="e#2303#2482#0" />
+                <element signature="e#2493#2853#0" />
+                <element signature="e#2943#3485#0" />
+                <element signature="e#2980#3119#0" />
+                <element signature="e#3130#3476#0" />
+                <element signature="e#3538#4015#0" />
+                <element signature="e#3575#3702#0" />
+                <element signature="e#3713#4006#0" />
+                <element signature="e#4064#4522#0" />
+                <element signature="e#4093#4220#0" />
+                <element signature="e#4231#4513#0" />
+                <element signature="e#4583#5048#0" />
+                <element signature="e#4620#4750#0" />
+                <element signature="e#4761#5039#0" />
+                <element signature="e#5155#5935#0" />
+                <element signature="e#5994#6444#0" />
+                <element signature="e#6023#6134#0" />
+                <element signature="e#6145#6438#0" />
+                <element signature="e#6532#6685#0" />
+                <element signature="e#6801#7421#0" />
+                <element signature="e#7531#8776#0" />
+                <element signature="e#7780#8110#0" />
+                <element signature="e#7973#8030#0" />
+                <element signature="e#8121#8485#0" />
+                <element signature="e#8839#9468#0" />
+                <element signature="e#8868#9113#0" />
+                <element signature="e#9124#9461#0" />
+                <element signature="e#9526#10120#0" />
+                <element signature="e#9555#9747#0" />
+                <element signature="e#9758#10103#0" />
+                <element signature="e#10206#11072#0" />
+                <element signature="e#11128#11589#0" />
+                <element signature="e#11157#11278#0" />
+                <element signature="e#11289#11581#0" />
+                <element signature="e#11662#12130#0" />
+                <element signature="e#11691#11827#0" />
+                <element signature="e#11838#12122#0" />
+                <element signature="e#12204#12421#0" />
+                <element signature="e#12487#13200#0" />
+                <element signature="e#12543#12663#0" />
+                <element signature="e#12858#13193#0" />
+                <element signature="e#12992#13183#0" />
+                <element signature="e#13044#13126#0" />
+                <element signature="e#13261#13714#0" />
+                <element signature="e#13276#13429#0" />
+                <element signature="e#13440#13707#0" />
+                <element signature="e#13789#14283#0" />
+                <element signature="e#13818#13971#0" />
+                <element signature="e#13982#14276#0" />
+                <element signature="e#14343#14806#0" />
+                <element signature="e#14372#14524#0" />
+                <element signature="e#14535#14799#0" />
+                <element signature="e#14862#15326#0" />
+                <element signature="e#14891#15042#0" />
+                <element signature="e#15053#15314#0" />
+                <element signature="e#15394#15855#0" />
+                <element signature="e#15423#15569#0" />
+                <element signature="e#15580#15848#0" />
+                <element signature="e#15937#16448#0" />
+                <element signature="e#15966#16112#0" />
+                <element signature="e#16123#16439#0" />
+                <element signature="e#16515#16989#0" />
+                <element signature="e#16564#16708#0" />
+                <element signature="e#16719#16981#0" />
+                <element signature="e#17052#17531#0" />
+                <element signature="e#17101#17246#0" />
+                <element signature="e#17257#17521#0" />
+                <element signature="e#17595#17656#0" />
+                <element signature="e#17722#17972#0" />
+                <element signature="e#18046#18961#0" />
+                <element signature="e#19035#19195#0" />
+                <element signature="e#19271#19582#0" />
+                <element signature="e#19669#21794#0" />
+                <element signature="e#19798#19957#0" />
+                <element signature="e#20001#20160#0" />
+                <element signature="e#20204#20363#0" />
+                <element signature="e#20407#20566#0" />
+                <element signature="e#20610#20769#0" />
+                <element signature="e#20814#20973#0" />
+                <element signature="e#21017#21176#0" />
+                <element signature="e#21220#21379#0" />
+                <element signature="e#21423#21582#0" />
+                <element signature="e#21626#21785#0" />
+                <element signature="e#21853#22064#0" />
+                <element signature="e#22138#22265#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+            <state relative-caret-position="1740">
+              <caret line="87" selection-start-line="87" selection-end-line="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/build-scripts/build.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="2" column="123" selection-start-line="2" selection-start-column="123" selection-end-line="2" selection-end-column="123" />
             </state>
           </provider>
         </entry>
@@ -67,8 +209,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
-        <option value="$PROJECT_DIR$/test/test-record-service-owned.js" />
         <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
         <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
         <option value="$PROJECT_DIR$/src/exceptions/validation-exception.js" />
@@ -80,8 +220,10 @@
         <option value="$PROJECT_DIR$/src/record-service.js" />
         <option value="$PROJECT_DIR$/src/exceptions/web3-exception.js" />
         <option value="$PROJECT_DIR$/src/exceptions/ipfs-exception.js" />
-        <option value="$PROJECT_DIR$/src/build-scripts/build.sh" />
         <option value="$PROJECT_DIR$/src/ipfs-service.js" />
+        <option value="$PROJECT_DIR$/src/build-scripts/build.sh" />
+        <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
+        <option value="$PROJECT_DIR$/test/test-record-service-owned.js" />
       </list>
     </option>
   </component>
@@ -95,6 +237,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -105,20 +248,24 @@
             <path>
               <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
               <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
+              <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548006048102" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548026562422" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -163,12 +310,13 @@
       <workItem from="1547908416371" duration="10568000" />
       <workItem from="1547934631021" duration="182000" />
       <workItem from="1547935129067" duration="8926000" />
-      <workItem from="1547998221688" duration="7181000" />
+      <workItem from="1547998221688" duration="8147000" />
+      <workItem from="1548026298537" duration="268000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69266000" />
+    <option name="totallyTimeSpent" value="70500000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -183,7 +331,7 @@
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.23159018" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23425826" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -227,26 +375,6 @@
             </folding>
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1440">
-          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
-          <folding>
-            <element signature="e#2433#2591#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="81" />
-          <folding>
-            <element signature="e#424#594#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -344,38 +472,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/build-scripts/build.sh">
+    <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="58" selection-start-line="2" selection-start-column="58" selection-end-line="2" selection-end-column="58" />
+        <state relative-caret-position="1740">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/record-service.js">
+    <entry file="file://$PROJECT_DIR$/src/build-scripts/build.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="40">
+          <caret line="2" column="123" selection-start-line="2" selection-start-column="123" selection-end-line="2" selection-end-column="123" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="500">
+          <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
+    <entry file="file://$PROJECT_DIR$/src/record-service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+        <state relative-caret-position="4260">
+          <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="e#577#747#0" />
+            <element signature="e#807#934#0" />
+            <element signature="e#1004#1142#0" />
+            <element signature="e#1270#2219#0" />
+            <element signature="e#1647#1812#0" />
+            <element signature="e#2274#2862#0" />
+            <element signature="e#2303#2482#0" />
+            <element signature="e#2493#2853#0" />
+            <element signature="e#2943#3485#0" />
+            <element signature="e#2980#3119#0" />
+            <element signature="e#3130#3476#0" />
+            <element signature="e#3538#4015#0" />
+            <element signature="e#3575#3702#0" />
+            <element signature="e#3713#4006#0" />
+            <element signature="e#4064#4522#0" />
+            <element signature="e#4093#4220#0" />
+            <element signature="e#4231#4513#0" />
+            <element signature="e#4583#5048#0" />
+            <element signature="e#4620#4750#0" />
+            <element signature="e#4761#5039#0" />
+            <element signature="e#5155#5935#0" />
+            <element signature="e#5994#6444#0" />
+            <element signature="e#6023#6134#0" />
+            <element signature="e#6145#6438#0" />
+            <element signature="e#6532#6685#0" />
+            <element signature="e#6801#7421#0" />
+            <element signature="e#7531#8776#0" />
+            <element signature="e#7780#8110#0" />
+            <element signature="e#7973#8030#0" />
+            <element signature="e#8121#8485#0" />
+            <element signature="e#8839#9468#0" />
+            <element signature="e#8868#9113#0" />
+            <element signature="e#9124#9461#0" />
+            <element signature="e#9526#10120#0" />
+            <element signature="e#9555#9747#0" />
+            <element signature="e#9758#10103#0" />
+            <element signature="e#10206#11072#0" />
+            <element signature="e#11128#11589#0" />
+            <element signature="e#11157#11278#0" />
+            <element signature="e#11289#11581#0" />
+            <element signature="e#11662#12130#0" />
+            <element signature="e#11691#11827#0" />
+            <element signature="e#11838#12122#0" />
+            <element signature="e#12204#12421#0" />
+            <element signature="e#12487#13200#0" />
+            <element signature="e#12543#12663#0" />
+            <element signature="e#12858#13193#0" />
+            <element signature="e#12992#13183#0" />
+            <element signature="e#13044#13126#0" />
+            <element signature="e#13261#13714#0" />
+            <element signature="e#13276#13429#0" />
+            <element signature="e#13440#13707#0" />
+            <element signature="e#13789#14283#0" />
+            <element signature="e#13818#13971#0" />
+            <element signature="e#13982#14276#0" />
+            <element signature="e#14343#14806#0" />
+            <element signature="e#14372#14524#0" />
+            <element signature="e#14535#14799#0" />
+            <element signature="e#14862#15326#0" />
+            <element signature="e#14891#15042#0" />
+            <element signature="e#15053#15314#0" />
+            <element signature="e#15394#15855#0" />
+            <element signature="e#15423#15569#0" />
+            <element signature="e#15580#15848#0" />
+            <element signature="e#15937#16448#0" />
+            <element signature="e#15966#16112#0" />
+            <element signature="e#16123#16439#0" />
+            <element signature="e#16515#16989#0" />
+            <element signature="e#16564#16708#0" />
+            <element signature="e#16719#16981#0" />
+            <element signature="e#17052#17531#0" />
+            <element signature="e#17101#17246#0" />
+            <element signature="e#17257#17521#0" />
+            <element signature="e#17595#17656#0" />
+            <element signature="e#17722#17972#0" />
+            <element signature="e#18046#18961#0" />
+            <element signature="e#19035#19195#0" />
+            <element signature="e#19271#19582#0" />
+            <element signature="e#19669#21794#0" />
+            <element signature="e#19798#19957#0" />
+            <element signature="e#20001#20160#0" />
+            <element signature="e#20204#20363#0" />
+            <element signature="e#20407#20566#0" />
+            <element signature="e#20610#20769#0" />
+            <element signature="e#20814#20973#0" />
+            <element signature="e#21017#21176#0" />
+            <element signature="e#21220#21379#0" />
+            <element signature="e#21423#21582#0" />
+            <element signature="e#21626#21785#0" />
+            <element signature="e#21853#22064#0" />
+            <element signature="e#22138#22265#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
         </state>
       </provider>
     </entry>
