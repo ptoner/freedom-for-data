@@ -13,34 +13,56 @@ class RecordService {
      */
     async callRead(repoId, id) {
 
+        let resultArray
+
         try {
-            let resultArray = await this.recordServiceContract.read.call(repoId, id);
-            return this.recordMapper(resultArray);
+            resultArray = await this.recordServiceContract.read.call(repoId, id);
         } catch (ex) {
             throw new Web3Exception(ex)
         }
+
+        if (!resultArray) {
+            throw new Web3Exception(new Error("Empty result from 'read' contract call"))
+        }
+
+        return this.recordMapper(resultArray);
+
 
     }
 
     async callReadByOwnedIndex(repoId, index) {
 
+        let resultArray
+
         try {
-            let resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index);
-            return this.recordMapper(resultArray);
+            resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index)
         } catch (ex) {
             throw new Web3Exception(ex)
         }
+
+        if (!resultArray) {
+            throw new Web3Exception(new Error("Empty result from 'readByOwnedIndex' contract call"))
+        }
+
+        return this.recordMapper(resultArray)
 
     }
 
     async callReadByIndex(repoId, index) {
 
+        let resultArray
+
         try {
-            let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
-            return this.recordMapper(resultArray);
+            resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
         } catch (ex) {
             throw new Web3Exception(ex)
         }
+
+        if (!resultArray) {
+            throw new Web3Exception(new Error("Empty result from 'readByIndex' contract call"))
+        }
+
+        return this.recordMapper(resultArray);
 
     }
 

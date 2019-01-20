@@ -6,7 +6,7 @@ class Web3Exception extends Error {
 
         // Use V8's native method if available, otherwise fallback
         if ("captureStackTrace" in Error)
-            Error.captureStackTrace(ex, Web3Exception);
+            Error.captureStackTrace(this, Web3Exception);
         else
             this.stack = (ex).stack;
     }
