@@ -29,7 +29,7 @@ class FreedomService {
 
 
         //The event returns the metadata about our created data.
-        var log = this.utils.getLogByEventName("RecordEvent", result.logs);
+        var log = this.utils.getLogByEventName("RecordEvent", result.logs)
 
         const record = {
             id: log.args.id.toNumber(),
@@ -53,7 +53,7 @@ class FreedomService {
     }
 
     async readByOwnedIndex(repoId, index) {
-        let record = await this.recordService.callReadByOwnedIndex(repoId, index);
+        let record = await this.recordService.callReadByOwnedIndex(repoId, index)
 
         return this.fetchIpfs(record);
     }
@@ -61,7 +61,7 @@ class FreedomService {
     async readByIndex(repoId, index) {
 
         //Get metadata from contract
-        let record = await this.recordService.callReadByIndex(repoId, index);
+        let record = await this.recordService.callReadByIndex(repoId, index)
 
         return this.fetchIpfs(record);
 
@@ -73,7 +73,7 @@ class FreedomService {
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadList(repoId, limit, offset);
+        let results = await this.recordService.callReadList(repoId, limit, offset)
 
         for (const result of results) {
             merged.push(await this.fetchIpfs(result));
@@ -88,10 +88,10 @@ class FreedomService {
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadListDescending(repoId, limit, offset);
+        let results = await this.recordService.callReadListDescending(repoId, limit, offset)
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result));
+            merged.push(await this.fetchIpfs(result))
         }
 
         return merged;
@@ -103,10 +103,10 @@ class FreedomService {
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadOwnedList(repoId, limit, offset);
+        let results = await this.recordService.callReadOwnedList(repoId, limit, offset)
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result));
+            merged.push(await this.fetchIpfs(result))
         }
 
         return merged;

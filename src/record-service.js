@@ -17,7 +17,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.read.call(repoId, id);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -28,7 +28,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -39,7 +39,7 @@ class RecordService {
             let resultArray = await this.recordServiceContract.readByIndex.call(repoId, index);
             return this.recordMapper(resultArray);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -64,7 +64,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -94,7 +94,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -119,7 +119,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -152,7 +152,7 @@ class RecordService {
 
             return items;
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -160,23 +160,37 @@ class RecordService {
 
     async callCount(repoId) {
 
+        let result
+
         try {
-            let result = await this.recordServiceContract.count.call(repoId);
-            return result.toNumber();
+            result = await this.recordServiceContract.count.call(repoId);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
+
+        if (!result) {
+            throw new Web3Exception(new Error("Empty result from callCountOwned contract call"))
+        }
+
+        return result.toNumber();
 
     }
 
     async callCountOwned(repoId) {
 
+        let result
+
         try {
-            let result = await this.recordServiceContract.countOwned.call(repoId);
-            return result.toNumber();
+            result = await this.recordServiceContract.countOwned.call(repoId);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
+
+        if (!result) {
+            throw new Web3Exception(new Error("Empty result from callCountOwned contract call"))
+        }
+
+        return result.toNumber();
 
     }
 
@@ -192,7 +206,7 @@ class RecordService {
 
             return await this.recordServiceContract.create(repoId, ipfsCid);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -206,7 +220,7 @@ class RecordService {
 
             return await this.recordServiceContract.update(repoId, id, ipfsCid);
         } catch (ex) {
-            throw new Web3Exception(ex.message)
+            throw new Web3Exception(ex)
         }
 
     }
@@ -217,12 +231,25 @@ class RecordService {
      */
     async recordMapper(resultArray) {
 
-        return {
-            id: resultArray[0].toNumber(),
-            owner: resultArray[1],
-            ipfsCid: resultArray[2],
-            repoId: resultArray[3].toNumber()
+        let record = {}
+
+        if (resultArray[0]) {
+            record.id = resultArray[0].toNumber()
         }
+
+        if (resultArray[1]) {
+            record.owner = resultArray[1]
+        }
+
+        if (resultArray[2]) {
+            record.ipfsCid = resultArray[2]
+        }
+
+        if (resultArray[3]) {
+            record.repoId = resultArray[3].toNumber()
+        }
+
+        return record
     }
 
     validateLimitOffset(limit, offset, currentCount) {
