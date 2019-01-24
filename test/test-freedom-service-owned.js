@@ -24,14 +24,15 @@ contract('FreedomService', async (accounts) => {
 
     it("Test callReadOwnedList: Get empty list", async () => {
 
-        let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 0);
+
+        let itemList = await freedomService.readOwnedList(TEST_REPO1, accounts[0], 10, 0);
 
         assert.equal(itemList.length, 0);
     });
 
     it("Test callReadOwnedListDescending: Get empty list", async () => {
 
-        let itemList = await freedomService.readOwnedListDescending(TEST_REPO1, 10, 0);
+        let itemList = await freedomService.readOwnedListDescending(TEST_REPO1,accounts[0], 10, 0);
 
         assert.equal(itemList.length, 0);
 
@@ -48,7 +49,7 @@ contract('FreedomService', async (accounts) => {
 
 
         //Act
-        let count = await freedomService.countOwned(TEST_REPO1);
+        let count = await freedomService.countOwned(TEST_REPO1, accounts[0]);
 
         assert.equal(count, 2);
 
@@ -58,7 +59,7 @@ contract('FreedomService', async (accounts) => {
     it("Test countOwned: Pass zero repoId", async () => {
         //Act
         try {
-            await freedomService.countOwned(0)
+            await freedomService.countOwned(0, accounts[0])
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -76,7 +77,7 @@ contract('FreedomService', async (accounts) => {
     it("Test count: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
-        let count = await freedomService.countOwned(200);
+        let count = await freedomService.countOwned(200, accounts[0]);
         
         //Assert
         assert.equal(count, 0);
@@ -114,7 +115,7 @@ contract('FreedomService', async (accounts) => {
         let error;
 
         try {
-            await freedomService.readByOwnedIndex(0, 0);
+            await freedomService.readByOwnedIndex(0, accounts[0], 0);
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -135,7 +136,7 @@ contract('FreedomService', async (accounts) => {
         let error;
 
         try {
-            await freedomService.readByOwnedIndex(TEST_REPO1, 100000);
+            await freedomService.readByOwnedIndex(TEST_REPO1, accounts[0], 100000);
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -153,9 +154,9 @@ contract('FreedomService', async (accounts) => {
 
 
     it("Test readOwnedList: Limit greater than list size", async () => {
-        assert.equal(await freedomService.countOwned(TEST_REPO1), 2, "Count is incorrect");
+        assert.equal(await freedomService.countOwned(TEST_REPO1, accounts[0]), 2, "Count is incorrect");
 
-        let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 0);
+        let itemList = await freedomService.readOwnedList(TEST_REPO1, accounts[0], 10, 0);
 
         assert.equal(itemList.length, 2);
     });
@@ -168,7 +169,7 @@ contract('FreedomService', async (accounts) => {
             await freedomService.create(TEST_REPO1, { firstName: "Gerrit", lastName: "Cole" });
         }
 
-        assert.equal(await freedomService.countOwned(TEST_REPO1), 52, "Count is incorrect");
+        assert.equal(await freedomService.countOwned(TEST_REPO1, accounts[0]), 52, "Count is incorrect");
 
 
         //Act
@@ -177,7 +178,7 @@ contract('FreedomService', async (accounts) => {
         var foundIds = [];
         for (var i=0; i < 5; i++) {
         
-            let recordList = await freedomService.readList(TEST_REPO1, limit, i*limit);
+            let recordList = await freedomService.readList(TEST_REPO1, accounts[0], limit, i*limit);
 
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
@@ -195,7 +196,7 @@ contract('FreedomService', async (accounts) => {
 
         //Act
         try {
-            let results = await freedomService.readOwnedList(TEST_REPO1, 10, -1);
+            let results = await freedomService.readOwnedList(TEST_REPO1, accounts[0], 10, -1);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
             //Assert
@@ -209,7 +210,7 @@ contract('FreedomService', async (accounts) => {
 
         //Act
         try {
-            let itemList = await freedomService.readOwnedList(TEST_REPO1, 10, 52);
+            let itemList = await freedomService.readOwnedList(TEST_REPO1, accounts[0],10, 52);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
             //Assert
@@ -223,7 +224,7 @@ contract('FreedomService', async (accounts) => {
 
         //Act
         try {
-            let results = await freedomService.readOwnedList(TEST_REPO1, -1, 0);
+            let results = await freedomService.readOwnedList(TEST_REPO1, accounts[0], -1, 0);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
 
@@ -240,7 +241,7 @@ contract('FreedomService', async (accounts) => {
 
         //Act
         try {
-            let results = await freedomService.readOwnedList(TEST_REPO1, 0, 0);
+            let results = await freedomService.readOwnedList(TEST_REPO1, accounts[0],0, 0);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
             //Assert
@@ -253,7 +254,7 @@ contract('FreedomService', async (accounts) => {
 
     it("Test readOwnedListDescending: Verify records already inserted", async () => {
 
-        let records = await freedomService.readOwnedListDescending(TEST_REPO1, 10, 0)
+        let records = await freedomService.readOwnedListDescending(TEST_REPO1, accounts[0], 10, 0)
 
 
         testUtils.assertRecordsMatch(records[0], {
@@ -352,7 +353,7 @@ contract('FreedomService', async (accounts) => {
 
     async function assertIndexAndRecordMatch(index, record) {
 
-        let recordAtIndex = await freedomService.readByOwnedIndex(TEST_REPO1, index);
+        let recordAtIndex = await freedomService.readByOwnedIndex(TEST_REPO1, accounts[0], index);
 
         // console.log("assertIndexAndRecordMatch");
         // console.log("Record:");

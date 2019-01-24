@@ -30,12 +30,12 @@ class RecordService {
 
     }
 
-    async callReadByOwnedIndex(repoId, index) {
+    async callReadByOwnedIndex(repoId, owner, index) {
 
         let resultArray
 
         try {
-            resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, index)
+            resultArray = await this.recordServiceContract.readByOwnedIndex.call(repoId, owner, index)
         } catch (ex) {
             throw new Web3Exception(ex)
         }
@@ -121,11 +121,11 @@ class RecordService {
 
     }
 
-    async callReadOwnedList(repoId, limit, offset) {
+    async callReadOwnedList(repoId, owner, limit, offset) {
 
         let items = [];
 
-        let currentCount = await this.callCountOwned(repoId);
+        let currentCount = await this.callCountOwned(repoId, owner);
         if (currentCount <= 0) return items
 
 
@@ -136,7 +136,7 @@ class RecordService {
             // console.log(`limit: ${limit}, offset: ${offset}, endIndex: ${endIndex}, count: ${currentCount}`);
 
             for (var i=offset; i <= endIndex; i++) {
-                items.push(await this.callReadByOwnedIndex(repoId, i));
+                items.push(await this.callReadByOwnedIndex(repoId, owner, i));
             }
 
             return items;
@@ -147,11 +147,11 @@ class RecordService {
     }
 
 
-    async callReadOwnedListDescending(repoId, limit, offset) {
+    async callReadOwnedListDescending(repoId, owner, limit, offset) {
 
         let items = [];
 
-        let currentCount = await this.callCountOwned(repoId);
+        let currentCount = await this.callCountOwned(repoId, owner);
 
         if (currentCount <= 0) return items
 
@@ -169,7 +169,7 @@ class RecordService {
         try {
             // console.log(`limit: ${limit}, offset: ${calculatedOffset}, endIndex: ${endIndex}, count: ${currentCount}`);
             for (var i=calculatedOffset; i >= endIndex; i--) {
-                items.push(await this.callReadByOwnedIndex(repoId, i));
+                items.push(await this.callReadByOwnedIndex(repoId, owner, i));
             }
 
             return items;
@@ -198,12 +198,12 @@ class RecordService {
 
     }
 
-    async callCountOwned(repoId) {
+    async callCountOwned(repoId, owner) {
 
         let result
 
         try {
-            result = await this.recordServiceContract.countOwned.call(repoId);
+            result = await this.recordServiceContract.countOwned.call(repoId, owner);
         } catch (ex) {
             throw new Web3Exception(ex)
         }

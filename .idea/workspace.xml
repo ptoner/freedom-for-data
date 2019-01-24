@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c72693c1-36cf-478e-ae17-408239b57a95" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contracts/RecordService.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/RecordService.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/freedom-for-data.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/freedom-for-data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build-scripts/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/build-scripts/build.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test-record-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/freedom-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/freedom-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/record-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/record-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test-freedom-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-owned.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test-record-service-owned.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-record-service-owned.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,119 +36,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/record-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4260">
-              <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
+            <state relative-caret-position="-516">
+              <caret line="151" column="23" lean-forward="true" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+        <entry file="file://$PROJECT_DIR$/contracts/RecordService.sol">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="e#577#747#0" />
-                <element signature="e#807#934#0" />
-                <element signature="e#1004#1142#0" />
-                <element signature="e#1270#2219#0" />
-                <element signature="e#1647#1812#0" />
-                <element signature="e#2274#2862#0" />
-                <element signature="e#2303#2482#0" />
-                <element signature="e#2493#2853#0" />
-                <element signature="e#2943#3485#0" />
-                <element signature="e#2980#3119#0" />
-                <element signature="e#3130#3476#0" />
-                <element signature="e#3538#4015#0" />
-                <element signature="e#3575#3702#0" />
-                <element signature="e#3713#4006#0" />
-                <element signature="e#4064#4522#0" />
-                <element signature="e#4093#4220#0" />
-                <element signature="e#4231#4513#0" />
-                <element signature="e#4583#5048#0" />
-                <element signature="e#4620#4750#0" />
-                <element signature="e#4761#5039#0" />
-                <element signature="e#5155#5935#0" />
-                <element signature="e#5994#6444#0" />
-                <element signature="e#6023#6134#0" />
-                <element signature="e#6145#6438#0" />
-                <element signature="e#6532#6685#0" />
-                <element signature="e#6801#7421#0" />
-                <element signature="e#7531#8776#0" />
-                <element signature="e#7780#8110#0" />
-                <element signature="e#7973#8030#0" />
-                <element signature="e#8121#8485#0" />
-                <element signature="e#8839#9468#0" />
-                <element signature="e#8868#9113#0" />
-                <element signature="e#9124#9461#0" />
-                <element signature="e#9526#10120#0" />
-                <element signature="e#9555#9747#0" />
-                <element signature="e#9758#10103#0" />
-                <element signature="e#10206#11072#0" />
-                <element signature="e#11128#11589#0" />
-                <element signature="e#11157#11278#0" />
-                <element signature="e#11289#11581#0" />
-                <element signature="e#11662#12130#0" />
-                <element signature="e#11691#11827#0" />
-                <element signature="e#11838#12122#0" />
-                <element signature="e#12204#12421#0" />
-                <element signature="e#12487#13200#0" />
-                <element signature="e#12543#12663#0" />
-                <element signature="e#12858#13193#0" />
-                <element signature="e#12992#13183#0" />
-                <element signature="e#13044#13126#0" />
-                <element signature="e#13261#13714#0" />
-                <element signature="e#13276#13429#0" />
-                <element signature="e#13440#13707#0" />
-                <element signature="e#13789#14283#0" />
-                <element signature="e#13818#13971#0" />
-                <element signature="e#13982#14276#0" />
-                <element signature="e#14343#14806#0" />
-                <element signature="e#14372#14524#0" />
-                <element signature="e#14535#14799#0" />
-                <element signature="e#14862#15326#0" />
-                <element signature="e#14891#15042#0" />
-                <element signature="e#15053#15314#0" />
-                <element signature="e#15394#15855#0" />
-                <element signature="e#15423#15569#0" />
-                <element signature="e#15580#15848#0" />
-                <element signature="e#15937#16448#0" />
-                <element signature="e#15966#16112#0" />
-                <element signature="e#16123#16439#0" />
-                <element signature="e#16515#16989#0" />
-                <element signature="e#16564#16708#0" />
-                <element signature="e#16719#16981#0" />
-                <element signature="e#17052#17531#0" />
-                <element signature="e#17101#17246#0" />
-                <element signature="e#17257#17521#0" />
-                <element signature="e#17595#17656#0" />
-                <element signature="e#17722#17972#0" />
-                <element signature="e#18046#18961#0" />
-                <element signature="e#19035#19195#0" />
-                <element signature="e#19271#19582#0" />
-                <element signature="e#19669#21794#0" />
-                <element signature="e#19798#19957#0" />
-                <element signature="e#20001#20160#0" />
-                <element signature="e#20204#20363#0" />
-                <element signature="e#20407#20566#0" />
-                <element signature="e#20610#20769#0" />
-                <element signature="e#20814#20973#0" />
-                <element signature="e#21017#21176#0" />
-                <element signature="e#21220#21379#0" />
-                <element signature="e#21423#21582#0" />
-                <element signature="e#21626#21785#0" />
-                <element signature="e#21853#22064#0" />
-                <element signature="e#22138#22265#0" />
-              </folding>
+            <state relative-caret-position="156">
+              <caret line="156" selection-start-line="156" selection-end-line="156" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/build-scripts/replace-record-service.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="51" column="46" selection-start-line="51" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+            <state relative-caret-position="309">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -153,35 +81,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
+            <state relative-caret-position="251">
+              <caret line="145" column="50" selection-start-line="145" selection-start-column="50" selection-end-line="145" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1740">
-              <caret line="87" selection-start-line="87" selection-end-line="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/build-scripts/build.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="123" selection-start-line="2" selection-start-column="123" selection-end-line="2" selection-end-column="123" />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="-512">
+                <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
+                <folding>
+                  <element signature="n#!!doc" expanded="true" />
+                </folding>
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -200,6 +116,7 @@
       <find>got here</find>
       <find>toNumber</find>
       <find>new BigNumber</find>
+      <find>countOwned</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,22 +125,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
-        <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
         <option value="$PROJECT_DIR$/src/exceptions/validation-exception.js" />
         <option value="$PROJECT_DIR$/src/exceptions/ipfs-put-exception.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/src/exceptions/ipfs-connection-exception.js" />
         <option value="$PROJECT_DIR$/test/test-ipfs-service.js" />
-        <option value="$PROJECT_DIR$/src/freedom-service.js" />
-        <option value="$PROJECT_DIR$/src/record-service.js" />
         <option value="$PROJECT_DIR$/src/exceptions/web3-exception.js" />
         <option value="$PROJECT_DIR$/src/exceptions/ipfs-exception.js" />
         <option value="$PROJECT_DIR$/src/ipfs-service.js" />
         <option value="$PROJECT_DIR$/src/build-scripts/build.sh" />
         <option value="$PROJECT_DIR$/test/test-record-service-all.js" />
+        <option value="$PROJECT_DIR$/truffle.js" />
+        <option value="$PROJECT_DIR$/contracts/RecordService.sol" />
         <option value="$PROJECT_DIR$/test/test-record-service-owned.js" />
+        <option value="$PROJECT_DIR$/test/test-freedom-service-owned.js" />
+        <option value="$PROJECT_DIR$/src/record-service.js" />
+        <option value="$PROJECT_DIR$/src/freedom-service.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -248,7 +167,24 @@
             <path>
               <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
               <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
+              <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="contracts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
+              <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
+              <item name="freedom-for-data" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="build-scripts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="freedom-for-data" type="b2602c69:ProjectViewProjectNode" />
@@ -265,11 +201,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548026562422" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548338673333" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -311,12 +247,15 @@
       <workItem from="1547934631021" duration="182000" />
       <workItem from="1547935129067" duration="8926000" />
       <workItem from="1547998221688" duration="8147000" />
-      <workItem from="1548026298537" duration="268000" />
+      <workItem from="1548026298537" duration="1097000" />
+      <workItem from="1548027464590" duration="3328000" />
+      <workItem from="1548334447267" duration="1938000" />
+      <workItem from="1548336658750" duration="2015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70500000" />
+    <option name="totallyTimeSpent" value="78610000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -331,7 +270,7 @@
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23425826" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.23692636" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -348,7 +287,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.6015119" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.53671706" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -365,26 +304,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="40">
-            <caret line="374" lean-forward="true" selection-start-line="374" selection-end-line="374" />
-            <folding>
-              <element signature="n#!!doc" expanded="true" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="187" column="6" lean-forward="true" selection-start-line="187" selection-start-column="6" selection-end-line="187" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@babel/core/lib/config/files/plugins.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
@@ -472,6 +391,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/truffle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="3" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ipfs-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1740">
@@ -486,6 +415,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="e#577#747#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/build-scripts/build.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
@@ -493,124 +432,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
+    <entry file="file://$PROJECT_DIR$/contracts/RecordService.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
+        <state relative-caret-position="156">
+          <caret line="156" selection-start-line="156" selection-end-line="156" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/record-service.js">
+    <entry file="file://$PROJECT_DIR$/build/contracts/RecordService.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4260">
-          <caret line="213" lean-forward="true" selection-start-line="213" selection-end-line="213" />
+        <state relative-caret-position="60">
+          <caret line="176" column="23" lean-forward="true" selection-start-line="176" selection-start-column="23" selection-end-line="176" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-record-service-all.js">
+    <entry file="file://$PROJECT_DIR$/src/build-scripts/replace-record-service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#577#747#0" />
-            <element signature="e#807#934#0" />
-            <element signature="e#1004#1142#0" />
-            <element signature="e#1270#2219#0" />
-            <element signature="e#1647#1812#0" />
-            <element signature="e#2274#2862#0" />
-            <element signature="e#2303#2482#0" />
-            <element signature="e#2493#2853#0" />
-            <element signature="e#2943#3485#0" />
-            <element signature="e#2980#3119#0" />
-            <element signature="e#3130#3476#0" />
-            <element signature="e#3538#4015#0" />
-            <element signature="e#3575#3702#0" />
-            <element signature="e#3713#4006#0" />
-            <element signature="e#4064#4522#0" />
-            <element signature="e#4093#4220#0" />
-            <element signature="e#4231#4513#0" />
-            <element signature="e#4583#5048#0" />
-            <element signature="e#4620#4750#0" />
-            <element signature="e#4761#5039#0" />
-            <element signature="e#5155#5935#0" />
-            <element signature="e#5994#6444#0" />
-            <element signature="e#6023#6134#0" />
-            <element signature="e#6145#6438#0" />
-            <element signature="e#6532#6685#0" />
-            <element signature="e#6801#7421#0" />
-            <element signature="e#7531#8776#0" />
-            <element signature="e#7780#8110#0" />
-            <element signature="e#7973#8030#0" />
-            <element signature="e#8121#8485#0" />
-            <element signature="e#8839#9468#0" />
-            <element signature="e#8868#9113#0" />
-            <element signature="e#9124#9461#0" />
-            <element signature="e#9526#10120#0" />
-            <element signature="e#9555#9747#0" />
-            <element signature="e#9758#10103#0" />
-            <element signature="e#10206#11072#0" />
-            <element signature="e#11128#11589#0" />
-            <element signature="e#11157#11278#0" />
-            <element signature="e#11289#11581#0" />
-            <element signature="e#11662#12130#0" />
-            <element signature="e#11691#11827#0" />
-            <element signature="e#11838#12122#0" />
-            <element signature="e#12204#12421#0" />
-            <element signature="e#12487#13200#0" />
-            <element signature="e#12543#12663#0" />
-            <element signature="e#12858#13193#0" />
-            <element signature="e#12992#13183#0" />
-            <element signature="e#13044#13126#0" />
-            <element signature="e#13261#13714#0" />
-            <element signature="e#13276#13429#0" />
-            <element signature="e#13440#13707#0" />
-            <element signature="e#13789#14283#0" />
-            <element signature="e#13818#13971#0" />
-            <element signature="e#13982#14276#0" />
-            <element signature="e#14343#14806#0" />
-            <element signature="e#14372#14524#0" />
-            <element signature="e#14535#14799#0" />
-            <element signature="e#14862#15326#0" />
-            <element signature="e#14891#15042#0" />
-            <element signature="e#15053#15314#0" />
-            <element signature="e#15394#15855#0" />
-            <element signature="e#15423#15569#0" />
-            <element signature="e#15580#15848#0" />
-            <element signature="e#15937#16448#0" />
-            <element signature="e#15966#16112#0" />
-            <element signature="e#16123#16439#0" />
-            <element signature="e#16515#16989#0" />
-            <element signature="e#16564#16708#0" />
-            <element signature="e#16719#16981#0" />
-            <element signature="e#17052#17531#0" />
-            <element signature="e#17101#17246#0" />
-            <element signature="e#17257#17521#0" />
-            <element signature="e#17595#17656#0" />
-            <element signature="e#17722#17972#0" />
-            <element signature="e#18046#18961#0" />
-            <element signature="e#19035#19195#0" />
-            <element signature="e#19271#19582#0" />
-            <element signature="e#19669#21794#0" />
-            <element signature="e#19798#19957#0" />
-            <element signature="e#20001#20160#0" />
-            <element signature="e#20204#20363#0" />
-            <element signature="e#20407#20566#0" />
-            <element signature="e#20610#20769#0" />
-            <element signature="e#20814#20973#0" />
-            <element signature="e#21017#21176#0" />
-            <element signature="e#21220#21379#0" />
-            <element signature="e#21423#21582#0" />
-            <element signature="e#21626#21785#0" />
-            <element signature="e#21853#22064#0" />
-            <element signature="e#22138#22265#0" />
-          </folding>
+        <state relative-caret-position="360">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test-record-service-owned.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+        <state relative-caret-position="309">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/record-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-516">
+          <caret line="151" column="23" lean-forward="true" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-owned.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="51" column="46" selection-start-line="51" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="145" column="50" selection-start-line="145" selection-start-column="50" selection-end-line="145" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-512">
+            <caret line="331" column="3" lean-forward="true" selection-start-line="331" selection-start-column="3" selection-end-line="331" selection-end-column="3" />
+            <folding>
+              <element signature="n#!!doc" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -25,7 +25,7 @@ contract('RecordService', async (accounts) => {
     it("Test callCountOwned: Get a count before there are records", async () => {
 
         //Act
-        let count = await recordService.callCountOwned(TEST_REPO1);
+        let count = await recordService.callCountOwned(TEST_REPO1, accounts[0]);
 
         assert.equal(0, count);
 
@@ -33,14 +33,14 @@ contract('RecordService', async (accounts) => {
 
     it("Test callReadOwnedList: Get empty list", async () => {
 
-        let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, 0);
+        let itemList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0],10, 0);
 
         assert.equal(itemList.length, 0);
     });
 
     it("Test callReadOwnedListDescending: Get empty list", async () => {
 
-        let itemList = await recordService.callReadOwnedListDescending(TEST_REPO1, 10, 0);
+        let itemList = await recordService.callReadOwnedListDescending(TEST_REPO1, accounts[0],10, 0);
 
         assert.equal(itemList.length, 0);
 
@@ -57,7 +57,7 @@ contract('RecordService', async (accounts) => {
         await recordService.sendCreate(TEST_REPO1, "AdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78iA", {from: accounts[2]});
 
         //Act
-        let count = await recordService.callCountOwned(TEST_REPO1);
+        let count = await recordService.callCountOwned(TEST_REPO1, accounts[0]);
 
         assert.equal(count, 2);
         
@@ -68,7 +68,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         try {
-            await recordService.callCountOwned(0)
+            await recordService.callCountOwned(0, accounts[0])
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -88,7 +88,7 @@ contract('RecordService', async (accounts) => {
     it("Test callCountOwned: Pass positive invalid repoId. Get zero count.", async () => {
         
         //Act
-        let count = await recordService.callCountOwned(200);
+        let count = await recordService.callCountOwned(200, accounts[0]);
         
         //Assert
         assert.equal(count, 0);
@@ -104,7 +104,7 @@ contract('RecordService', async (accounts) => {
 
         // Make sure that's the end of the list
         try {
-            await recordService.callReadByOwnedIndex(TEST_REPO1, 2);
+            await recordService.callReadByOwnedIndex(TEST_REPO1, accounts[0], 2);
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             assert.isTrue(ex instanceof Web3Exception, "Should have thrown an error");
@@ -124,7 +124,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         try {
-            await recordService.callReadByOwnedIndex(0, 0);
+            await recordService.callReadByOwnedIndex(0, accounts[0], 0);
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -144,7 +144,7 @@ contract('RecordService', async (accounts) => {
         let error;
 
         try {
-            await recordService.callReadByOwnedIndex(TEST_REPO1, 1000000);
+            await recordService.callReadByOwnedIndex(TEST_REPO1, accounts[0], 1000000);
             assert.fail("Did not throw Web3Exception")
         } catch(ex) {
             //Assert
@@ -161,9 +161,9 @@ contract('RecordService', async (accounts) => {
 
 
     it("Test callReadOwnedList: Limit greater than list size", async () => {
-        assert.equal(await recordService.callCountOwned(TEST_REPO1), 2, "Count is incorrect");
+        assert.equal(await recordService.callCountOwned(TEST_REPO1, accounts[0]), 2, "Count is incorrect");
 
-        let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, 0);
+        let itemList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0], 10, 0);
 
         assert.equal(itemList.length, 2);
     });
@@ -176,7 +176,7 @@ contract('RecordService', async (accounts) => {
             await recordService.sendCreate(TEST_REPO1, "TdLuM31DmfwJYHi9FJPoSqLf9fepy6o2qcdk88t9w395b78MQ");
         }
 
-        assert.equal(await recordService.callCountOwned(TEST_REPO1), 52, "Count is incorrect");
+        assert.equal(await recordService.callCountOwned(TEST_REPO1, accounts[0]), 52, "Count is incorrect");
 
 
         //Act
@@ -185,7 +185,7 @@ contract('RecordService', async (accounts) => {
         var foundIds = [];
         for (var i=0; i < 5; i++) {
 
-            let recordList = await recordService.callReadOwnedList(TEST_REPO1, limit, i*limit);
+            let recordList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0], limit, i*limit);
 
             for (record of recordList) {
                 if (foundIds.includes(record.id)) {
@@ -203,7 +203,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         try {
-            let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, -1);
+            let itemList = await recordService.callReadOwnedList(TEST_REPO1,accounts[0], 10, -1);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
             //Assert
@@ -217,7 +217,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         try {
-            let itemList = await recordService.callReadOwnedList(TEST_REPO1, 10, 52);
+            let itemList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0],10, 52);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
 
@@ -232,7 +232,7 @@ contract('RecordService', async (accounts) => {
 
         //Act
         try {
-            let itemList = await recordService.callReadOwnedList(TEST_REPO1, -1, 0);
+            let itemList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0], -1, 0);
             assert.fail("Did not throw ValidationException")
 
         } catch(ex) {
@@ -249,14 +249,14 @@ contract('RecordService', async (accounts) => {
     it("Test callReadOwnedList: Zero limit", async () => {
 
         //Arrange
-        assert.equal(await recordService.callCountOwned(TEST_REPO1), 52, "Count is incorrect");
+        assert.equal(await recordService.callCountOwned(TEST_REPO1, accounts[0]), 52, "Count is incorrect");
 
 
         //Act
         let error;
 
         try {
-            let itemList = await recordService.callReadOwnedList(TEST_REPO1, 0, 0);
+            let itemList = await recordService.callReadOwnedList(TEST_REPO1, accounts[0], 0, 0);
             assert.fail("Did not throw ValidationException")
         } catch(ex) {
 
@@ -270,7 +270,7 @@ contract('RecordService', async (accounts) => {
 
     it("Test callReadOwnedListDescending: Verify records already inserted", async () => {
 
-        let records = await recordService.callReadOwnedListDescending(TEST_REPO1, 10, 0)
+        let records = await recordService.callReadOwnedListDescending(TEST_REPO1, accounts[0], 10, 0)
 
         assertCompareRecords(records[0], {
             id: 54,
@@ -355,7 +355,7 @@ contract('RecordService', async (accounts) => {
     }
 
     async function assertCallReadByOwnedIndexIpfsCid(repoId, index, ipfsCid) {
-        let record = await recordService.callReadByOwnedIndex(repoId, index);
+        let record = await recordService.callReadByOwnedIndex(repoId, accounts[0], index);
         assert.equal(record.ipfsCid, ipfsCid);
     }
 

@@ -129,9 +129,9 @@ let count = await freedom.count(PLAYER_REPO);
  * 
 ```
 
-## Count the records created by you in repo
+## Count the records created by an address in repo
 ```javascript
-let count = await freedom.countOwned(PLAYER_REPO);
+let count = await freedom.countOwned(PLAYER_REPO, '0x1E950C631065885d76b21311905acD02c14Aa07E');
 
 /**
  * 'count' is a number. 
@@ -165,8 +165,8 @@ let record = await freedom.readByIndex(PLAYER_REPO, 0);
 ## Read the records you own, by index
 ```javascript
 //readByIndex gives all objects in the repo. readByOwnedIndex() will give you
-//just the records that were created by you. 
-let record = await freedom.readByOwnedIndex(PLAYER_REPO, 0);
+//just the records that were created by an address. 
+let record = await freedom.readByOwnedIndex(PLAYER_REPO, '0x1E950C631065885d76b21311905acD02c14Aa07E', 0);
 
 /**
 * Example record. This is the same record as the above example.
@@ -294,14 +294,14 @@ let recordList = await freedom.readListDescending(PLAYER_REPO, limit, offset);
 
 
 
-## Get a paged list of records you own. Only includes records created by the calling address. 
+## Get a paged list of records created by an address. Only includes records created by the passed address. 
 ```javascript
 
 //This example will get the first 2 records from the list.
 let offset = 0;  # The index where we want to start reading. The first record is 0. 
 let limit = 2;  # The number of records to return.
 
-let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
+let recordList = await freedom.readOwnedList(PLAYER_REPO, '0x1E950C631065885d76b21311905acD02c14Aa07E', limit, offset);
 
 
 /**
@@ -333,14 +333,14 @@ let recordList = await freedom.readOwnedList(PLAYER_REPO, limit, offset);
 
 
 
-## Get the same list but in descending order, by date created. Only includes records created by the calling address. 
+## Get the same list but in descending order, by date created. Only includes records created by the passed address. 
 ```javascript
 
 //This example will get the first 2 records from the list.
 let offset = 0;  # The index where we want to start reading. The first record is 0. 
 let limit = 2;  # The number of records to return.
 
-let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, limit, offset);
+let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, '0x1E950C631065885d76b21311905acD02c14Aa07E', limit, offset);
 
 
 /**
@@ -381,9 +381,9 @@ let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, limit, offse
 * readList(repoId, limit, offset)
 * readListDescending(repoId, limit, offset)
 
-* readByOwnedIndex(repoId, index)
-* readOwnedList(repoId, limit, offset)
-* readOwnedListDescending(repoId, limit, offset)
+* readByOwnedIndex(repoId, address, index)
+* readOwnedList(repoId, address, limit, offset)
+* readOwnedListDescending(repoId, address, limit, offset)
 
 * count(repoId)
 * countOwned(repoId)
@@ -452,9 +452,8 @@ let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, limit, offse
 
 
 # Examples
-We're working on a very basic react app that uses freedom-for-data to store data. 
-[freedom-for-data-examples](https://github.com/ptoner/freedom-for-data-examples)
+We're working on an app that uses freedom-for-data to store data. 
+[Large](https://github.com/ptoner/large)
 
 
-# Still very raw, unworking, and probably broken. So far.
 

@@ -52,8 +52,8 @@ class FreedomService {
         return this.fetchIpfs(record);
     }
 
-    async readByOwnedIndex(repoId, index) {
-        let record = await this.recordService.callReadByOwnedIndex(repoId, index)
+    async readByOwnedIndex(repoId, owner, index) {
+        let record = await this.recordService.callReadByOwnedIndex(repoId, owner, index)
 
         return this.fetchIpfs(record);
     }
@@ -97,13 +97,13 @@ class FreedomService {
         return merged;
     }
 
-    async readOwnedList(repoId, limit, offset) {
+    async readOwnedList(repoId, owner, limit, offset) {
 
         let merged = [];
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadOwnedList(repoId, limit, offset)
+        let results = await this.recordService.callReadOwnedList(repoId, owner, limit, offset)
 
         for (const result of results) {
             merged.push(await this.fetchIpfs(result))
@@ -112,13 +112,13 @@ class FreedomService {
         return merged;
     }
 
-    async readOwnedListDescending(repoId, limit, offset) {
+    async readOwnedListDescending(repoId, owner, limit, offset) {
 
         let merged = [];
 
         // console.log(`limit: ${limit}, offset: ${offset}`);
 
-        let results = await this.recordService.callReadOwnedListDescending(repoId, limit, offset);
+        let results = await this.recordService.callReadOwnedListDescending(repoId, owner, limit, offset);
 
         for (const result of results) {
             merged.push(await this.fetchIpfs(result));
@@ -151,8 +151,8 @@ class FreedomService {
         return this.recordService.callCount(repoId);
     }
 
-    async countOwned(repoId) {
-        return this.recordService.callCountOwned(repoId);
+    async countOwned(repoId, owner) {
+        return this.recordService.callCountOwned(repoId, owner);
     }
 
     async ipfsPutFile(file, options) {
