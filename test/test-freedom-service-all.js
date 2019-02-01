@@ -651,13 +651,15 @@ contract('FreedomService', async (accounts) => {
 
     it("Test createWithIpfsCid: Create with IPFS CID", async () => {
 
-        let record = await freedomService.createWithIpfsCid(TEST_REPO1, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+        let ipfsCid = await freedomService.ipfsService.ipfsPutJson({field: "whatever"})
 
-        assert.equal(record.ipfsCid, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+        let record = await freedomService.createWithIpfsCid(TEST_REPO1, ipfsCid)
+
+        assert.equal(record.ipfsCid, ipfsCid)
 
         let fetchedRecord = await freedomService.read(TEST_REPO1, record.id)
 
-        assert.equal(fetchedRecord.ipfsCid, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+        assert.equal(fetchedRecord.ipfsCid, ipfsCid)
 
 
     })

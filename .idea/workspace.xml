@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c72693c1-36cf-478e-ae17-408239b57a95" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/freedom-for-data.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/freedom-for-data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/freedom-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/freedom-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/record-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/record-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test-freedom-service-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/test-freedom-service-all.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-41">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="n#!!block;n#create#0;n#FreedomService#0" />
                 <element signature="n#!!block;n#createWithIpfsCid#0;n#FreedomService#0" />
@@ -56,21 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="653" column="59" selection-start-line="653" selection-start-column="42" selection-end-line="653" selection-end-column="59" />
+              <caret line="653" column="28" selection-start-line="653" selection-start-column="28" selection-end-line="653" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="439">
-                <caret line="100" column="3" lean-forward="true" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
+              <first_editor relative-caret-position="19">
+                <caret line="100" column="3" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -117,8 +111,8 @@
         <option value="$PROJECT_DIR$/src/record-service.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/src/freedom-service.js" />
-        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/test/test-freedom-service-all.js" />
       </list>
     </option>
   </component>
@@ -221,12 +215,12 @@
       <workItem from="1549024103109" duration="2096000" />
       <workItem from="1549031699073" duration="768000" />
       <workItem from="1549038059871" duration="8394000" />
-      <workItem from="1549060267106" duration="953000" />
+      <workItem from="1549060267106" duration="1817000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99376000" />
+    <option name="totallyTimeSpent" value="100240000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -258,7 +252,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32004198" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.31689402" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.31689402" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -459,7 +453,7 @@
     <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-41">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="n#!!block;n#create#0;n#FreedomService#0" />
             <element signature="n#!!block;n#createWithIpfsCid#0;n#FreedomService#0" />
@@ -478,20 +472,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="653" column="59" selection-start-line="653" selection-start-column="42" selection-end-line="653" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="439">
-            <caret line="100" column="3" lean-forward="true" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
+          <first_editor relative-caret-position="19">
+            <caret line="100" column="3" selection-start-line="100" selection-start-column="3" selection-end-line="100" selection-end-column="3" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-freedom-service-all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="653" column="28" selection-start-line="653" selection-start-column="28" selection-end-line="653" selection-end-column="28" />
         </state>
       </provider>
     </entry>
