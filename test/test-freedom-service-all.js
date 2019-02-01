@@ -23,6 +23,7 @@ contract('FreedomService', async (accounts) => {
         freedomService = serviceFactory.getFreedomService();
     });
 
+
     it("Test callReadList: Get empty list", async () => {
 
         let itemList = await freedomService.readList(TEST_REPO1, 10, 0);
@@ -48,7 +49,6 @@ contract('FreedomService', async (accounts) => {
 
         //Act
         let resultCreatedRecord = await freedomService.create(TEST_REPO1, createdRecord);
-        
 
         createdCount++;
 
@@ -646,6 +646,21 @@ contract('FreedomService', async (accounts) => {
         assert.isTrue(buffer.equals(result));
         
     });
+
+
+
+    it("Test createWithIpfsCid: Create with IPFS CID", async () => {
+
+        let record = await freedomService.createWithIpfsCid(TEST_REPO1, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+
+        assert.equal(record.ipfsCid, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+
+        let fetchedRecord = await freedomService.read(TEST_REPO1, record.id)
+
+        assert.equal(fetchedRecord.ipfsCid, "QmVcqA8NrgrS5nUChX2YPCGxVydhF5kubnh7huof3NLqSw")
+
+
+    })
 
 
 

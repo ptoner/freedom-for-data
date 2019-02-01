@@ -41,9 +41,11 @@ const Freedom = async function(config) {
 
     const accounts = await promisify(cb => window.web3.eth.getAccounts(cb));
 
-    let account = accounts[0];
+    let account = accounts[0]
+    window.currentAccount = account
 
-    
+    console.log(`Current Account: ${window.currentAccount}`)
+
     /**
      * Get record contract service
      */

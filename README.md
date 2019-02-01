@@ -374,6 +374,7 @@ let recordList = await freedom.readOwnedListDescending(PLAYER_REPO, '0x1E950C631
 # API
 
 * create(repoId, data, transactionObject)
+* createWithIpfsCid(repodId, ipfsCid, transactionObject)
 * read(repoId, id)
 * update(repoId, id, data, transactionObject)
 

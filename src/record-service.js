@@ -191,7 +191,7 @@ class RecordService {
         }
 
         if (!result) {
-            throw new Web3Exception(new Error("Empty result from callCountOwned contract call"))
+            throw new Web3Exception(new Error("Empty result from callCount contract call"))
         }
 
         return result.toNumber();

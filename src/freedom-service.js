@@ -25,6 +25,17 @@ class FreedomService {
         }
 
         //Get the hash and pass to sendCreate
+        let record = await this.createWithIpfsCid(repoId, ipfsCid, transactionObject)
+
+        Object.assign(record, data);
+
+        return record;
+
+    }
+
+    async createWithIpfsCid(repoId, ipfsCid, transactionObject) {
+
+        //Get the hash and pass to sendCreate
         let result = await this.recordService.sendCreate(repoId, ipfsCid, transactionObject);
 
 
@@ -39,9 +50,8 @@ class FreedomService {
             owner: log.args.owner
         }
 
-        Object.assign(record, data);
-
         return record;
+
 
     }
 
