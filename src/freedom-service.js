@@ -27,6 +27,8 @@ class FreedomService {
         //Get the hash and pass to sendCreate
         let record = await this.createWithIpfsCid(repoId, ipfsCid, transactionObject)
 
+        delete data.id
+
         Object.assign(record, data);
 
         return record;
