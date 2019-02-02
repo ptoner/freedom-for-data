@@ -144,7 +144,7 @@ class FreedomService {
         //Get json data from IPFS
         let data = await this.ipfsService.ipfsGetJson(record.ipfsCid);
 
-        delete data.id
+        if (!data.id) delete data.id
 
         //Merge
         Object.assign(record, data);

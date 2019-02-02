@@ -30,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="318">
-              <caret line="146" column="22" selection-start-line="146" selection-start-column="22" selection-end-line="146" selection-end-column="22" />
+              <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="36" />
               <folding>
                 <element signature="n#!!block;n#createWithIpfsCid#0;n#FreedomService#0" />
                 <element signature="n#!!block;n#read#0;n#FreedomService#0" />
@@ -115,7 +115,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1920" />
     <option name="y" value="-2" />
     <option name="width" value="1920" />
@@ -214,12 +214,12 @@
       <workItem from="1549024103109" duration="2096000" />
       <workItem from="1549031699073" duration="768000" />
       <workItem from="1549038059871" duration="8394000" />
-      <workItem from="1549060267106" duration="3547000" />
+      <workItem from="1549060267106" duration="3966000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101970000" />
+    <option name="totallyTimeSpent" value="102389000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -231,7 +231,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
+    <frame x="1920" y="-2" width="1920" height="1082" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25773746" />
@@ -469,7 +469,7 @@
     <entry file="file://$PROJECT_DIR$/src/freedom-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
-          <caret line="146" column="22" selection-start-line="146" selection-start-column="22" selection-end-line="146" selection-end-column="22" />
+          <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="36" />
           <folding>
             <element signature="n#!!block;n#createWithIpfsCid#0;n#FreedomService#0" />
             <element signature="n#!!block;n#read#0;n#FreedomService#0" />
