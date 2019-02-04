@@ -8,6 +8,11 @@ const data = require('../../build/contracts/RecordService.json');
 data.networks["5777"].address = "<REPLACE ADDRESS>";
 data.networks["5777"].transactionHash = "<REPLACE HASH>";
 
+
+data.networks["3"].address = "<REPLACE ADDRESS>";
+data.networks["3"].transactionHash = "<REPLACE HASH>";
+
+
 const newContent = JSON.stringify(data);
 
 

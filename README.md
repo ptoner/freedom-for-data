@@ -59,8 +59,10 @@ npm run test
 <script src="js/freedom-for-data.js"></script>
 <script>
     const freedom = await Freedom({ 
-      ipfsHost: 'localhost', 
-      ipfsPort: '5001',
+      ipfsConfig: {
+          host: 'localhost', 
+          port: '5001'  
+      }
       recordContractAddress: "<YOUR CONTRACT ADDRESS HERE>",
       recordContractTransactionHash: "<YOUR CONTRACT TRANSACTION HASH HERE>"
     });  

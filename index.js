@@ -28,6 +28,9 @@ const Freedom = async function(config) {
     RecordServiceJson.networks["5777"].address = config.recordContractAddress;
     RecordServiceJson.networks["5777"].transactionHash = config.recordContractTransactionHash;
 
+    RecordServiceJson.networks["3"].address = config.recordContractAddress;
+    RecordServiceJson.networks["3"].transactionHash = config.recordContractTransactionHash;
+
 
     // Request account access
     await window.ethereum.enable();
@@ -50,6 +53,8 @@ const Freedom = async function(config) {
      * Get record contract service
      */
     const truffleContract = TruffleContract(RecordServiceJson);
+
+
     let recordServiceContract
 
     try {
@@ -68,10 +73,7 @@ const Freedom = async function(config) {
     /**
     * IPFS configuration for tests
     */
-    const ipfs = ipfsClient({
-        host: config.ipfsHost, 
-        port: config.ipfsPort 
-    })
+    const ipfs = ipfsClient(config.ipfsConfig)
 
 
     const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
