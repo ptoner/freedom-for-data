@@ -51,7 +51,7 @@ contract('FreedomService', async (accounts) => {
         //Act
         let count = await freedomService.countOwned(TEST_REPO1, accounts[0]);
 
-        assert.equal(count, 2);
+        assert.equal(2, count);
 
     });
 

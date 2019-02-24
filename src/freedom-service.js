@@ -82,13 +82,16 @@ class FreedomService {
     async readList(repoId, limit, offset) {
 
         let merged = [];
-
-        // console.log(`limit: ${limit}, offset: ${offset}`);
-
+        
         let results = await this.recordService.callReadList(repoId, limit, offset)
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result));
+            try {
+                let record = await this.fetchIpfs(result)
+                merged.push(record);
+            } catch(ex) {
+                console.log(ex)
+            }
         }
 
         return merged;
@@ -98,12 +101,15 @@ class FreedomService {
 
         let merged = [];
 
-        // console.log(`limit: ${limit}, offset: ${offset}`);
-
         let results = await this.recordService.callReadListDescending(repoId, limit, offset)
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result))
+            try {
+                let record = await this.fetchIpfs(result)
+                merged.push(record);
+            } catch(ex) {
+                console.log(ex)
+            }
         }
 
         return merged;
@@ -113,12 +119,15 @@ class FreedomService {
 
         let merged = [];
 
-        // console.log(`limit: ${limit}, offset: ${offset}`);
-
         let results = await this.recordService.callReadOwnedList(repoId, owner, limit, offset)
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result))
+            try {
+                let record = await this.fetchIpfs(result)
+                merged.push(record);
+            } catch(ex) {
+                console.log(ex)
+            }
         }
 
         return merged;
@@ -128,12 +137,15 @@ class FreedomService {
 
         let merged = [];
 
-        // console.log(`limit: ${limit}, offset: ${offset}`);
-
         let results = await this.recordService.callReadOwnedListDescending(repoId, owner, limit, offset);
 
         for (const result of results) {
-            merged.push(await this.fetchIpfs(result));
+            try {
+                let record = await this.fetchIpfs(result)
+                merged.push(record);
+            } catch(ex) {
+                console.log(ex)
+            }
         }
 
         return merged;
@@ -176,6 +188,7 @@ class FreedomService {
     async ipfsGetFile(cid) {
         return this.ipfsService.ipfsGetFile(cid);
     }
+    
 }
 
 
