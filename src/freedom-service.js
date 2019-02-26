@@ -66,7 +66,6 @@ class FreedomService {
 
     async readByOwnedIndex(repoId, owner, index) {
         let record = await this.recordService.callReadByOwnedIndex(repoId, owner, index)
-
         return this.fetchIpfs(record);
     }
 

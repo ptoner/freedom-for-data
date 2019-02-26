@@ -22,7 +22,7 @@ const promisify = (inner) =>
   );
 
 
-const Freedom = async function(config) {
+const Freedom = async function(config, web3Provider) {
 
     //Replace contract info
     RecordServiceJson.networks["5777"].address = config.recordContractAddress;
@@ -37,9 +37,18 @@ const Freedom = async function(config) {
     console.log("Account access enabled");
 
     //Set provider 
-    window.web3Provider = window.ethereum;
+    if (web3Provider) {
+      window.web3Provider = web3Provider
+      console.log("Provider set to: ")
+      console.log(web3Provider)
+    } else {
+      window.web3Provider = window.ethereum;
+      console.log("Provider set to ethereum");
+    }
+
+    
     window.web3.setProvider(window.web3Provider);
-    console.log("Provider set to ethereum");
+    
 
 
     const accounts = await promisify(cb => window.web3.eth.getAccounts(cb));
@@ -59,7 +68,7 @@ const Freedom = async function(config) {
 
     try {
 
-        truffleContract.setProvider(web3Provider);
+        truffleContract.setProvider(window.web3Provider);
         truffleContract.defaults({from: account});
 
         recordServiceContract = await truffleContract.deployed();
