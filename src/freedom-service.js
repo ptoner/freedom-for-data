@@ -169,7 +169,20 @@ class FreedomService {
         //Put the data in IPFS
         const ipfsCid = await this.ipfsService.ipfsPutJson(data);
 
-        await this.recordService.sendUpdate(repoId, id, ipfsCid, transactionObject);
+        let result = await this.recordService.sendUpdate(repoId, id, ipfsCid, transactionObject);
+
+        //The event returns the metadata about our created data.
+        var log = this.utils.getLogByEventName("RecordEvent", result.logs)
+
+        const record = {
+            id: log.args.id.toNumber(),
+            eventType: log.args.eventType,
+            repoId: log.args.repoId.toNumber(),
+            ipfsCid: log.args.ipfsCid,
+            owner: log.args.owner
+        }
+
+        return record;
 
     }
 
