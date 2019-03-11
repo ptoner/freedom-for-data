@@ -18,29 +18,10 @@ const promisify = (inner) =>
   );
 
 
-const Freedom = async function(config, web3Provider, contract) {
+const Freedom = async function(config, web3, contract) {
 
 
-    // Request account access
-    await window.ethereum.enable();
-    console.log("Account access enabled");
-
-    //Set provider 
-    if (web3Provider) {
-      window.web3Provider = web3Provider
-      console.log("Provider set to: ")
-      console.log(web3Provider)
-    } else {
-      window.web3Provider = window.ethereum;
-      console.log("Provider set to ethereum");
-    }
-
-    
-    window.web3.setProvider(window.web3Provider);
-    
-
-
-    const accounts = await promisify(cb => window.web3.eth.getAccounts(cb));
+    const accounts = await promisify(cb => web3.eth.getAccounts(cb));
 
     let account = accounts[0]
     window.currentAccount = account

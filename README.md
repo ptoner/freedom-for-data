@@ -53,6 +53,8 @@ npm run test
 
 # How to use
 
+TODO: MAKE NOTE OF CREATING CONTRACT OBJECT
+
 ## Using the distributable version in a browser
 ### Note: You can find the contract addresses by running 'truffle migrate'.
 ```html
