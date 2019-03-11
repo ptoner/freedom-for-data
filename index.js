@@ -2,10 +2,6 @@ require("@babel/polyfill");
 
 const ServiceFactory = require('./src/service-factory.js')
 const ipfsClient = require('ipfs-http-client')
-const TruffleContract = require('truffle-contract')
-
-const RecordServiceJson = require('./build/contracts/RecordService.json')
-
 
 
 const Web3Exception = require('./src/exceptions/web3-exception.js')
@@ -22,14 +18,7 @@ const promisify = (inner) =>
   );
 
 
-const Freedom = async function(config, web3Provider) {
-
-    //Replace contract info
-    RecordServiceJson.networks["5777"].address = config.recordContractAddress;
-    RecordServiceJson.networks["5777"].transactionHash = config.recordContractTransactionHash;
-
-    RecordServiceJson.networks["3"].address = config.recordContractAddress;
-    RecordServiceJson.networks["3"].transactionHash = config.recordContractTransactionHash;
+const Freedom = async function(config, web3Provider, contract) {
 
 
     // Request account access
@@ -58,26 +47,7 @@ const Freedom = async function(config, web3Provider) {
 
     console.log(`Current Account: ${window.currentAccount}`)
 
-    /**
-     * Get record contract service
-     */
-    const truffleContract = TruffleContract(RecordServiceJson);
-
-
-    let recordServiceContract
-
-    try {
-
-        truffleContract.setProvider(window.web3Provider);
-        truffleContract.defaults({from: account});
-
-        recordServiceContract = await truffleContract.deployed();
-    } catch (ex) {
-        throw new Web3Exception(ex)
-    }
-
-
-
+ 
 
     /**
     * IPFS configuration for tests
@@ -85,7 +55,7 @@ const Freedom = async function(config, web3Provider) {
     const ipfs = ipfsClient(config.ipfsConfig)
 
 
-    const serviceFactory = new ServiceFactory(recordServiceContract, ipfs);
+    const serviceFactory = new ServiceFactory(contract, ipfs);
 
     return serviceFactory.getFreedomService();
 
