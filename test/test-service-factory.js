@@ -10,22 +10,18 @@ const ipfs = ipfsClient({
     protocol: 'http' 
   })
 
-/**
- * Get the contract
- */
-const recordServiceContract = artifacts.require("RecordService");
-
+let contract = artifacts.require("RecordService")
 
 class TestServiceFactory extends ServiceFactory {
     constructor() {
         super(
-            recordServiceContract,
+            contract,
             ipfs
         )
     }
 
-    setRecordServiceContract(recordServiceContract) {
-        super.initialize(recordServiceContract, this.ipfs);
+    setContract(contract) {
+        super.initialize(contract, this.ipfs)
     }
 
 }

@@ -16,12 +16,12 @@ contract('FreedomService', async (accounts) => {
 
     let TEST_REPO1 = 1;
    
-    let freedomService;
+    let freedomService
 
     before('Setup', async () => {
-        serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
-        freedomService = serviceFactory.getFreedomService();
-    });
+        serviceFactory.setContract(await serviceFactory.contract.deployed())
+        freedomService = serviceFactory.getFreedomService()
+    })
 
 
     it("Test callReadList: Get empty list", async () => {

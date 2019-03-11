@@ -19,8 +19,8 @@ contract('RecordService', async (accounts) => {
     let recordService;
 
     before('Setup', async () => {
-        serviceFactory.setRecordServiceContract(await serviceFactory.recordServiceContract.deployed());
-        recordService = serviceFactory.getRecordService();
+        serviceFactory.setContract(await serviceFactory.contract.deployed())
+        recordService = serviceFactory.getRecordService()
     });
 
     it("Test callCount: Get a count before there are records", async () => {

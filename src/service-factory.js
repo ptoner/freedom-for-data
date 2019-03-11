@@ -6,18 +6,18 @@ const IPFSService = require('./ipfs-service.js');
 
 class ServiceFactory {
 
-    constructor(recordServiceContract, ipfs) {
-        this.recordServiceContract = recordServiceContract;
-        this.ipfs = ipfs;
+    constructor(contract, ipfs) {
+        this.contract = contract
+        this.ipfs = ipfs
 
-        this.initialize(recordServiceContract, ipfs);
+        this.initialize(contract, ipfs)
 
     }
 
-    initialize(recordServiceContract, ipfs) {
-        this.recordService = new RecordService(recordServiceContract);
-        this.ipfsService = new IPFSService(ipfs);
-        this.freedomService = new FreedomService(this.recordService, this.ipfsService);
+    initialize(contract, ipfs) {
+        this.recordService = new RecordService(contract)
+        this.ipfsService = new IPFSService(ipfs)
+        this.freedomService = new FreedomService(this.recordService, this.ipfsService)
     }
 
     /**
@@ -25,15 +25,15 @@ class ServiceFactory {
      */
 
     getRecordService() {
-        return this.recordService;
+        return this.recordService
     }
 
     getIpfsService() {
-        return this.ipfsService;
+        return this.ipfsService
     }
 
     getFreedomService() {
-        return this.freedomService;
+        return this.freedomService
     }
 
 }

@@ -27,7 +27,6 @@ const Freedom = async function(config, web3, contract) {
     window.currentAccount = account
 
     console.log(`Current Account: ${window.currentAccount}`)
-
  
 
     /**

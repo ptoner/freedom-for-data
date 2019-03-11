@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "ipfs-http-client": "27.0.0",
-    "truffle-contract": "4.0.6",
+    "truffle-contract": "4.0.8",
     "buffer": "5.2.1"
   },
   "repository": {
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/ptoner/freedom-for-data#readme",
   "devDependencies": {
     "ganache-cli": "6.1.8",
-    "truffle": "5.0.5",
+    "truffle": "5.0.7",
     "browserify": "16.2.3",
     "babelify": "10.0.0",
     "uglifyify": "5.0.1",

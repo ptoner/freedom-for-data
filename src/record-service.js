@@ -181,7 +181,6 @@ class RecordService {
 
 
     async callCount(repoId) {
-
         let result
 
         try {
