@@ -1,7 +1,7 @@
 require("@babel/polyfill");
 
 const ServiceFactory = require('./src/service-factory.js')
-const ipfsClient = require('ipfs-http-client')
+
 
 
 const Web3Exception = require('./src/exceptions/web3-exception.js')
@@ -18,22 +18,7 @@ const promisify = (inner) =>
   );
 
 
-const Freedom = async function(config, web3, contract) {
-
-
-    const accounts = await promisify(cb => web3.eth.getAccounts(cb));
-
-    let account = accounts[0]
-    window.currentAccount = account
-
-    console.log(`Current Account: ${window.currentAccount}`)
- 
-
-    /**
-    * IPFS configuration for tests
-    */
-    const ipfs = ipfsClient(config.ipfsConfig)
-
+const Freedom = async function(ipfs, contract) {
 
     const serviceFactory = new ServiceFactory(contract, ipfs);
 

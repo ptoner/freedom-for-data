@@ -12,12 +12,10 @@ const ipfs = ipfsClient({
 
 let contract = artifacts.require("RecordService")
 
+
 class TestServiceFactory extends ServiceFactory {
     constructor() {
-        super(
-            contract,
-            ipfs
-        )
+        super(contract,ipfs)
     }
 
     setContract(contract) {
