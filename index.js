@@ -22,6 +22,8 @@ const Freedom = async function(ipfs, contract) {
 
     const serviceFactory = new ServiceFactory(contract, ipfs);
 
+    console.log(serviceFactory)
+
     return serviceFactory.getFreedomService();
 
 };
